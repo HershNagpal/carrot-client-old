@@ -3,11 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles(() => ({
     tile: {
         background: 'lightgreen',
-        fontSize: "72px",
-        justifyContent: "center",
+        fontSize: '72px',
+        justifyContent: 'center',
         color: 'black',
         height: '5vh',
         width: '5vh',
-        border: "3px solid black",
+        border: '3px solid black',
     },
 }));

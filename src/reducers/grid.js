@@ -1,13 +1,11 @@
-import { defaultGrid } from "../constants";
+import { defaultGrid } from '../constants';
 
 const grid = (grid = defaultGrid, action) => {
-    
     switch (action.type) {
-
         case 'SET_GRID':
             return action.payload;
 
-        case "SET_TILE":
+        case 'SET_TILE':
             return setTileReducer(action.payload, grid);
 
         default:

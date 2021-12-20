@@ -1,9 +1,7 @@
-import { defaultStats } from "../constants";
+import { defaultStats } from '../constants';
 
 const stats = (stats = defaultStats, action) => {
-    
     switch (action.type) {
-
         case 'SET_STATS':
             return action.payload;
 

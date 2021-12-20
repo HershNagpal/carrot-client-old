@@ -1,10 +1,11 @@
-import StatsBoard from "./stats/StatsBoard";
-import GameGrid from "./gameGrid/GameGrid";
+import StatsBoard from './stats/StatsBoard';
+import GameGrid from './gameGrid/GameGrid';
 import useStyles from './styles';
-import { Grid, Container } from "@material-ui/core";
+import { Grid, Container } from '@material-ui/core';
 
 const Game = () => {
     const classes = useStyles();
+    
     return <>
         <Container className={classes.outerContainer} >
             <Grid container direction='row'>

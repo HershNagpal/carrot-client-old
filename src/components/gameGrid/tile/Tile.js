@@ -10,9 +10,10 @@ import useStyles from './styles';
 
 const Tile = ({text}) => {
     const classes = useStyles();
-    return (
+    
+    return <>
         <div className={classes.tile}>{text}</div>
-    )
+    </>
 };
 
 export default Tile;

@@ -13,7 +13,7 @@ export const setTile = (x, y, newTile) => async (dispatch) => {
             y: y, 
             newTile: newTile
         };
-        dispatch({ type: "SET_TILE", payload: data});
+        dispatch({ type: 'SET_TILE', payload: data});
     } catch (error) {
         console.log(error.message);
     }
