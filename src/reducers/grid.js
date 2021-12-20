@@ -8,6 +8,6 @@ const grid = (grid = [], action) => {
         default:
             return grid;
     }
-}
+};
 
 export default grid;

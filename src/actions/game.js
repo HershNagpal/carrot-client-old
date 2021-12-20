@@ -4,4 +4,4 @@ export const setGrid = (grid) => async (dispatch) => {
     } catch (error) {
         console.log(error.message);
     }
-}
+};
