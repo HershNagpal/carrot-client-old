@@ -1,8 +1,8 @@
-import { Container, Grid } from '@material-ui/core';
-import { useEffect } from 'react';
+import { Container, Grid, Button, TextField } from '@material-ui/core';
+import { useEffect, useLayoutEffect } from 'react';
 import useStyles from './styles';
 import { useSelector, useDispatch } from 'react-redux';
-import { setGrid, setTile } from '../../actions/game.js';
+import { setTile } from '../../actions/game.js';
 import Tile from './tile/Tile';
 import * as constants from '../../constants';
 
@@ -10,17 +10,33 @@ const GameGrid = () => {
 
     const grid = useSelector( (state) => state.grid );
     const dispatch = useDispatch();
+    const classes = useStyles();
     
     useEffect( () => {
-        dispatch(setGrid(constants.defaultGrid))
-            .then( () => dispatch(setTile(constants.playerStart.x, constants.playerStart.y, "P")) )
+        dispatch(setTile(constants.playerStart.x, constants.playerStart.y, "P")) 
     }, [dispatch]);
+
+    const handleKeyPress = (event) => {
+        switch (event.key) {
+            case 'ArrowUp': 
+                movePlayer("U");
+                break;
+            case 'ArrowDown': 
+                movePlayer("D");
+                break;
+            case 'ArrowLeft': 
+                movePlayer("L");
+                break;
+            case 'ArrowRight': 
+                movePlayer("R");
+                break;
+        }
+    };
 
     const carrotify = () => {
         const x = Number(document.getElementById("x").value);
         const y = Number(document.getElementById("y").value);
-        const newTile = document.getElementById("newTile").value;
-        dispatch(setTile(x, y, newTile));
+        dispatch(setTile(x, y, "C"));
     };
 
     const isOutOfBounds = (x, y) => {
@@ -77,8 +93,8 @@ const GameGrid = () => {
     };
     
     return <>
-        <Container>
-            <Grid container>
+        <Container className={classes.outerContainer} onKeyDown={() => handleKeyPress()}>
+            <Grid container direction='column'>
                 {
                 grid.map((row, index) => (
                         <Grid item container key={index} direction="row">
@@ -93,13 +109,16 @@ const GameGrid = () => {
                 ))
                 }
             </Grid>
+            <Button color='primary' variant="contained" onClick={() => movePlayer("U")}>Up</Button>
+            <Button color='primary' variant="contained" onClick={() => movePlayer("D")}>Down</Button>
+            <Button color='primary' variant="contained" onClick={() => movePlayer("L")}>Left</Button>
+            <Button color='primary' variant="contained" onClick={() => movePlayer("R")}>Right</Button>
+            <br/>
+            <TextField id="x" variant="outlined"/>
+            <TextField id="y" variant="outlined"/>
+            <Button color='primary' variant="contained" onClick={() => carrotify()}>carrotify</Button>
         </Container>
-        {/* <button onClick={() => carrotify()}>carrotify</button> */}
 
-        <button onClick={() => movePlayer("U")}>Up</button>
-        <button onClick={() => movePlayer("D")}>Down</button>
-        <button onClick={() => movePlayer("L")}>Left</button>
-        <button onClick={() => movePlayer("R")}>UnLeft</button>
     </>
 };
 

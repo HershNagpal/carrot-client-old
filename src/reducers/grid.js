@@ -1,4 +1,6 @@
-const grid = (grid = [], action) => {
+import { defaultGrid } from "../constants";
+
+const grid = (grid = defaultGrid, action) => {
     
     switch (action.type) {
 

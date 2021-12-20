@@ -2,7 +2,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(() => ({
     outerContainer: {
-        backgroundColor: 'green',
-        marginTop: '2.5vh',
+        background: 'red',
+        minWidth: '95vw',
+        minHeight: '95vh',
     },
 }));

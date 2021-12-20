@@ -1,13 +1,13 @@
 import React from "react";
-import { BrowserRouter, Link, Route, Routes, } from 'react-router-dom';
-import GameGrid from "./components/gameGrid/GameGrid";
+import { BrowserRouter, Route, Routes, } from 'react-router-dom';
+import Game from "./components/Game";
 
 const App = () => {
     return  (
         <div>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<GameGrid />} />
+                    <Route path="/" element={<Game />} />
                 </Routes>
             </BrowserRouter>
         </div>
