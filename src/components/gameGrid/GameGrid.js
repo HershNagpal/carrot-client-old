@@ -22,26 +22,44 @@ const GameGrid = () => {
         dispatch(setTile(x, y, newTile));
     };
 
+    const isOutOfBounds = (x, y) => {
+        if (x >= grid[0].length || y >= grid.length)  return true;
+        if (x < 0 || y < 0)  return true;
+        return false;
+    };
+    
     const movePlayer = (direction) => {
         const {x, y} = getTile("P");
-        dispatch(setTile(x, y, ""));
+        
 
         switch (direction) {
             case "U":
-                dispatch(setTile(x, y-1, "P"));
+                if (!isOutOfBounds(x, y-1)) {
+                    dispatch(setTile(x, y, ""))
+                    dispatch(setTile(x, y-1, "P"))
+                }
                 break;
             case "D":
-                dispatch(setTile(x, y+1, "P"));
+                if (!isOutOfBounds(x, y+1)) {
+                    dispatch(setTile(x, y, ""))
+                    dispatch(setTile(x, y+1, "P"))
+                }
                 break;
             case "L":
-                dispatch(setTile(x-1, y, "P"));
+                if (!isOutOfBounds(x-1, y)) {
+                    dispatch(setTile(x, y, ""))
+                    dispatch(setTile(x-1, y, "P"))
+                }
                 break;
             case "R":
-                dispatch(setTile(x+1, y, "P"));
+                if (!isOutOfBounds(x+1, y)) {
+                    dispatch(setTile(x, y, ""))
+                    dispatch(setTile(x+1, y, "P"))
+                }
                 break;
         }
 
-    }   
+    };
 
     const getTile = (search) => {
         let coords; // TODO Fix stinky Mutation
