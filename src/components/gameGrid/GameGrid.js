@@ -2,23 +2,17 @@ import { Container, Grid } from '@material-ui/core';
 import { useEffect } from 'react';
 import useStyles from './styles';
 import { useSelector, useDispatch } from 'react-redux';
-import { setGrid } from '../../actions/game.js';
+import { setGrid, setTile } from '../../actions/game.js';
+import Tile from './tile/Tile'
 
 const defaultGrid = [
-    [0,1,2,3,4,5,],
-    [0,1,2,3,4,5,],
-    [0,1,2,3,4,5,],
-    [0,1,2,3,4,5,],
-    [0,1,2,3,4,5,],
-    [0,1,2,3,4,5,],
+    ["","","","","","",],
+    ["","","","","","",],
+    ["","","","","","",],
+    ["","","","P","","",],
+    ["","","","","","",],
+    ["","","","","","",],
 ];
-
-const Tile = ({text}) => {
-    const classes = useStyles();
-    return (
-        <div className={classes.tile}>{text}</div>
-    )
-};
 
 const GameGrid = () => {
 
@@ -28,8 +22,52 @@ const GameGrid = () => {
     useEffect( () => {
         dispatch(setGrid(defaultGrid));
     }, [dispatch]);
+
+    const carrotify = () => {
+        const x = Number(document.getElementById("x").value);
+        const y = Number(document.getElementById("y").value);
+        const newTile = document.getElementById("newTile").value;
+        dispatch(setTile(x, y, newTile));
+    };
+
+    const movePlayer = (direction) => {
+        const {x, y} = getTile("P");
+        dispatch(setTile(x, y, ""));
+
+        switch (direction) {
+            case "U":
+                dispatch(setTile(x, y-1, "P"));
+                break;
+            case "D":
+                dispatch(setTile(x, y+1, "P"));
+                break;
+            case "L":
+                dispatch(setTile(x-1, y, "P"));
+                break;
+            case "R":
+                dispatch(setTile(x+1, y, "P"));
+                break;
+        }
+
+    }   
+
+    const getTile = (search) => {
+        let coords; // TODO Fix stinky Mutation
+        grid.forEach( (row, Yindex) => 
+            row.forEach( (tile, Xindex) => {
+                    if(tile === search) {
+                        coords = {x: Xindex, y: Yindex};
+                    }
+                }
+            )
+        );
+        if (coords === undefined) {
+            console.log(search, "not found in getTile");
+        }
+        return coords;
+    };
     
-    return (
+    return <>
         <Container>
             <Grid container>
                 {
@@ -47,7 +85,13 @@ const GameGrid = () => {
                 }
             </Grid>
         </Container>
-    )
+        {/* <button onClick={() => carrotify()}>carrotify</button> */}
+
+        <button onClick={() => movePlayer("U")}>Up</button>
+        <button onClick={() => movePlayer("D")}>Down</button>
+        <button onClick={() => movePlayer("L")}>Left</button>
+        <button onClick={() => movePlayer("R")}>UnLeft</button>
+    </>
 };
 
 export default GameGrid;
