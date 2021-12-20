@@ -12,7 +12,8 @@ const GameGrid = () => {
     const dispatch = useDispatch();
     
     useEffect( () => {
-        dispatch(setGrid(constants.defaultGrid));
+        dispatch(setGrid(constants.defaultGrid))
+            .then( () => dispatch(setTile(constants.playerStart.x, constants.playerStart.y, "P")) )
     }, [dispatch]);
 
     const carrotify = () => {
@@ -23,14 +24,13 @@ const GameGrid = () => {
     };
 
     const isOutOfBounds = (x, y) => {
-        if (x >= grid[0].length || y >= grid.length)  return true;
+        if (x >= constants.gridX || y >= constants.gridY)  return true;
         if (x < 0 || y < 0)  return true;
         return false;
     };
     
     const movePlayer = (direction) => {
         const {x, y} = getTile("P");
-        
 
         switch (direction) {
             case "U":
@@ -58,7 +58,6 @@ const GameGrid = () => {
                 }
                 break;
         }
-
     };
 
     const getTile = (search) => {
