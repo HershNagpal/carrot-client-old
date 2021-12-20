@@ -3,16 +3,8 @@ import { useEffect } from 'react';
 import useStyles from './styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { setGrid, setTile } from '../../actions/game.js';
-import Tile from './tile/Tile'
-
-const defaultGrid = [
-    ["","","","","","",],
-    ["","","","","","",],
-    ["","","","","","",],
-    ["","","","P","","",],
-    ["","","","","","",],
-    ["","","","","","",],
-];
+import Tile from './tile/Tile';
+import * as constants from '../../constants';
 
 const GameGrid = () => {
 
@@ -20,7 +12,7 @@ const GameGrid = () => {
     const dispatch = useDispatch();
     
     useEffect( () => {
-        dispatch(setGrid(defaultGrid));
+        dispatch(setGrid(constants.defaultGrid));
     }, [dispatch]);
 
     const carrotify = () => {
