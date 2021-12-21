@@ -10,4 +10,8 @@ export default makeStyles(() => ({
         width: '5vh',
         border: '3px solid black',
     },
+    icon: {
+        height: '5vh',
+        width: '5vh',
+    },
 }));
