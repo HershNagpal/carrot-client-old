@@ -11,7 +11,7 @@ const stats = (stats = defaultStats, action) => {
         case 'SET_MOVES':
             return {...stats, moves: action.payload};
         
-            default:
+        default:
             return stats;
     }
 };

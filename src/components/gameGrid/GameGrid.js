@@ -22,50 +22,50 @@ const GameGrid = () => {
         grid.forEach( (row, Yindex) => 
             row.forEach( (tile, Xindex) => {
                     if(tile === search) {
-                        coords.push( {x: Xindex, y: Yindex} );
+                        coords.push( { x: Xindex, y: Yindex } );
                     }
                 }
             )
         );
-        if (coords === undefined) {
+        if (coords.length === 0) {
             console.log(search + ' not found in getTile');
         }
         return coords;
     };
 
     const checkPlayerMove = (x, y) => {
-        const nextTile = grid[y][x]
+        const nextTile = grid[y][x];
         switch (nextTile) {
-            case "C":
+            case 'C':
                 dispatch(setScore(stats.score+1));
                 return true;
-            case "F":
+            case 'F':
                 return false;
-            case "W":
+            case 'W':
                 return false;
-            case "G":
+            case 'G':
                 return true;
             default:
-                return true;
+                return false;
         }
     };
 
     const checkWolfMove = (x, y) => {
-        const nextTile = grid[y][x]
+        const nextTile = grid[y][x];
         switch (nextTile) {
-            case "C":
+            case 'C':
                 dispatch(setScore(stats.score-1));
                 return true;
-            case "F":
+            case 'F':
                 return false;
-            case "W":
+            case 'W':
                 return false;
-            case "G":
+            case 'G':
                 return true;
-            case "P":
+            case 'P':
                 return false;
             default:
-                return true;
+                return false;
         }
     }
 
@@ -76,8 +76,8 @@ const GameGrid = () => {
      * Also this function is FAT
      */
     const moveWolves = () => {
-        const wolves = getTile("W");
-        const { x, y } = getTile("P")[0];
+        const wolves = getTile('W');
+        const { x, y } = getTile('P')[0];
         
         wolves.forEach( (wolf) => {
             const vDistance = Math.abs(y - wolf.y);
@@ -129,8 +129,8 @@ const GameGrid = () => {
             if (direction !== undefined) {
                 const { newX, newY } = newCoordinatesInDirection(wolf.x, wolf.y, direction);
                 if (!isOutOfBounds(newX, newY) && checkPlayerMove(newX, newY)) {
-                    dispatch(setTile(wolf.x, wolf.y, ''));
-                    dispatch(setTile(newX, newY, "W"));
+                    dispatch(setTile(wolf.x, wolf.y, 'G'));
+                    dispatch(setTile(newX, newY, 'W'));
                 } 
             }
 
@@ -138,12 +138,12 @@ const GameGrid = () => {
     };
 
     const movePlayer = (direction) => {
-        const {x, y} = getTile('P')[0];
+        const { x, y } = getTile('P')[0];
         const { newX, newY } = newCoordinatesInDirection(x, y, direction);
 
         if (!isOutOfBounds(newX, newY) && checkPlayerMove(newX, newY)) {
-            dispatch(setTile(x, y, ''));
-            dispatch(setTile(newX, newY, "P"));
+            dispatch(setTile(x, y, 'G'));
+            dispatch(setTile(newX, newY, 'P'));
             dispatch(setMoves(stats.moves+1));
             moveWolves();
         }
@@ -151,13 +151,13 @@ const GameGrid = () => {
 
     const newCoordinatesInDirection = (x, y, direction) => {
         switch (direction) {
-            case "w":
+            case 'w':
                 return {newX: x, newY: y-1};
-            case "a":
-                return {newX: x-1, newY: y};
-            case "s":
+            case 's':
                 return {newX: x, newY: y+1};
-            case "d":
+            case 'a':
+                return {newX: x-1, newY: y};
+            case 'd':
                 return {newX: x+1, newY: y};
         }
     };

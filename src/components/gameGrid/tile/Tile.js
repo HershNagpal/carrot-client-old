@@ -7,16 +7,16 @@ import { playerIcon, carrotIcon, wolfIcon, fenceIcon } from '../../../images';
  * Wolf: W
  * Carrot: C
  * Fence: F
- * Grass: ''
+ * Grass: G
  */
 
 const Tile = ({text}) => {
     const classes = useStyles();
-    const [icon, setIcon] = useState('');
+    const [icon, setIcon] = useState('G');
     
     useEffect( () => {
         switch (text) {
-            case '':
+            case 'G':
                 setIcon('');
                 break;
             case 'P':
