@@ -3,7 +3,7 @@ import { useEffect, useCallback } from 'react';
 import useStyles from './styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { setTile } from '../../actions/game.js';
-import { setScore } from '../../actions/stats.js'
+import { setScore, setMoves } from '../../actions/stats.js'
 import Tile from './tile/Tile';
 import * as constants from '../../constants';
 
@@ -60,24 +60,28 @@ const GameGrid = () => {
                 if (!isOutOfBounds(x, y-1) && checkPlayerMove(x, y-1)) {
                     dispatch(setTile(x, y, ''));
                     dispatch(setTile(x, y-1, 'P'));
+                    dispatch(setMoves(stats.moves+1));
                 }
                 break;
             case 's':
                 if (!isOutOfBounds(x, y+1) && checkPlayerMove(x, y+1)) {
                     dispatch(setTile(x, y, ''));
                     dispatch(setTile(x, y+1, 'P'));
+                    dispatch(setMoves(stats.moves+1));
                 }
                 break;
             case 'a':
                 if (!isOutOfBounds(x-1, y) && checkPlayerMove(x-1, y)) {
                     dispatch(setTile(x, y, ''));
                     dispatch(setTile(x-1, y, 'P'));
+                    dispatch(setMoves(stats.moves+1));
                 }
                 break;
             case 'd':
                 if (!isOutOfBounds(x+1, y) && checkPlayerMove(x+1, y)) {
                     dispatch(setTile(x, y, ''));
                     dispatch(setTile(x+1, y, 'P'));
+                    dispatch(setMoves(stats.moves+1));
                 }
                 break;
             default:

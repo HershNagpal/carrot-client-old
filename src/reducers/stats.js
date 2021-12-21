@@ -8,7 +8,10 @@ const stats = (stats = defaultStats, action) => {
         case 'SET_SCORE':
             return {...stats, score: action.payload};
 
-        default:
+        case 'SET_MOVES':
+            return {...stats, moves: action.payload};
+        
+            default:
             return stats;
     }
 };

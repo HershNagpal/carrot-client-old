@@ -12,4 +12,12 @@ export const setScore = (score) => async (dispatch) => {
     } catch (error) {
         console.log(error.message);
     }
-}
+};
+
+export const setMoves = (moves) => async (dispatch) => {
+    try {
+        dispatch({ type: 'SET_MOVES', payload: moves })
+    } catch (error) {
+        console.log(error.message);
+    }
+};

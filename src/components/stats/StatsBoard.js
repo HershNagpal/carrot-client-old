@@ -9,6 +9,7 @@ const StatsBoard = () => {
     return <>
         <Container className={classes.outerContainer}>
             <Typography>Score: {stats.score}</Typography>
+            <Typography>Moves: {stats.moves}</Typography>
         </Container>
     </>
 };
