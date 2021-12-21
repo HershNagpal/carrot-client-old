@@ -3,11 +3,13 @@ import { useEffect, useCallback } from 'react';
 import useStyles from './styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { setTile } from '../../actions/game.js';
+import { setScore } from '../../actions/stats.js'
 import Tile from './tile/Tile';
 import * as constants from '../../constants';
 
 const GameGrid = () => {
     const grid = useSelector( (state) => state.grid );
+    const stats = useSelector( (state) => state.stats );
     const dispatch = useDispatch();
     const classes = useStyles();
 
@@ -31,30 +33,49 @@ const GameGrid = () => {
         return coords;
     };
 
+    const checkPlayerMove = (x, y) => {
+        const nextTile = grid[y][x]
+        switch (nextTile) {
+            case "C":
+                dispatch(setScore(stats.score+1));
+                return true;
+            case "F":
+                return false;
+            case "W":
+                return false;
+            case "G":
+                return true;
+            default:
+                return true;
+                break;
+        }
+
+    };
+
     const movePlayer = (direction) => {
         const {x, y} = getTile('P');
 
         switch (direction) {
             case 'w':
-                if (!isOutOfBounds(x, y-1)) {
+                if (!isOutOfBounds(x, y-1) && checkPlayerMove(x, y-1)) {
                     dispatch(setTile(x, y, ''));
                     dispatch(setTile(x, y-1, 'P'));
                 }
                 break;
             case 's':
-                if (!isOutOfBounds(x, y+1)) {
+                if (!isOutOfBounds(x, y+1) && checkPlayerMove(x, y+1)) {
                     dispatch(setTile(x, y, ''));
                     dispatch(setTile(x, y+1, 'P'));
                 }
                 break;
             case 'a':
-                if (!isOutOfBounds(x-1, y)) {
+                if (!isOutOfBounds(x-1, y) && checkPlayerMove(x-1, y)) {
                     dispatch(setTile(x, y, ''));
                     dispatch(setTile(x-1, y, 'P'));
                 }
                 break;
             case 'd':
-                if (!isOutOfBounds(x+1, y)) {
+                if (!isOutOfBounds(x+1, y) && checkPlayerMove(x+1, y)) {
                     dispatch(setTile(x, y, ''));
                     dispatch(setTile(x+1, y, 'P'));
                 }
