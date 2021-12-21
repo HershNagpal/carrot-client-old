@@ -71,7 +71,8 @@ const GameGrid = () => {
 
     /**
      * Potential issue with wolves getting blocked if their current direction is blocked.
-     * They won't try other directions even if they can.
+     * They won't try other directions even if they can. There are bugs with multiple wolves 
+     * overlapping and eating each other and the player.
      * Also this function is FAT
      */
     const moveWolves = () => {
@@ -186,6 +187,12 @@ const GameGrid = () => {
         dispatch(setTile(x, y, 'W'));
     };
 
+    const spawnFence = () => {
+        const x = Math.floor(Math.random() * 15);
+        const y = Math.floor(Math.random() * 15);
+        dispatch(setTile(x, y, 'F'));
+    };
+
     const isOutOfBounds = (x, y) => {
         if (x >= constants.gridX || y >= constants.gridY) return true;
         if (x < 0 || y < 0) return true;
@@ -215,6 +222,7 @@ const GameGrid = () => {
             <Button color="primary" variant="contained" onClick={() => movePlayer('d')}>Right</Button>
             <Button color="primary" variant="contained" onClick={spawnCarrot}>carrotify</Button>
             <Button color="primary" variant="contained" onClick={() => spawnWolf()}>birth wolf</Button>
+            <Button color="primary" variant="contained" onClick={() => spawnFence()}>uhhh fence</Button>
         </Container>
     </>
 };

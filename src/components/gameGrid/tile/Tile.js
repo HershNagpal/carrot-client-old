@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import useStyles from './styles';
-import { playerIcon, carrotIcon, wolfIcon } from '../../../images';
+import { playerIcon, carrotIcon, wolfIcon, fenceIcon } from '../../../images';
 
 /**
  * Player: P
@@ -27,6 +27,10 @@ const Tile = ({text}) => {
                 break;
             case 'W':
                 setIcon(wolfIcon);
+                break;
+            case 'F':
+                setIcon(fenceIcon);
+                break;
             default:
                 break;
         }
