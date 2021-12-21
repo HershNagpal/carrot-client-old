@@ -106,10 +106,10 @@ const GameGrid = () => {
                 ))
                 }
             </Grid>
-            <Button color="primary" variant="contained" onClick={() => movePlayer('U')}>Up</Button>
-            <Button color="primary" variant="contained" onClick={() => movePlayer('D')}>Down</Button>
-            <Button color="primary" variant="contained" onClick={() => movePlayer('L')}>Left</Button>
-            <Button color="primary" variant="contained" onClick={() => movePlayer('R')}>Right</Button>
+            <Button color="primary" variant="contained" onClick={() => movePlayer('w')}>Up</Button>
+            <Button color="primary" variant="contained" onClick={() => movePlayer('s')}>Down</Button>
+            <Button color="primary" variant="contained" onClick={() => movePlayer('a')}>Left</Button>
+            <Button color="primary" variant="contained" onClick={() => movePlayer('d')}>Right</Button>
             <br/>
             <TextField id="x" variant="outlined"/>
             <TextField id="y" variant="outlined"/>
