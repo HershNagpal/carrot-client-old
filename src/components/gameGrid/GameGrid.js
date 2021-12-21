@@ -1,4 +1,4 @@
-import { Container, Grid, Button } from '@material-ui/core';
+import { Container, Grid, Button, withMobileDialog } from '@material-ui/core';
 import { useEffect, useCallback } from 'react';
 import useStyles from './styles';
 import { useSelector, useDispatch } from 'react-redux';
@@ -62,50 +62,89 @@ const GameGrid = () => {
                 return false;
             case "G":
                 return true;
+            case "P":
+                return false;
             default:
                 return true;
         }
     }
 
+    /**
+     * Potential issue with wolves getting blocked if their current direction is blocked.
+     * They won't try other directions even if they can.
+     * Also this function is FAT
+     */
     const moveWolves = () => {
         const wolves = getTile("W");
-        const { playerX, playerY } = getTile("P")[0];
+        const { x, y } = getTile("P")[0];
         
         wolves.forEach( (wolf) => {
-            const vDistance = Math.abs(playerY - wolf.y);
-            const hDistance = Math.abs(playerX - wolf.x);
+            const vDistance = Math.abs(y - wolf.y);
+            const hDistance = Math.abs(x - wolf.x);
+            const vDirection = y - wolf.y;
+            const hDirection = x - wolf.x;
+            let direction;
 
             // Up and Left
-            if (vDistance > 0 && hDistance > 0) {
-                if (vDistance >= hDistance) { /* Move wolf up */ }
-                else { /* Move wolf left */ }
-            } 
+            if (vDirection <= 0 && hDirection <= 0) {
+                if (vDistance >= hDistance) { 
+                    direction = 'w';
+                }
+                else { 
+                    direction = 'a'; 
+                }
+            }
+
             // Up and Right
-            else if (vDistance > 0 && hDistance > 0) {
-                if (vDistance >= hDistance) { /* Move wolf up */ }
-                else { /* Move wolf right */ }
+            else if (vDirection <= 0 && hDirection >= 0) {
+                if (vDistance >= hDistance) { 
+                    direction = 'w';
+                }
+                else { 
+                    direction = 'd'; 
+                }
             }
+
             // Down and Left
-            else if (vDistance > 0 && hDistance > 0) {
-                if (vDistance >= hDistance) { /* Move wolf up */ }
-                else { /* Move wolf left */ }
+            else if (vDirection >= 0 && hDirection <= 0) {
+                if (vDistance >= hDistance) { 
+                    direction = 's';
+                }
+                else { 
+                    direction = 'a'; 
+                }
             }
+
             // Down and Right
-            else if (vDistance > 0 && hDistance > 0) {
-                if (vDistance >= hDistance) { /* Move wolf up */ }
-                else { /* Move wolf left */ }
+            else if (vDirection >= 0 && hDirection >= 0) {
+                if (vDistance >= hDistance) { 
+                    direction = 's';
+                }
+                else { 
+                    direction = 'd'; 
+                }
             }
+
+            if (direction !== undefined) {
+                const { newX, newY } = newCoordinatesInDirection(wolf.x, wolf.y, direction);
+                if (!isOutOfBounds(newX, newY) && checkPlayerMove(newX, newY)) {
+                    dispatch(setTile(wolf.x, wolf.y, ''));
+                    dispatch(setTile(newX, newY, "W"));
+                } 
+            }
+
         });
     };
 
     const movePlayer = (direction) => {
         const {x, y} = getTile('P')[0];
-        let { newX, newY } = newCoordinatesInDirection(x, y, direction)
+        const { newX, newY } = newCoordinatesInDirection(x, y, direction);
 
         if (!isOutOfBounds(newX, newY) && checkPlayerMove(newX, newY)) {
             dispatch(setTile(x, y, ''));
             dispatch(setTile(newX, newY, "P"));
             dispatch(setMoves(stats.moves+1));
+            moveWolves();
         }
     };
 
@@ -141,6 +180,12 @@ const GameGrid = () => {
         dispatch(setTile(x, y, 'C'));
     };
 
+    const spawnWolf = () => {
+        const x = Math.floor(Math.random() * 15);
+        const y = Math.floor(Math.random() * 15);
+        dispatch(setTile(x, y, 'W'));
+    };
+
     const isOutOfBounds = (x, y) => {
         if (x >= constants.gridX || y >= constants.gridY) return true;
         if (x < 0 || y < 0) return true;
@@ -169,6 +214,7 @@ const GameGrid = () => {
             <Button color="primary" variant="contained" onClick={() => movePlayer('a')}>Left</Button>
             <Button color="primary" variant="contained" onClick={() => movePlayer('d')}>Right</Button>
             <Button color="primary" variant="contained" onClick={spawnCarrot}>carrotify</Button>
+            <Button color="primary" variant="contained" onClick={() => spawnWolf()}>birth wolf</Button>
         </Container>
     </>
 };
