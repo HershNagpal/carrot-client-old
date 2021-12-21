@@ -72,8 +72,8 @@ const GameGrid = () => {
         const { playerX, playerY } = getTile("P")[0];
         
         wolves.forEach( (wolf) => {
-            vDistance = abs(playerY - wolf.y);
-            hDistance = abs(playerX - wolf.x);
+            const vDistance = Math.abs(playerY - wolf.y);
+            const hDistance = Math.abs(playerX - wolf.x);
 
             // Up and Left
             if (vDistance > 0 && hDistance > 0) {
@@ -100,38 +100,25 @@ const GameGrid = () => {
 
     const movePlayer = (direction) => {
         const {x, y} = getTile('P')[0];
+        let { newX, newY } = newCoordinatesInDirection(x, y, direction)
 
+        if (!isOutOfBounds(newX, newY) && checkPlayerMove(newX, newY)) {
+            dispatch(setTile(x, y, ''));
+            dispatch(setTile(newX, newY, "P"));
+            dispatch(setMoves(stats.moves+1));
+        }
+    };
+
+    const newCoordinatesInDirection = (x, y, direction) => {
         switch (direction) {
-            case 'w':
-                if (!isOutOfBounds(x, y-1) && checkPlayerMove(x, y-1)) {
-                    dispatch(setTile(x, y, ''));
-                    dispatch(setTile(x, y-1, 'P'));
-                    dispatch(setMoves(stats.moves+1));
-                }
-                break;
-            case 's':
-                if (!isOutOfBounds(x, y+1) && checkPlayerMove(x, y+1)) {
-                    dispatch(setTile(x, y, ''));
-                    dispatch(setTile(x, y+1, 'P'));
-                    dispatch(setMoves(stats.moves+1));
-                }
-                break;
-            case 'a':
-                if (!isOutOfBounds(x-1, y) && checkPlayerMove(x-1, y)) {
-                    dispatch(setTile(x, y, ''));
-                    dispatch(setTile(x-1, y, 'P'));
-                    dispatch(setMoves(stats.moves+1));
-                }
-                break;
-            case 'd':
-                if (!isOutOfBounds(x+1, y) && checkPlayerMove(x+1, y)) {
-                    dispatch(setTile(x, y, ''));
-                    dispatch(setTile(x+1, y, 'P'));
-                    dispatch(setMoves(stats.moves+1));
-                }
-                break;
-            default:
-                break;
+            case "w":
+                return {newX: x, newY: y-1};
+            case "a":
+                return {newX: x-1, newY: y};
+            case "s":
+                return {newX: x, newY: y+1};
+            case "d":
+                return {newX: x+1, newY: y};
         }
     };
 
