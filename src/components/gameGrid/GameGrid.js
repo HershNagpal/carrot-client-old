@@ -1,4 +1,4 @@
-import { Container, Grid, Button, TextField } from '@material-ui/core';
+import { Container, Grid, Button } from '@material-ui/core';
 import { useEffect, useCallback } from 'react';
 import useStyles from './styles';
 import { useSelector, useDispatch } from 'react-redux';
@@ -77,9 +77,9 @@ const GameGrid = () => {
         }
     }, [handleKeyPress]);
 
-    const carrotify = () => {
-        const x = Number(document.getElementById('x').value);
-        const y = Number(document.getElementById('y').value);
+    const spawnCarrot = () => {
+        const x = Math.floor(Math.random() * 15);
+        const y = Math.floor(Math.random() * 15);
         dispatch(setTile(x, y, 'C'));
     };
 
@@ -110,10 +110,7 @@ const GameGrid = () => {
             <Button color="primary" variant="contained" onClick={() => movePlayer('s')}>Down</Button>
             <Button color="primary" variant="contained" onClick={() => movePlayer('a')}>Left</Button>
             <Button color="primary" variant="contained" onClick={() => movePlayer('d')}>Right</Button>
-            <br/>
-            <TextField id="x" variant="outlined"/>
-            <TextField id="y" variant="outlined"/>
-            <Button color="primary" variant="contained" onClick={carrotify}>carrotify</Button>
+            <Button color="primary" variant="contained" onClick={spawnCarrot}>carrotify</Button>
         </Container>
     </>
 };
