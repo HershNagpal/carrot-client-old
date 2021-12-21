@@ -18,11 +18,11 @@ const GameGrid = () => {
     }, [dispatch]);
 
     const getTile = (search) => {
-        let coords; // TODO Fix stinky Mutation
+        let coords = [];
         grid.forEach( (row, Yindex) => 
             row.forEach( (tile, Xindex) => {
                     if(tile === search) {
-                        coords = {x: Xindex, y: Yindex};
+                        coords.push( {x: Xindex, y: Yindex} );
                     }
                 }
             )
@@ -47,13 +47,59 @@ const GameGrid = () => {
                 return true;
             default:
                 return true;
-                break;
         }
+    };
 
+    const checkWolfMove = (x, y) => {
+        const nextTile = grid[y][x]
+        switch (nextTile) {
+            case "C":
+                dispatch(setScore(stats.score-1));
+                return true;
+            case "F":
+                return false;
+            case "W":
+                return false;
+            case "G":
+                return true;
+            default:
+                return true;
+        }
+    }
+
+    const moveWolves = () => {
+        const wolves = getTile("W");
+        const { playerX, playerY } = getTile("P")[0];
+        
+        wolves.forEach( (wolf) => {
+            vDistance = abs(playerY - wolf.y);
+            hDistance = abs(playerX - wolf.x);
+
+            // Up and Left
+            if (vDistance > 0 && hDistance > 0) {
+                if (vDistance >= hDistance) { /* Move wolf up */ }
+                else { /* Move wolf left */ }
+            } 
+            // Up and Right
+            else if (vDistance > 0 && hDistance > 0) {
+                if (vDistance >= hDistance) { /* Move wolf up */ }
+                else { /* Move wolf right */ }
+            }
+            // Down and Left
+            else if (vDistance > 0 && hDistance > 0) {
+                if (vDistance >= hDistance) { /* Move wolf up */ }
+                else { /* Move wolf left */ }
+            }
+            // Down and Right
+            else if (vDistance > 0 && hDistance > 0) {
+                if (vDistance >= hDistance) { /* Move wolf up */ }
+                else { /* Move wolf left */ }
+            }
+        });
     };
 
     const movePlayer = (direction) => {
-        const {x, y} = getTile('P');
+        const {x, y} = getTile('P')[0];
 
         switch (direction) {
             case 'w':
