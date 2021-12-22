@@ -20,7 +20,7 @@ export const defaultStats = {
 
 export const defaultWolf = [
     {
-        id: 0,
+        id: 1,
         alive: true,
         x: 0,
         y: 12,
@@ -31,7 +31,7 @@ export const defaultWolf = [
         attack: 1,
     },
     {
-        id: 1,
+        id: 2,
         alive: false,
         x: 5,
         y: 14,
@@ -42,7 +42,7 @@ export const defaultWolf = [
         attack: 1,
     },
     {
-        id: 2,
+        id: 3,
         x: 3,
         alive: false,
         y: 0,

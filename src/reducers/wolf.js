@@ -6,6 +6,9 @@ const wolf = (wolf = constants.defaultWolf, action) => {
             return initWolfReducer();
 
         case 'SET_WOLF':
+            return action.payload;
+
+        case 'SET_SINGLE_WOLF':
             return setWolfReducer(action.payload.singleWolf, action.payload.id);
 
         case 'SET_WOLF_DAMAGE':
@@ -32,28 +35,28 @@ const initWolfReducer = () => {
     return wolf;
 };
 
-const setWolfReducer = (singleWolf, id=true) => {
-    return wolf;
+const setWolfReducer = (newWolf, id=true) => {
+    return wolf.map( (singleWolf) => singleWolf.id === id ? newWolf : singleWolf );
 };
 
 const setWolfDamageReducer = (damage, id = true) => {
-    wolf.map( (wolf, id))
+    return wolf.map( (singleWolf) => singleWolf.id === id ? {...singleWolf, damage: damage} : singleWolf);
 };
 
 const setWolfHPReducer = (hp, id = true) => {
-    return wolf;
+    return wolf.map( (singleWolf) => singleWolf.id === id ? {...singleWolf, hp: hp} : singleWolf);
 };
 
 const setWolfMaxHPReducer = (hp, id = true) => {
-    return wolf;
+    return wolf.map( (singleWolf) => singleWolf.id === id ? {...singleWolf, maxHP: hp} : singleWolf);
 };
 
 const killWolfReducer = (id = true) => {
-    return wolf;
+    return wolf.map( (singleWolf) => singleWolf.id === id ? {...singleWolf, alive: false} : singleWolf);
 };
 
-const addWolfReducer = (singleWolf) => {
-    return [...wolf, singleWolf];
+const addWolfReducer = (newWolf) => {
+    return [...wolf, newWolf];
 };
 
 export default wolf;

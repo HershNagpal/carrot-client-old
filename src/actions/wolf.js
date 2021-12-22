@@ -6,9 +6,17 @@ export const initWolf = (wolf) => async (dispatch) => {
     }
 };
 
-export const setWolf = (singleWolf, id=true) => async (dispatch) => {
+export const setWolf = (wolf) => async (dispatch) => {
     try {
-        dispatch({ type: 'SET_WOLF', payload: {singleWolf: singleWolf, id: id} });
+        dispatch({ type: 'SET_WOLF', payload: wolf });
+    } catch (error) {
+        console.log(error.message);
+    }
+};
+
+export const setSingleWolf = (singleWolf, id=true) => async (dispatch) => {
+    try {
+        dispatch({ type: 'SET_SINGLE_WOLF', payload: {singleWolf: singleWolf, id: id} });
     } catch (error) {
         console.log(error.message);
     }
