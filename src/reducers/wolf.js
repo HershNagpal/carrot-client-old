@@ -1,9 +1,7 @@
-import * as constants from '../constants';
+import { defaultWolf } from '../constants';
 
-const wolf = (wolf = constants.defaultWolf, action) => {
+const wolf = (wolf = defaultWolf, action) => {
     switch (action.type) {
-        case 'INIT_WOLF':
-            return initWolfReducer();
 
         case 'SET_WOLF':
             return action.payload;
@@ -34,10 +32,6 @@ const wolf = (wolf = constants.defaultWolf, action) => {
         default:
             return wolf;
     }
-};
-
-const initWolfReducer = () => {
-    return wolf;
 };
 
 export default wolf;
