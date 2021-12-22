@@ -10,6 +10,9 @@ const stats = (stats = defaultStats, action) => {
 
         case 'SET_MOVES':
             return {...stats, moves: action.payload};
+
+        case 'SET_DIRECTION':
+            return {...stats, direction: action.payload};
         
         default:
             return stats;

@@ -1,9 +1,9 @@
 import { Container, Grid } from '@material-ui/core';
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import useStyles from './styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { setTile } from '../../actions/game.js';
-import { setScore, setMoves } from '../../actions/stats.js'
+import { setScore, setMoves, setDirection } from '../../actions/stats.js'
 import Tile from './tile/Tile';
 import * as constants from '../../constants';
 
@@ -159,14 +159,19 @@ const GameGrid = () => {
                 return {newX: x-1, newY: y};
             case 'd':
                 return {newX: x+1, newY: y};
+            default:
+                break;
         }
     };
 
     const handleKeyPress = useCallback( (event) => {
         if (event.key === 'w' || event.key === 's' || event.key === 'a' || event.key === 'd') {
             movePlayer(event.key);
+            dispatch(setDirection(event.key));
+        } else if (event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+            dispatch(setDirection(event.key));
         }
-    }, [movePlayer]);
+    }, [movePlayer, dispatch]);
 
     useEffect( () => {
         document.addEventListener('keydown', handleKeyPress);
@@ -186,15 +191,15 @@ const GameGrid = () => {
             <Grid container direction="column">
                 {
                 grid.map((row, index) => (
-                        <Grid item container key={index} direction="row">
-                            {
-                                row.map((tile, index) => (
-                                    <Grid item key={index}>
-                                        <Tile text={tile}/>
-                                    </Grid>
-                                ))
-                            }
-                        </Grid>
+                    <Grid item container key={index} direction="row">
+                        {
+                            row.map((tile, index) => (
+                                <Grid item key={index}>
+                                    <Tile text={tile}/>
+                                </Grid>
+                            ))
+                        }
+                    </Grid>
                 ))
                 }
             </Grid>

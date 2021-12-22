@@ -9,4 +9,5 @@ export const defaultStats = {
     score: 0,
     hp: 0,
     moves: 0,
+    direction: 'ArrowRight',
 };

@@ -21,3 +21,11 @@ export const setMoves = (moves) => async (dispatch) => {
         console.log(error.message);
     }
 };
+
+export const setDirection = (direction) => async (dispatch) => {
+    try {
+        dispatch({ type: 'SET_DIRECTION', payload: direction })
+    } catch (error) {
+        console.log(error.message);
+    }
+};
