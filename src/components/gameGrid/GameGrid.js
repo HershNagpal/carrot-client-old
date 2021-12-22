@@ -2,8 +2,9 @@ import { Container, Grid } from '@material-ui/core';
 import { useEffect, useCallback } from 'react';
 import useStyles from './styles';
 import { useSelector, useDispatch } from 'react-redux';
-import { setTile } from '../../actions/game.js';
+import { setGrid, setTile } from '../../actions/game.js';
 import { setXp, setMaxXp, setLevel, setMoves, setDirection } from '../../actions/stats.js'
+import { initGrid } from './initGrid';
 import Tile from './tile/Tile';
 import * as constants from '../../constants';
 
@@ -13,8 +14,21 @@ const GameGrid = () => {
     const dispatch = useDispatch();
     const classes = useStyles();
 
+    const spawn = (tile, num) => {
+        let x, y;
+        for (let i = num; i > 0; i--) {
+            do {
+                x = Math.floor(Math.random() * 15);
+                y = Math.floor(Math.random() * 15);
+            } while (grid[y][x] !== 'G');
+            dispatch(setTile(x, y, tile));
+        }
+    };
+
     useEffect( () => {
-        dispatch(setTile(constants.playerStart.x, constants.playerStart.y, 'P'));
+        const grid = initGrid();
+        //console.log(grid);
+        //dispatch(setGrid(grid));
     }, [dispatch]);
 
     const getTile = (search) => {
@@ -156,20 +170,11 @@ const GameGrid = () => {
         }
     };
 
-    const spawnCarrot = () => {
-        let x, y;
-        do {
-            x = Math.floor(Math.random() * 15);
-            y = Math.floor(Math.random() * 15);
-        } while (grid[y][x] !== 'G');
-        dispatch(setTile(x, y, 'C'));
-    };
-
     const spawnCarrots = () => {
         const numCarrots = getTile('C').length;
         if (numCarrots < constants.carrotCap) {
             if (Math.floor(Math.random() * 5) === 0) {
-                spawnCarrot();
+                spawn('C', 1);
             }
         }
     }

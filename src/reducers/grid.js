@@ -1,6 +1,6 @@
-import { defaultGrid } from '../constants';
+import * as constants from '../constants';
 
-const grid = (grid = defaultGrid, action) => {
+const grid = (grid = constants.defaultGrid, action) => {
     switch (action.type) {
         case 'SET_GRID':
             return action.payload;
