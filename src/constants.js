@@ -19,7 +19,9 @@ export const defaultStats = {
     attack: 1,
 };
 
-export const defaultWolf = [
+export const defaultWolf = []
+
+export const defaultWolf1 = [
     {
         id: 1,
         alive: true,
@@ -44,8 +46,8 @@ export const defaultWolf = [
     },
     {
         id: 3,
-        x: 3,
         alive: false,
+        x: 3,
         y: 0,
         hp: 1,
         maxHp: 2,

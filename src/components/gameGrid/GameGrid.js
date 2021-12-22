@@ -3,6 +3,7 @@ import { useEffect, useCallback } from 'react';
 import useStyles from './styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { initGrid, setTile } from '../../actions/game.js';
+import { addWolf, setWolf } from '../../actions/wolf';
 import { setXp, setMaxXp, setLevel, setMoves, setDirection } from '../../actions/stats.js'
 import Tile from './tile/Tile';
 import * as constants from '../../constants';
@@ -10,10 +11,11 @@ import * as constants from '../../constants';
 const GameGrid = () => {
     const grid = useSelector( (state) => state.grid );
     const stats = useSelector( (state) => state.stats );
+    const wolf = useSelector( (state) => state.wolf );
     const dispatch = useDispatch();
     const classes = useStyles();
 
-    const spawn = (tile, num) => {
+    const randomSpawn = (tile, num = 1) => {
         let x, y;
         for (let i = num; i > 0; i--) {
             do {
@@ -93,14 +95,11 @@ const GameGrid = () => {
      * Also this function is FAT
      */
     const moveWolves = () => {
-        const wolves = getTile('W');
-        const { x, y } = getTile('P')[0];
-        
-        wolves.forEach( (wolf) => {
-            const vDistance = Math.abs(y - wolf.y);
-            const hDistance = Math.abs(x - wolf.x);
-            const vDirection = y - wolf.y;
-            const hDirection = x - wolf.x;
+        wolf.map((singleWolf) => {
+            const vDistance = Math.abs(singleWolf.y - wolf.y);
+            const hDistance = Math.abs(singleWolf.x - wolf.x);
+            const vDirection = singleWolf.y - wolf.y;
+            const hDirection = singleWolf.x - wolf.x;
             let direction;
 
             // Up and Left
@@ -112,7 +111,6 @@ const GameGrid = () => {
                     direction = 'a'; 
                 }
             }
-
             // Up and Right
             else if (vDirection <= 0 && hDirection >= 0) {
                 if (vDistance >= hDistance) { 
@@ -122,7 +120,6 @@ const GameGrid = () => {
                     direction = 'd'; 
                 }
             }
-
             // Down and Left
             else if (vDirection >= 0 && hDirection <= 0) {
                 if (vDistance >= hDistance) { 
@@ -132,7 +129,6 @@ const GameGrid = () => {
                     direction = 'a'; 
                 }
             }
-
             // Down and Right
             else if (vDirection >= 0 && hDirection >= 0) {
                 if (vDistance >= hDistance) { 
@@ -148,10 +144,11 @@ const GameGrid = () => {
                 if (!isOutOfBounds(newX, newY) && checkWolfMove(newX, newY)) {
                     dispatch(setTile(wolf.x, wolf.y, 'G'));
                     dispatch(setTile(newX, newY, 'W'));
+                    dispatch(setWolf({...singleWolf, x: newX, y: newY, moves: singleWolf.moves+1}));
                 } 
             }
-
-        });
+            
+        }); 
     };
 
     const movePlayer = (direction) => {
@@ -162,8 +159,9 @@ const GameGrid = () => {
             dispatch(setTile(newX, newY, 'P'));
             dispatch(setTile(x, y, 'G'));
             dispatch(setMoves(stats.moves+1));
-            moveWolves();
             spawnCarrots();
+            moveWolves();
+            spawnWolves();
         }
     };
 
@@ -171,7 +169,41 @@ const GameGrid = () => {
         const numCarrots = getTile('C').length;
         if (numCarrots < constants.carrotCap) {
             if (Math.floor(Math.random() * 5) === 0) {
-                spawn('C', 1);
+                randomSpawn('C', 1);
+            }
+        }
+    }
+
+    const spawnWolves = () => {
+        const numWolves = getTile('W').length;
+        if (numWolves < constants.wolfCap) {
+            if (Math.floor(Math.random() * 10) === 0) {
+
+                let x,y;
+                do {
+                    const edge = Math.round(Math.random());
+                    if (edge === 1) {
+                        x = Math.round(Math.random()) * 14;
+                        y = Math.floor(Math.random() * 15);
+                    } else {
+                        x = Math.floor(Math.random() * 15);
+                        y = Math.round(Math.random()) * 14;
+                    }
+                } while (grid[y][x] !== 'G');
+
+                const newWolf = {
+                    id: 1,
+                    alive: true,
+                    x: x,
+                    y: y,
+                    hp: 2,
+                    maxHp: 2,
+                    moves: 0,
+                    maxMoves: 100,
+                    attack: 1,
+                };
+                dispatch(setTile(x, y, 'W'));
+                dispatch(addWolf(newWolf));
             }
         }
     }

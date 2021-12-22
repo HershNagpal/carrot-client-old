@@ -10,8 +10,15 @@ const StatsBoard = () => {
     const dispatch = useDispatch();
 
     const spawnWolf = () => {
-        const x = Math.floor(Math.random() * 15);
-        const y = Math.floor(Math.random() * 15);
+        const edge = Math.round(Math.random());
+        let x,y;
+        if (edge === 1) {
+            x = Math.round(Math.random())*14;
+            y = Math.floor(Math.random() * 15);
+        } else {
+            x = Math.floor(Math.random() * 15);
+            y = Math.round(Math.random())*14;
+        }
         dispatch(setTile(x, y, 'W'));
     };
 
@@ -29,7 +36,9 @@ const StatsBoard = () => {
             <Typography variant="h6">XP: {stats.xp} / {stats.maxXp}</Typography>
             <Typography variant="h6">Atk: {stats.attack}</Typography>
             <hr />
-                {wolf.map((singleWolf, index) => (
+                {
+                wolf.length > 0 ?
+                wolf.map((singleWolf, index) => (
                     <div key={index}>
                         <Typography variant="h6"> Wolf {singleWolf.id}: {singleWolf.alive.toString()} ({singleWolf.x},{singleWolf.y}) </Typography>
                         <Typography variant="h6">HP: {singleWolf.hp}/{singleWolf.maxHp} </Typography>
@@ -37,7 +46,9 @@ const StatsBoard = () => {
                         <Typography variant="h6">Moves: {singleWolf.moves}/{singleWolf.maxMoves} </Typography>
                         <br/>
                     </div>
-                ))}
+                )) 
+                : <Typography variant="h6">No wolves have appeared yet.</Typography>
+                }
             <hr />
             <Button color="primary" variant="contained" onClick={spawnWolf}>birth wolf</Button><br />
             <Button color="primary" variant="contained" onClick={() => spawnFence()}>uhhh fence</Button>
