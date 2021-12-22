@@ -1,4 +1,4 @@
-import { Container, Grid, Button, withMobileDialog } from '@material-ui/core';
+import { Container, Grid } from '@material-ui/core';
 import { useEffect, useCallback } from 'react';
 import useStyles from './styles';
 import { useSelector, useDispatch } from 'react-redux';
@@ -27,7 +27,7 @@ const GameGrid = () => {
                 }
             )
         );
-        if (coords.length === 0) {
+        if (coords.length === 0 && search === 'P') {
             console.log(search + ' not found in getTile');
         }
         return coords;
@@ -175,24 +175,6 @@ const GameGrid = () => {
         }
     }, [handleKeyPress]);
 
-    const spawnCarrot = () => {
-        const x = Math.floor(Math.random() * 15);
-        const y = Math.floor(Math.random() * 15);
-        dispatch(setTile(x, y, 'C'));
-    };
-
-    const spawnWolf = () => {
-        const x = Math.floor(Math.random() * 15);
-        const y = Math.floor(Math.random() * 15);
-        dispatch(setTile(x, y, 'W'));
-    };
-
-    const spawnFence = () => {
-        const x = Math.floor(Math.random() * 15);
-        const y = Math.floor(Math.random() * 15);
-        dispatch(setTile(x, y, 'F'));
-    };
-
     const isOutOfBounds = (x, y) => {
         if (x >= constants.gridX || y >= constants.gridY) return true;
         if (x < 0 || y < 0) return true;
@@ -216,13 +198,6 @@ const GameGrid = () => {
                 ))
                 }
             </Grid>
-            <Button color="primary" variant="contained" onClick={() => movePlayer('w')}>Up</Button>
-            <Button color="primary" variant="contained" onClick={() => movePlayer('s')}>Down</Button>
-            <Button color="primary" variant="contained" onClick={() => movePlayer('a')}>Left</Button>
-            <Button color="primary" variant="contained" onClick={() => movePlayer('d')}>Right</Button>
-            <Button color="primary" variant="contained" onClick={spawnCarrot}>carrotify</Button>
-            <Button color="primary" variant="contained" onClick={() => spawnWolf()}>birth wolf</Button>
-            <Button color="primary" variant="contained" onClick={() => spawnFence()}>uhhh fence</Button>
         </Container>
     </>
 };
