@@ -1,9 +1,9 @@
 import { Container, Grid } from '@material-ui/core';
-import { useEffect, useCallback, useState } from 'react';
+import { useEffect, useCallback } from 'react';
 import useStyles from './styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { setTile } from '../../actions/game.js';
-import { setScore, setMoves, setDirection } from '../../actions/stats.js'
+import { setXp, setMaxXp, setLevel, setMoves, setDirection } from '../../actions/stats.js'
 import Tile from './tile/Tile';
 import * as constants from '../../constants';
 
@@ -37,7 +37,13 @@ const GameGrid = () => {
         const nextTile = grid[y][x];
         switch (nextTile) {
             case 'C':
-                dispatch(setScore(stats.score+1));
+                if (stats.xp + 1 === stats.maxXp) {
+                    dispatch(setLevel(stats.level + 1));
+                    dispatch(setXp(0));
+                    dispatch(setMaxXp(Math.floor(stats.maxXp * 1.1)));
+                } else {
+                    dispatch(setXp(stats.xp + 1));
+                }
                 return true;
             case 'F':
                 return false;
@@ -54,7 +60,7 @@ const GameGrid = () => {
         const nextTile = grid[y][x];
         switch (nextTile) {
             case 'C':
-                dispatch(setScore(stats.score-1));
+                dispatch(setXp(stats.xp - 1));
                 return true;
             case 'F':
                 return false;

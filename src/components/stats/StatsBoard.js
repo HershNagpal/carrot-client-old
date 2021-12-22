@@ -28,9 +28,11 @@ const StatsBoard = () => {
 
     return <>
         <Container className={classes.outerContainer}>
-            <Typography variant="h6">Score: {stats.score}</Typography>
             <Typography variant="h6">Moves: {stats.moves}</Typography>
-            <Typography variant="h6">Dir: {stats.direction}</Typography>
+            <Typography variant="h6">Level: {stats.level}</Typography>
+            <Typography variant="h6">HP: {stats.hp} / {stats.maxHp}</Typography>
+            <Typography variant="h6">XP: {stats.xp} / {stats.maxXp}</Typography>
+            <Typography variant="h6">Atk: {stats.attack}</Typography>
             <hr />
             <Button color="primary" variant="contained" onClick={spawnCarrot}>carrotify</Button><br />
             <Button color="primary" variant="contained" onClick={spawnWolf}>birth wolf</Button><br />
