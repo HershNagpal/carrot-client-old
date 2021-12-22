@@ -21,7 +21,7 @@ const GameGrid = () => {
         let coords = [];
         grid.forEach( (row, Yindex) => 
             row.forEach( (tile, Xindex) => {
-                    if(tile === search) {
+                    if (tile === search) {
                         coords.push( { x: Xindex, y: Yindex } );
                     }
                 }
@@ -148,12 +148,31 @@ const GameGrid = () => {
         const { newX, newY } = newCoordinatesInDirection(x, y, direction);
 
         if (!isOutOfBounds(newX, newY) && checkPlayerMove(newX, newY)) {
-            dispatch(setTile(x, y, 'G'));
             dispatch(setTile(newX, newY, 'P'));
+            dispatch(setTile(x, y, 'G'));
             dispatch(setMoves(stats.moves+1));
             moveWolves();
+            spawnCarrots();
         }
     };
+
+    const spawnCarrot = () => {
+        let x, y;
+        do {
+            x = Math.floor(Math.random() * 15);
+            y = Math.floor(Math.random() * 15);
+        } while (grid[y][x] !== 'G');
+        dispatch(setTile(x, y, 'C'));
+    };
+
+    const spawnCarrots = () => {
+        const numCarrots = getTile('C').length;
+        if (numCarrots < constants.carrotCap) {
+            if (Math.floor(Math.random() * 5) === 0) {
+                spawnCarrot();
+            }
+        }
+    }
 
     const newCoordinatesInDirection = (x, y, direction) => {
         switch (direction) {

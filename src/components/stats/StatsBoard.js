@@ -8,12 +8,6 @@ const StatsBoard = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const spawnCarrot = () => {
-        const x = Math.floor(Math.random() * 15);
-        const y = Math.floor(Math.random() * 15);
-        dispatch(setTile(x, y, 'C'));
-    };
-
     const spawnWolf = () => {
         const x = Math.floor(Math.random() * 15);
         const y = Math.floor(Math.random() * 15);
@@ -34,7 +28,6 @@ const StatsBoard = () => {
             <Typography variant="h6">XP: {stats.xp} / {stats.maxXp}</Typography>
             <Typography variant="h6">Atk: {stats.attack}</Typography>
             <hr />
-            <Button color="primary" variant="contained" onClick={spawnCarrot}>carrotify</Button><br />
             <Button color="primary" variant="contained" onClick={spawnWolf}>birth wolf</Button><br />
             <Button color="primary" variant="contained" onClick={() => spawnFence()}>uhhh fence</Button>
         </Container>

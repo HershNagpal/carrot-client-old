@@ -1,5 +1,6 @@
 export const gridX = 15;
 export const gridY = 15;
+export const carrotCap = 10;
 
 export const playerStart = { x:7, y:7 };
 
