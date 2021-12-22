@@ -145,7 +145,7 @@ const GameGrid = () => {
 
             if (direction !== undefined) {
                 const { newX, newY } = newCoordinatesInDirection(wolf.x, wolf.y, direction);
-                if (!isOutOfBounds(newX, newY) && checkPlayerMove(newX, newY)) {
+                if (!isOutOfBounds(newX, newY) && checkWolfMove(newX, newY)) {
                     dispatch(setTile(wolf.x, wolf.y, 'G'));
                     dispatch(setTile(newX, newY, 'W'));
                 } 

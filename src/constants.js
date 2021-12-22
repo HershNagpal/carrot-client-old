@@ -17,3 +17,39 @@ export const defaultStats = {
     direction: 'ArrowRight',
     attack: 1,
 };
+
+export const defaultWolf = [
+    {
+        id: 0,
+        alive: true,
+        x: 0,
+        y: 12,
+        hp: 1,
+        maxHP: 2,
+        moves: 0,
+        maxMoves: 100,
+        attack: 1,
+    },
+    {
+        id: 1,
+        alive: false,
+        x: 5,
+        y: 14,
+        hp: 1,
+        maxHP: 2,
+        moves: 0,
+        maxMoves: 100,
+        attack: 1,
+    },
+    {
+        id: 2,
+        x: 3,
+        alive: false,
+        y: 0,
+        hp: 1,
+        maxHP: 2,
+        moves: 0,
+        maxMoves: 100,
+        attack: 1,
+    },
+];

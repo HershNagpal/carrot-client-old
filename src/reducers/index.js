@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
-import grid from './grid.js';
-import stats from './stats.js';
+import grid from './grid';
+import stats from './stats';
+import wolf from './wolf'
 
-export default combineReducers({ grid, stats });
+export default combineReducers({ grid, stats, wolf });
