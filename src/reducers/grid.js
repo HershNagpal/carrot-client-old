@@ -34,18 +34,20 @@ const initGrid = (grid) => {
 };
 
 const spawn = (newTile, num, grid) => {
-    let x, y;
-    let coords = [];
-    for (let i = num; i > 0; i--) {
-        do {
-            x = Math.floor(Math.random() * 15);
-            y = Math.floor(Math.random() * 15);
-        } while (
-            grid[y][x] !== 'G' ||
-            coords.find((coord) => coord.x === x && coord.y === y)
-        );
-        coords.push({ x: x, y: y });
-    }
+    const arr = Array(num).fill(0);
+    const coords = arr.reduce((a) => {
+        while (true) {
+            const x = Math.floor(Math.random() * 15);
+            const y = Math.floor(Math.random() * 15);
+            if (
+                grid[y][x] === 'G' &&
+                !a.find((coord) => coord.x === x && coord.y === y)
+            ) {
+                return [...a, { x: x, y: y }];
+            }
+        }
+    }, []);
+
     return grid.map((row, Yindex) => (
         row.map((tile, Xindex) => (
             coords.find((coord) => coord.x === Xindex && coord.y === Yindex)

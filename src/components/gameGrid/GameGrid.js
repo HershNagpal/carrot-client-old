@@ -1,7 +1,8 @@
 import { Container, Grid } from '@material-ui/core';
-import { useEffect, useCallback } from 'react';
+import { useEffect } from 'react';
 import useStyles from './styles';
 import { useSelector, useDispatch } from 'react-redux';
+import { useKeyData } from './keyListenerHook';
 import { initGrid, setTile } from '../../actions/game.js';
 import { setXp, setMaxXp, setLevel, setMoves, setDirection } from '../../actions/stats.js'
 import Tile from './tile/Tile';
@@ -12,6 +13,9 @@ const GameGrid = () => {
     const stats = useSelector( (state) => state.stats );
     const dispatch = useDispatch();
     const classes = useStyles();
+
+    const keyData = useKeyData();
+    const keyPressed = keyData[0];
 
     const spawn = (tile, num) => {
         let x, y;
@@ -67,7 +71,7 @@ const GameGrid = () => {
         }
     };
 
-    const checkWolfMove = (x, y) => {
+    /*const checkWolfMove = (x, y) => {
         const nextTile = grid[y][x];
         switch (nextTile) {
             case 'C':
@@ -84,7 +88,7 @@ const GameGrid = () => {
             default:
                 return false;
         }
-    }
+    }*/
 
     /**
      * Potential issue with wolves getting blocked if their current direction is blocked.
@@ -191,21 +195,25 @@ const GameGrid = () => {
         }
     };
 
-    const handleKeyPress = useCallback( (event) => {
+    /*const handleKeyPress = useCallback( (event) => {
         if (event.key === 'w' || event.key === 's' || event.key === 'a' || event.key === 'd') {
             movePlayer(event.key);
             dispatch(setDirection(event.key));
         } else if (event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
             dispatch(setDirection(event.key));
         }
-    }, [movePlayer, dispatch]);
+    }, [movePlayer, dispatch]);*/
 
     useEffect( () => {
-        document.addEventListener('keydown', handleKeyPress);
-        return () => {
-            document.removeEventListener('keydown', handleKeyPress);
+        if (!keyPressed.disabled) {
+            if (keyPressed.key === 'w' || keyPressed.key === 's' || keyPressed.key === 'a' || keyPressed.key === 'd') {
+                movePlayer(keyPressed.key);
+                dispatch(setDirection(keyPressed.key));
+            } else if (keyPressed.key === 'ArrowUp' || keyPressed.key === 'ArrowDown' || keyPressed.key === 'ArrowLeft' || keyPressed.key === 'ArrowRight') {
+                dispatch(setDirection(keyPressed.key));
+            }
         }
-    }, [handleKeyPress]);
+    }, [keyPressed]);
 
     const isOutOfBounds = (x, y) => {
         if (x >= constants.gridX || y >= constants.gridY) return true;
