@@ -6,24 +6,18 @@ export const initGrid = () => async (dispatch) => {
     }
 };
 
-
-export const setGrid = (grid) => async (dispatch) => {
+export const movePlayer = (direction) => async (dispatch) => {
     try {
-        dispatch({ type: 'SET_GRID', payload: grid });
+        dispatch({ type: 'MOVE_PLAYER', payload: direction });
     } catch (error) {
         console.log(error.message);
     }
 };
 
-export const setTile = (x, y, newTile) => async (dispatch) => {
+export const changeDirection = (direction) => async (dispatch) => {
     try {
-        const data = {
-            x: x, 
-            y: y, 
-            newTile: newTile
-        };
-        dispatch({ type: 'SET_TILE', payload: data});
+        dispatch({ type: 'SET_DIRECTION', payload: direction })
     } catch (error) {
         console.log(error.message);
     }
-}
+};

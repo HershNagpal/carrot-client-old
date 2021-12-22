@@ -3,73 +3,20 @@ import { useEffect } from 'react';
 import useStyles from './styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { useKeyData } from './keyListenerHook';
-import { initGrid, setTile } from '../../actions/game.js';
-import { setXp, setMaxXp, setLevel, setMoves, setDirection } from '../../actions/stats.js'
+import { initGrid, movePlayer, changeDirection } from '../../actions/game';
 import Tile from './tile/Tile';
-import * as constants from '../../constants';
 
 const GameGrid = () => {
-    const grid = useSelector( (state) => state.grid );
-    const stats = useSelector( (state) => state.stats );
+    const game = useSelector((state) => state.game);
     const dispatch = useDispatch();
     const classes = useStyles();
 
     const keyData = useKeyData();
     const keyPressed = keyData[0];
 
-    const spawn = (tile, num) => {
-        let x, y;
-        for (let i = num; i > 0; i--) {
-            do {
-                x = Math.floor(Math.random() * 15);
-                y = Math.floor(Math.random() * 15);
-            } while (grid[y][x] !== 'G');
-            dispatch(setTile(x, y, tile));
-        }
-    };
-
     useEffect( () => {
         dispatch(initGrid());
     }, [dispatch]);
-
-    const getTile = (search) => {
-        let coords = [];
-        grid.forEach( (row, Yindex) => 
-            row.forEach( (tile, Xindex) => {
-                    if (tile === search) {
-                        coords.push( { x: Xindex, y: Yindex } );
-                    }
-                }
-            )
-        );
-        if (coords.length === 0 && search === 'P') {
-            console.log(search + ' not found in getTile');
-        }
-        return coords;
-    };
-
-    const checkPlayerMove = (x, y) => {
-        const nextTile = grid[y][x];
-        switch (nextTile) {
-            case 'C':
-                if (stats.xp + 1 === stats.maxXp) {
-                    dispatch(setLevel(stats.level + 1));
-                    dispatch(setXp(0));
-                    dispatch(setMaxXp(Math.floor(stats.maxXp * 1.1)));
-                } else {
-                    dispatch(setXp(stats.xp + 1));
-                }
-                return true;
-            case 'F':
-                return false;
-            case 'W':
-                return false;
-            case 'G':
-                return true;
-            default:
-                return false;
-        }
-    };
 
     /*const checkWolfMove = (x, y) => {
         const nextTile = grid[y][x];
@@ -96,7 +43,7 @@ const GameGrid = () => {
      * overlapping and eating each other and the player.
      * Also this function is FAT
      */
-    const moveWolves = () => {
+    /*const moveWolves = () => {
         const wolves = getTile('W');
         const { x, y } = getTile('P')[0];
         
@@ -156,81 +103,29 @@ const GameGrid = () => {
             }
 
         });
-    };
-
-    const movePlayer = (direction) => {
-        const { x, y } = getTile('P')[0];
-        const { newX, newY } = newCoordinatesInDirection(x, y, direction);
-
-        if (!isOutOfBounds(newX, newY) && checkPlayerMove(newX, newY)) {
-            dispatch(setTile(newX, newY, 'P'));
-            dispatch(setTile(x, y, 'G'));
-            dispatch(setMoves(stats.moves+1));
-            moveWolves();
-            spawnCarrots();
-        }
-    };
-
-    const spawnCarrots = () => {
-        const numCarrots = getTile('C').length;
-        if (numCarrots < constants.carrotCap) {
-            if (Math.floor(Math.random() * 5) === 0) {
-                spawn('C', 1);
-            }
-        }
-    }
-
-    const newCoordinatesInDirection = (x, y, direction) => {
-        switch (direction) {
-            case 'w':
-                return {newX: x, newY: y-1};
-            case 's':
-                return {newX: x, newY: y+1};
-            case 'a':
-                return {newX: x-1, newY: y};
-            case 'd':
-                return {newX: x+1, newY: y};
-            default:
-                break;
-        }
-    };
-
-    /*const handleKeyPress = useCallback( (event) => {
-        if (event.key === 'w' || event.key === 's' || event.key === 'a' || event.key === 'd') {
-            movePlayer(event.key);
-            dispatch(setDirection(event.key));
-        } else if (event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-            dispatch(setDirection(event.key));
-        }
-    }, [movePlayer, dispatch]);*/
+    };*/
 
     useEffect( () => {
         if (!keyPressed.disabled) {
             if (keyPressed.key === 'w' || keyPressed.key === 's' || keyPressed.key === 'a' || keyPressed.key === 'd') {
-                movePlayer(keyPressed.key);
-                dispatch(setDirection(keyPressed.key));
+                dispatch(movePlayer(keyPressed.key));
+                dispatch(changeDirection(keyPressed.key));
             } else if (keyPressed.key === 'ArrowUp' || keyPressed.key === 'ArrowDown' || keyPressed.key === 'ArrowLeft' || keyPressed.key === 'ArrowRight') {
-                dispatch(setDirection(keyPressed.key));
+                dispatch(changeDirection(keyPressed.key));
             }
         }
-    }, [keyPressed]);
+    }, [keyPressed, dispatch]);
 
-    const isOutOfBounds = (x, y) => {
-        if (x >= constants.gridX || y >= constants.gridY) return true;
-        if (x < 0 || y < 0) return true;
-        return false;
-    };
-    
     return <>
         <Container className={classes.outerContainer}>
             <Grid container direction="column">
                 {
-                grid.map((row, index) => (
-                    <Grid item container key={index} direction="row">
+                game.grid.map((row, Yindex) => (
+                    <Grid item container key={Yindex} direction="row">
                         {
-                            row.map((tile, index) => (
-                                <Grid item key={index}>
-                                    <Tile text={tile}/>
+                            row.map((tile, Xindex) => (
+                                <Grid item key={Xindex}>
+                                    <Tile type={tile.entity.type}/>
                                 </Grid>
                             ))
                         }

@@ -5,9 +5,7 @@ export const fenceCap = 10;
 
 export const playerStart = { x: 7, y: 7 };
 
-export const defaultGrid = [...Array(gridY)].map(e => Array(gridX).fill('G'));
-
-export const defaultStats = {
+export const defaultGame = {
     level: 1,
     hp: 10,
     maxHp: 10,
@@ -16,4 +14,10 @@ export const defaultStats = {
     moves: 0,
     direction: 'ArrowRight',
     attack: 1,
+    grid: Array(gridY).fill(Array(gridX).fill(0)).map((row, Yindex) => (
+        row.map((tile, Xindex) => ({
+            coords: { x: Xindex, y: Yindex },
+            entity: { type: 'grass' },
+        }))
+    )),
 };

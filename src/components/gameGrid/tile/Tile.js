@@ -3,26 +3,18 @@ import { useSelector } from 'react-redux';
 import useStyles from './styles';
 import { playerRightIcon, playerLeftIcon, playerUpIcon, playerDownIcon, carrotIcon, wolfIcon, fenceIcon } from '../../../images';
 
-/**
- * Player: P
- * Wolf: W
- * Carrot: C
- * Fence: F
- * Grass: G
- */
-
-const Tile = ({text}) => {
+const Tile = ({type}) => {
     const classes = useStyles();
-    const stats = useSelector( (state) => state.stats );
-    const [icon, setIcon] = useState('G');
+    const game = useSelector( (state) => state.game );
+    const [icon, setIcon] = useState('grass');
     
     useEffect( () => {
-        switch (text) {
-            case 'G':
+        switch (type) {
+            case 'grass':
                 setIcon('');
                 break;
-            case 'P':
-                switch (stats.direction) {
+            case 'player':
+                switch (game.direction) {
                     case 'ArrowRight':
                     case 'd':
                         setIcon(playerRightIcon);
@@ -43,19 +35,19 @@ const Tile = ({text}) => {
                         break;
                 }
                 break;
-            case 'C':
+            case 'carrot':
                 setIcon(carrotIcon);
                 break;
-            case 'W':
+            case 'wolf':
                 setIcon(wolfIcon);
                 break;
-            case 'F':
+            case 'fence':
                 setIcon(fenceIcon);
                 break;
             default:
                 break;
         }
-    }, [text, stats]);
+    }, [type, game]);
 
     return <>
         <div className={classes.tile}>
