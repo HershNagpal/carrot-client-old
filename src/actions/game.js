@@ -1,3 +1,12 @@
+export const initGrid = () => async (dispatch) => {
+    try {
+        dispatch({ type: 'INIT_GRID', payload: null });
+    } catch (error) {
+        console.log(error.message);
+    }
+};
+
+
 export const setGrid = (grid) => async (dispatch) => {
     try {
         dispatch({ type: 'SET_GRID', payload: grid });
