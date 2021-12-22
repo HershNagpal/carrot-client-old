@@ -14,33 +14,41 @@ export const setWolf = (wolf) => async (dispatch) => {
     }
 };
 
-export const setSingleWolf = (singleWolf, id=true) => async (dispatch) => {
+export const setSingleWolf = (newWolf, id=0) => async (dispatch) => {
     try {
-        dispatch({ type: 'SET_SINGLE_WOLF', payload: {singleWolf: singleWolf, id: id} });
+        dispatch({ type: 'SET_SINGLE_WOLF', payload: {newWolf: newWolf, id: id} });
     } catch (error) {
         console.log(error.message);
     }
 };
 
-export const setWolfDamage = (damage, id=true) => async (dispatch) => {
+export const setWolfAttack = (attack, id=0) => async (dispatch) => {
     try {
-        dispatch({ type: 'SET_WOLF_DAMAGE', payload: {damage: damage, id: id} });
+        dispatch({ type: 'SET_WOLF_ATTACK', payload: {attack: attack, id: id} });
     } catch (error) {
         console.log(error.message);
     }
 };
 
-export const killWolf = (id=true) => async (dispatch) => {
+export const killWolf = (id=0) => async (dispatch) => {
     try {
-        dispatch({ type: 'SET_STATS', payload: id });
+        dispatch({ type: 'KILL_WOLF', payload: id });
     } catch (error) {
         console.log(error.message);
     }
 };
 
-export const setWolfHP = (hp, id=true) => async (dispatch) => {
+export const setWolfHP = (hp, id=0) => async (dispatch) => {
     try {
         dispatch({ type: 'SET_WOLF_HP', payload: {hp: hp, id: id} });
+    } catch (error) {
+        console.log(error.message);
+    }
+};
+
+export const setWolfMaxHP = (hp, id=0) => async (dispatch) => {
+    try {
+        dispatch({ type: 'SET_WOLF_MAXHP', payload: {hp: hp, id: id} });
     } catch (error) {
         console.log(error.message);
     }

@@ -9,22 +9,27 @@ const wolf = (wolf = constants.defaultWolf, action) => {
             return action.payload;
 
         case 'SET_SINGLE_WOLF':
-            return setWolfReducer(action.payload.singleWolf, action.payload.id);
+            return wolf.map( (singleWolf) => singleWolf.id === action.payload.id || action.payload.id === 0 
+            ? action.payload.newWolf : singleWolf );
 
-        case 'SET_WOLF_DAMAGE':
-            return setWolfDamageReducer(action.payload.damage, action.payload.id);
+        case 'SET_WOLF_ATTACK':
+            return wolf.map( (singleWolf) => singleWolf.id === action.payload.id || action.payload.id === 0 
+            ? {...singleWolf, attack: action.payload.attack} : singleWolf);
 
         case 'KILL_WOLF':
-            return killWolfReducer(action.payload);
+            return wolf.map( (singleWolf) => singleWolf.id === action.payload || action.payload === 0 
+            ? {...singleWolf, alive: false} : singleWolf);
 
         case 'SET_WOLF_HP':
-            return setWolfHPReducer(action.payload.hp, action.payload.id);
+            return wolf.map( (singleWolf) => singleWolf.id === action.payload.id || action.payload.id === 0 
+            ? {...singleWolf, hp: action.payload.hp} : singleWolf);
 
         case 'SET_WOLF_MAXHP':
-            return setWolfMaxHPReducer(action.payload.hp, action.payload.id);
+            return wolf.map( (singleWolf) => singleWolf.id === action.payload.id || action.payload.id === 0 
+            ? {...singleWolf, maxHp: action.payload.hp} : singleWolf);
         
         case 'ADD_WOLF':
-            return addWolfReducer(action.payload);
+            return [...wolf, action.payload];
 
         default:
             return wolf;
@@ -33,30 +38,6 @@ const wolf = (wolf = constants.defaultWolf, action) => {
 
 const initWolfReducer = () => {
     return wolf;
-};
-
-const setWolfReducer = (newWolf, id=true) => {
-    return wolf.map( (singleWolf) => singleWolf.id === id ? newWolf : singleWolf );
-};
-
-const setWolfDamageReducer = (damage, id = true) => {
-    return wolf.map( (singleWolf) => singleWolf.id === id ? {...singleWolf, damage: damage} : singleWolf);
-};
-
-const setWolfHPReducer = (hp, id = true) => {
-    return wolf.map( (singleWolf) => singleWolf.id === id ? {...singleWolf, hp: hp} : singleWolf);
-};
-
-const setWolfMaxHPReducer = (hp, id = true) => {
-    return wolf.map( (singleWolf) => singleWolf.id === id ? {...singleWolf, maxHP: hp} : singleWolf);
-};
-
-const killWolfReducer = (id = true) => {
-    return wolf.map( (singleWolf) => singleWolf.id === id ? {...singleWolf, alive: false} : singleWolf);
-};
-
-const addWolfReducer = (newWolf) => {
-    return [...wolf, newWolf];
 };
 
 export default wolf;
