@@ -2,9 +2,8 @@ import { Container, Grid } from '@material-ui/core';
 import { useEffect, useCallback } from 'react';
 import useStyles from './styles';
 import { useSelector, useDispatch } from 'react-redux';
-import { setGrid, setTile } from '../../actions/game.js';
+import { initGrid, setTile } from '../../actions/game.js';
 import { setXp, setMaxXp, setLevel, setMoves, setDirection } from '../../actions/stats.js'
-import { initGrid } from './initGrid';
 import Tile from './tile/Tile';
 import * as constants from '../../constants';
 
@@ -26,9 +25,7 @@ const GameGrid = () => {
     };
 
     useEffect( () => {
-        const grid = initGrid();
-        //console.log(grid);
-        //dispatch(setGrid(grid));
+        dispatch(initGrid());
     }, [dispatch]);
 
     const getTile = (search) => {
