@@ -1,13 +1,11 @@
 export const getTile = (search, grid) => {
-    let coords = [];
-    grid.forEach( (row, Yindex) => 
-        row.forEach( (tile, Xindex) => {
-                if (tile.entity.type === search) {
-                    coords.push( { x: Xindex, y: Yindex } );
-                }
-            }
-        )
-    );
+    const coords = grid.reduce((a, row, Yindex) => (
+        a.concat(row.reduce((a, tile, Xindex) => (
+            tile.entity.type === search
+                ? [ ...a, { x: Xindex, y: Yindex }]
+                : a
+        ), []))
+    ), []);
     if (coords.length === 0 && search === 'player') {
         console.log(search + ' not found in getTile');
     }
