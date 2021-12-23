@@ -1,70 +1,55 @@
-# Getting Started with Create React App
+TODO:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Attacking:
+- Players can attack wolves
+- Wolves can attack players when attacked
+- Wolves attack players next to them
 
-## Available Scripts
+Inventory:
+- Players can view the inventory
+- Players can equip or use items from inventory
 
-In the project directory, you can run:
+Weapons:
+- Player attack damage is linked to equipped weapon
+- Weapons can be found by picking up carrots
+- Weapons can be equipped or stored in inventory
 
-### `npm start`
+Fences:
+- Wolves and players can break fences
+- Players can build new fences
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Title Screen:
+- Account stuff in the future
+- Select game mode or save file
+- Ironman: no bank permadeath
+- Permadeath: roguelite with bank
+- Infinite: can die and access bank
+- Different route
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Carrots:
+- Carrots can drop super carrots
+- Weapon drops
+- Collectibles
 
-### `npm test`
+Wolves:
+- Different wolf types
+- Different AI
+- Different stats
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Animations:
+- Rotate player icon in CSS
+- Movement animation
+- Attack animation
 
-### `npm run build`
+Achievements:
+- 1 for each carrot and collectible
+- Saved across characters
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Stats:
+- Stats menu with global stats
+- Number of carrots picked up
+- Wolves killed
+- Completion percent
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Expansive Lore:
+- Expand upon the mystifying lore within the world of carrots and wolves
