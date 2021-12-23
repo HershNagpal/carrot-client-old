@@ -42,20 +42,52 @@ export const getWolfDirection = (playerX, playerY, wolfTile) => {
     const vDirection = playerY - wolfTile.coords.y;
     const hDirection = playerX - wolfTile.coords.x;
 
-    // Up and Left
-    if (vDirection <= 0 && hDirection >= 0) {
-        // Change this part
+    // Up and Left - negative = player is up/left
+    if (vDirection <= 0 && hDirection <= 0) {
+        if (vDistance >= hDistance) {
+            return 'w';
+        } else {
+            return 'a'
+        }
     }
     // Up and Right
     else if (vDirection <= 0 && hDirection >= 0) {
         if (vDistance >= hDistance) {
+            return 'w';
+        } else {
             return 'd';
         }
     }
     // Down and Left
-
+    else if (vDirection >= 0 && hDirection <= 0) {
+        if (vDistance >= hDistance) {
+            return 's';
+        } else {
+            return 'a';
+        }
+    }
     // Down and Right
-
-    // Default for now, remove later
-    return 'w';
+    else if (vDirection >= 0 && hDirection >= 0) {
+        if (vDistance >= hDistance) {
+            return 's';
+        } else {
+            return 'd';
+        }
+    }
 };
+
+export const wolfSpawnCoords = (xLength, yLength) => (
+    Math.round(Math.random()) === 0
+        ? leftRightEdgeCoords(xLength, yLength)
+        : topBottomEdgeCoords(xLength, yLength)
+);
+
+const leftRightEdgeCoords = (xLength, yLength) => ({
+    x: Math.round(Math.random() * xLength),
+    y: Math.floor(Math.random()) * (yLength-1)
+});
+
+const topBottomEdgeCoords = (xLength, yLength) => ({
+    x: Math.round(Math.random()) * (xLength-1),
+    y: Math.floor(Math.random() * yLength)
+});

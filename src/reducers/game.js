@@ -1,6 +1,6 @@
 import * as constants from '../constants';
 import { getTile, getWolves } from './selectors';
-import { checkMove, newCoordinatesInDirection, isOutOfBounds, getWolfDirection } from './moveHelpers';
+import { checkMove, newCoordinatesInDirection, isOutOfBounds, getWolfDirection, wolfSpawnCoords } from './moveHelpers';
 
 const game = (game = constants.defaultGame, action) => {
     switch (action.type) {
@@ -20,7 +20,7 @@ const game = (game = constants.defaultGame, action) => {
 
 const initGrid = (game) => {
     const spawnPlayer = (game) => (
-        setTileReducer({ x: constants.playerStart.x, y: constants.playerStart.y, newTile: 'player' }, game)
+        setTile({ x: constants.playerStart.x, y: constants.playerStart.y, newTile: 'player' }, game)
     );
     const spawnCarrots = (game) => (
         spawn('carrot', 10, game)
@@ -63,8 +63,7 @@ const spawnWolf = (num, game) => {
     const arr = Array(num).fill(0);
     const coords = arr.reduce((a) => {
         while (true) {
-            const x = Math.floor(Math.random() * 15);
-            const y = Math.floor(Math.random() * 15);
+            const { x, y } = wolfSpawnCoords(constants.gridX, constants.gridY);
             if (
                 game.grid[y][x].entity.type === 'grass' &&
                 !a.find((coord) => coord.x === x && coord.y === y)
@@ -83,7 +82,7 @@ const spawnWolf = (num, game) => {
     ))};
 };
 
-const setTileReducer = (payload, game) => (
+const setTile = (payload, game) => (
     { ...game, grid:
         game.grid.map((row, Yindex) => 
             payload.y === Yindex 
@@ -97,16 +96,30 @@ const setTileReducer = (payload, game) => (
     }
 );
 
+const setTileWolf = (payload, game) => (
+    { ...game, grid:
+        game.grid.map((row, Yindex) => 
+            payload.y === Yindex 
+            ? row.map((tile, Xindex) => 
+                payload.x === Xindex 
+                    ? { ...tile, entity: payload.newTile.entity } 
+                    : tile
+            ) 
+            : row
+        )
+    }
+);
+
 const movePlayer = (direction, game) => {
     const { x, y } = getTile('player', game.grid)[0];
     const { newX, newY } = newCoordinatesInDirection(x, y, direction);
 
     if (!isOutOfBounds(newX, newY) && checkMove(game.grid[newY][newX])) {
         const spawnPlayer = (game) => (
-            setTileReducer({ x: newX, y: newY, newTile: 'player' }, game)
+            setTile({ x: newX, y: newY, newTile: 'player' }, game)
         );
         const removePlayer = (game) => (
-            setTileReducer({ x: x, y: y, newTile: 'grass' }, game)
+            setTile({ x: x, y: y, newTile: 'grass' }, game)
         );
         const addMove = (game) => (
             setMoves(game.moves + 1, game)
@@ -134,26 +147,29 @@ const movePlayer = (direction, game) => {
 };
 
 const tryWolfMoves = (game) => {
-    // get all wolves
     const wolfTiles = getWolves(game.grid);
     const playerPos = getTile('player', game.grid)[0];
 
-    // loop for each wolf
-    wolfTiles.forEach((wolfTile) => {    
-        // pick direction for that wolf
+    return wolfTiles.reduce((a, wolfTile) => {
         const direction = getWolfDirection(playerPos.x, playerPos.y, wolfTile);
-        
-        // generate new coords
+        const { newX, newY } = newCoordinatesInDirection(wolfTile.coords.x, wolfTile.coords.y, direction);
 
-        // check move on the new coords
+        if (!isOutOfBounds(newX, newY) && checkMove(a.grid[newY][newX])) {
+            const spawnWolf = (a) => (
+                setTileWolf({ x: newX, y: newY, newTile: wolfTile }, a)
+            );
+            const removeWolf = (a) => (
+                setTile({ x: wolfTile.coords.x, y: wolfTile.coords.y, newTile: 'grass' }, a)
+            );
 
-        // add wolf on new tile
-        // remove previous wolf
-        // add wolf moves
-        
-        // conditionally add if wolf walks on carrot
-    });
-    return game;
+            const stateChanges = [spawnWolf, removeWolf];
+            return stateChanges.reduce((a, stateChange) => (
+                stateChange(a)
+            ), a);
+        } else {
+            return a;
+        }
+    }, game);
 };
 
 const checkCarrotSpawn = (game) => {
@@ -216,7 +232,7 @@ const addWolfMoves = (num, game) => (
                         ...foundWolf, 
                         entity: {
                             ...foundWolf.entity,
-                            moves: foundWolf.entity.moves+num,
+                            moves: foundWolf.entity.moves + num,
                         },
                     }
                     : tile;
