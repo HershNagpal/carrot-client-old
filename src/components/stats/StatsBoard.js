@@ -1,4 +1,4 @@
-import { Container, Typography, Button } from '@material-ui/core';
+import { Container, Typography } from '@material-ui/core';
 import useStyles from './styles';
 import { useSelector } from 'react-redux';
 import { getTile, getWolves } from '../../reducers/selectors';
@@ -6,10 +6,6 @@ import { getTile, getWolves } from '../../reducers/selectors';
 const StatsBoard = () => {
     const game = useSelector((state) => state.game);
     const classes = useStyles();
-
-    const getGameState = () => {
-        console.log(game);
-    };
 
     return <>
         <Container className={classes.outerContainer}>
@@ -30,8 +26,7 @@ const StatsBoard = () => {
                     </div>
                 )) 
                 : <Typography variant="h6">No wolves have appeared yet.</Typography>
-                }
-            <Button color="primary" variant="contained" onClick={getGameState}>game state</Button>
+            }
         </Container>
     </>
 };
