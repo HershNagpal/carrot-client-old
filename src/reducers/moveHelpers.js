@@ -36,42 +36,51 @@ export const isOutOfBounds = (x, y) => {
     return false;
 };
 
-export const getWolfDirection = (playerX, playerY, wolfTile) => {
+export const getWolfDirection = (playerX, playerY, wolfTile, grid) => {
     const vDistance = Math.abs(playerY - wolfTile.coords.y);
     const hDistance = Math.abs(playerX - wolfTile.coords.x);
     const vDirection = playerY - wolfTile.coords.y;
     const hDirection = playerX - wolfTile.coords.x;
 
+    const up = newCoordinatesInDirection(wolfTile.coords.x, wolfTile.coords.y, 'w');
+    const down = newCoordinatesInDirection(wolfTile.coords.x, wolfTile.coords.y, 's');
+    const left = newCoordinatesInDirection(wolfTile.coords.x, wolfTile.coords.y, 'a');
+    const right = newCoordinatesInDirection(wolfTile.coords.x, wolfTile.coords.y, 'd');
+    const upValid = !isOutOfBounds(up.newX, up.newY) && checkMove(grid[up.newY][up.newX]);
+    const downValid = !isOutOfBounds(down.newX, down.newY) && checkMove(grid[down.newY][down.newX]);
+    const leftValid = !isOutOfBounds(left.newX, left.newY) && checkMove(grid[left.newY][left.newX]);
+    const rightValid = !isOutOfBounds(right.newX, right.newY) && checkMove(grid[right.newY][right.newX]);
+
     // Up and Left - negative = player is up/left
     if (vDirection <= 0 && hDirection <= 0) {
         if (vDistance >= hDistance) {
-            return 'w';
+            return upValid ? 'w' : 'a';
         } else {
-            return 'a'
+            return leftValid ? 'a' : 'w';
         }
     }
     // Up and Right
     else if (vDirection <= 0 && hDirection >= 0) {
         if (vDistance >= hDistance) {
-            return 'w';
+            return upValid ? 'w' : 'd';
         } else {
-            return 'd';
+            return rightValid ? 'd' : 'w';
         }
     }
     // Down and Left
     else if (vDirection >= 0 && hDirection <= 0) {
         if (vDistance >= hDistance) {
-            return 's';
+            return downValid ? 's' : 'a';
         } else {
-            return 'a';
+            return leftValid ? 'a' : 's';
         }
     }
     // Down and Right
     else if (vDirection >= 0 && hDirection >= 0) {
         if (vDistance >= hDistance) {
-            return 's';
+            return downValid ? 's' : 'd';
         } else {
-            return 'd';
+            return rightValid ? 'd' : 's';
         }
     }
 };

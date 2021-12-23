@@ -151,7 +151,7 @@ const tryWolfMoves = (game) => {
     const playerPos = getTile('player', game.grid)[0];
 
     return wolfTiles.reduce((a, wolfTile) => {
-        const direction = getWolfDirection(playerPos.x, playerPos.y, wolfTile);
+        const direction = getWolfDirection(playerPos.x, playerPos.y, wolfTile, game.grid);
         const { newX, newY } = newCoordinatesInDirection(wolfTile.coords.x, wolfTile.coords.y, direction);
 
         if (!isOutOfBounds(newX, newY) && checkMove(a.grid[newY][newX])) {
@@ -186,17 +186,17 @@ const checkCarrotSpawn = (game) => {
 };
 
 const updateWolves = (game) => {
-    const checkWolfSpawn = (game) => (
-        spawnWolves(game)
-    );
     const moveWolves = (game) => (
         tryWolfMoves(game)
+    );
+    const checkWolfSpawn = (game) => (
+        spawnWolves(game)
     );
     const updateWolfMoves = (game) => (
         addWolfMoves(1, game)
     );
 
-    const stateChanges = [checkWolfSpawn, moveWolves, updateWolfMoves];
+    const stateChanges = [moveWolves, checkWolfSpawn, updateWolfMoves];
     return stateChanges.reduce((a, stateChange) => (
         stateChange(a)
     ), game);
@@ -206,7 +206,7 @@ const updateWolves = (game) => {
 const spawnWolves = (game) => {
     const numWolves = getTile('wolf', game.grid).length;
     if (numWolves < constants.wolfCap) {
-        if (Math.floor(Math.random() * 10) === 0) {
+        if (Math.floor(Math.random() * 50) === 0) {
             return spawnWolf(1, game);
         } else {
             return game;
