@@ -1,17 +1,11 @@
 import { Container, Typography, Button } from '@material-ui/core';
 import useStyles from './styles';
 import { useSelector } from 'react-redux';
+import { getTile, getWolves } from '../../reducers/selectors';
 
 const StatsBoard = () => {
-    const game = useSelector( (state) => state.game );
+    const game = useSelector((state) => state.game);
     const classes = useStyles();
-
-    const spawnWolf = () => {
-        /*const x = Math.floor(Math.random() * 15);
-        const y = Math.floor(Math.random() * 15);
-        dispatch(setTile(x, y, 'W'));*/
-        console.log('function temporarily disabled')
-    };
 
     const getGameState = () => {
         console.log(game);
@@ -25,7 +19,18 @@ const StatsBoard = () => {
             <Typography variant="h6">XP: {game.xp} / {game.maxXp}</Typography>
             <Typography variant="h6">Atk: {game.attack}</Typography>
             <hr />
-            <Button color="primary" variant="contained" onClick={spawnWolf}>birth wolf</Button><br />
+            {   
+                getTile('wolf', game.grid).length > 0
+                ? getWolves(game.grid).map((tile, index) => (
+                    <div key={index}>
+                        <Typography variant="h6">HP: {tile.entity.hp} </Typography>
+                        <Typography variant="h6">Atk: {tile.entity.attack} </Typography>
+                        <Typography variant="h6">Moves: {tile.entity.moves}/{tile.entity.maxMoves} </Typography>
+                        <br/>
+                    </div>
+                )) 
+                : <Typography variant="h6">No wolves have appeared yet.</Typography>
+                }
             <Button color="primary" variant="contained" onClick={getGameState}>game state</Button>
         </Container>
     </>

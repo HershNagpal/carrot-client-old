@@ -2,6 +2,7 @@ export const gridX = 15;
 export const gridY = 15;
 export const carrotCap = 10;
 export const fenceCap = 10;
+export const wolfCap = 3;
 
 export const playerStart = { x: 7, y: 7 };
 
@@ -21,3 +22,13 @@ export const defaultGame = {
         }))
     )),
 };
+
+export const gameDefinition = 'avoid fences and wolves, collect carrots';
+export const crash = false;
+export const gameRules = [
+    'carrots must respawn',
+    'game must not break',
+    'wolves must chase',
+    'wolves and carrots cannot coexist on one tile',
+    crash ? 'dont' : 'do'
+];

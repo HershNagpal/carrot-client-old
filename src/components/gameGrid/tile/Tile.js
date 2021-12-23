@@ -5,10 +5,10 @@ import { playerRightIcon, playerLeftIcon, playerUpIcon, playerDownIcon, carrotIc
 
 const Tile = ({type}) => {
     const classes = useStyles();
-    const game = useSelector( (state) => state.game );
+    const game = useSelector((state) => state.game);
     const [icon, setIcon] = useState('grass');
     
-    useEffect( () => {
+    useEffect(() => {
         switch (type) {
             case 'grass':
                 setIcon('');
