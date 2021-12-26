@@ -5,7 +5,7 @@ import { checkMove, newCoordinatesInDirection, isOutOfBounds, getWolfDirection, 
 const game = (game = constants.defaultGame, action) => {
     switch (action.type) {
         case 'INIT_GRID':
-            return initGrid(game);
+            return initGrid();
 
         case 'MOVE_PLAYER':
             return movePlayer(action.payload, game);
@@ -18,7 +18,7 @@ const game = (game = constants.defaultGame, action) => {
     }
 };
 
-const initGrid = (game) => {
+const initGrid = () => {
     const spawnPlayer = (game) => (
         setTile({ x: constants.playerStart.x, y: constants.playerStart.y, newTile: 'player' }, game)
     );
@@ -32,7 +32,7 @@ const initGrid = (game) => {
     const stateChanges = [spawnPlayer, spawnCarrots, spawnFences];
     return stateChanges.reduce((a, stateChange) => (
         stateChange(a)
-    ), game);
+    ), constants.defaultGame);
 };
 
 const spawn = (newTile, num, game) => {

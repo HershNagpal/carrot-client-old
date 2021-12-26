@@ -6,6 +6,7 @@ export default makeStyles(() => ({
         border: '1px solid black',
         minHeight: '90vh',
         minWidth: '20vw',
+        maxWidth: '20vw',
         marginTop: '2.5vh',
     },
 }));
