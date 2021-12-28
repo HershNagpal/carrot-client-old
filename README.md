@@ -7,6 +7,7 @@ Attacking:
 
 Player
 - Upgrades upon levelling up
+- Player log with all actions on scoreboard
 
 Inventory:
 - Players can view the inventory
