@@ -5,11 +5,10 @@ export const fenceCap = 10;
 export const wolfCap = 3;
 
 export const playerStart = { x: 7, y: 7 };
+export const playerStartHp = 10;
 
 export const defaultGame = {
     level: 1,
-    hp: 10,
-    maxHp: 10,
     xp: 0,
     maxXp: 10,
     moves: 0,

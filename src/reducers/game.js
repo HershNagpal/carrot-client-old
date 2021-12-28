@@ -1,6 +1,6 @@
 import * as constants from '../constants';
-import { getTile, getWolves } from './selectors';
-import { checkMove, newCoordinatesInDirection, isOutOfBounds, getWolfDirection, wolfSpawnCoords } from './moveHelpers';
+import { getPlayer, getPlayerCoords, getTile, getWolves } from './selectors';
+import { checkMove, newCoordinatesInDirection, isOutOfBounds, getWolfDirection, wolfSpawnCoords, directionConvert } from './moveHelpers';
 
 const game = (game = constants.defaultGame, action) => {
     switch (action.type) {
@@ -11,31 +11,63 @@ const game = (game = constants.defaultGame, action) => {
             return movePlayer(action.payload, game);
 
         case 'SET_DIRECTION':
-            return { ...game, direction: action.payload };
+            return setDirection(action.payload, game);
+
+        case 'ATTACK':
+            return attack(game);
 
         default:
             return game;
     }
 };
 
+const setDirection = (direction, game) => {
+    switch (direction) {
+        case "ArrowUp":
+            return {...game, direction: "w"};
+        case "ArrowDown":
+            return {...game, direction: "s"};
+        case "ArrowLeft":
+            return {...game, direction: "a"};
+        case "ArrowRight":
+            return {...game, direction: "d"};
+        default:
+            return {...game, direction: direction};
+    }
+};
+
 const initGrid = (game) => {
-    const spawnPlayer = (game) => (
-        setTile({ x: constants.playerStart.x, y: constants.playerStart.y, newTile: 'player' }, game)
+    const spawnPlayers = (game) => (
+        spawnPlayer({ x: constants.playerStart.x, y: constants.playerStart.y}, constants.playerStartHp, game)
     );
     const spawnCarrots = (game) => (
-        spawn('carrot', 10, game)
+        spawnCarrot(10, game)
     );
     const spawnFences = (game) => (
-        spawn('fence', 10, game)
+        spawnFence(10, game)
     );
 
-    const stateChanges = [spawnPlayer, spawnCarrots, spawnFences];
+    const stateChanges = [spawnPlayers, spawnCarrots, spawnFences];
     return stateChanges.reduce((a, stateChange) => (
         stateChange(a)
     ), game);
 };
 
-const spawn = (newTile, num, game) => {
+const spawnPlayer = (coord, hp, game) => (
+    { ...game, grid:
+        game.grid.map((row, Yindex) => 
+            coord.y === Yindex 
+            ? row.map((tile, Xindex) => 
+                coord.x === Xindex 
+                    ? { ...tile, entity: { type: 'player', hp: hp, maxHp: hp } } 
+                    : tile
+            ) 
+            : row
+        )
+    }
+);
+
+const spawnCarrot = (num, game) => {
     const arr = Array(num).fill(0);
     const coords = arr.reduce((a) => {
         while (true) {
@@ -53,11 +85,36 @@ const spawn = (newTile, num, game) => {
     return { ...game, grid: game.grid.map((row, Yindex) => (
         row.map((tile, Xindex) => (
             coords.find((coord) => coord.x === Xindex && coord.y === Yindex)
-            ? { ...tile, entity: { type: newTile } }
+            ? { ...tile, entity: { type: 'carrot' } }
             : tile
         ))
     ))};
 };
+
+const spawnFence = (num, game, hp=3) => {
+    const arr = Array(num).fill(0);
+    const coords = arr.reduce((a) => {
+        while (true) {
+            const x = Math.floor(Math.random() * 15);
+            const y = Math.floor(Math.random() * 15);
+            if (
+                game.grid[y][x].entity.type === 'grass' &&
+                !a.find((coord) => coord.x === x && coord.y === y)
+            ) {
+                return [...a, { x: x, y: y }];
+            }
+        }
+    }, []);
+
+    return { ...game, grid: game.grid.map((row, Yindex) => (
+        row.map((tile, Xindex) => (
+            coords.find((coord) => coord.x === Xindex && coord.y === Yindex)
+            ? { ...tile, entity: { type: 'fence', hp: hp } }
+            : tile
+        ))
+    ))};
+}
+
 
 const spawnWolf = (num, game) => {
     const arr = Array(num).fill(0);
@@ -82,13 +139,13 @@ const spawnWolf = (num, game) => {
     ))};
 };
 
-const setTile = (payload, game) => (
+const setTile = (coord, game) => (
     { ...game, grid:
         game.grid.map((row, Yindex) => 
-            payload.y === Yindex 
+            coord.y === Yindex 
             ? row.map((tile, Xindex) => 
-                payload.x === Xindex 
-                    ? { ...tile, entity: { type: payload.newTile } } 
+                coord.x === Xindex 
+                    ? { ...tile, entity: { type: coord.newTile } } 
                     : tile
             ) 
             : row
@@ -96,13 +153,13 @@ const setTile = (payload, game) => (
     }
 );
 
-const setTileWolf = (payload, game) => (
+const setTileEntity = (coord, game) => (
     { ...game, grid:
         game.grid.map((row, Yindex) => 
-            payload.y === Yindex 
+            coord.y === Yindex 
             ? row.map((tile, Xindex) => 
-                payload.x === Xindex 
-                    ? { ...tile, entity: payload.newTile.entity } 
+                coord.x === Xindex 
+                    ? { ...tile, entity: coord.newTile.entity } 
                     : tile
             ) 
             : row
@@ -111,32 +168,32 @@ const setTileWolf = (payload, game) => (
 );
 
 const movePlayer = (direction, game) => {
-    const { x, y } = getTile('player', game.grid)[0];
+    const { x, y } = getPlayerCoords(game.grid);
     const { newX, newY } = newCoordinatesInDirection(x, y, direction);
 
     if (!isOutOfBounds(newX, newY) && checkMove(game.grid[newY][newX])) {
         const spawnPlayer = (game) => (
-            setTile({ x: newX, y: newY, newTile: 'player' }, game)
+            setTileEntity({x: newX, y:newY, newTile: game.grid[y][x]}, game)
         );
         const removePlayer = (game) => (
             setTile({ x: x, y: y, newTile: 'grass' }, game)
         );
-        const addMove = (game) => (
-            setMoves(game.moves + 1, game)
+        const setPlayerMoves = (game) => (
+            doSetPlayerMoves(game.moves + 1, game)
         );
         const spawnCarrots = (game) => (
-            checkCarrotSpawn(game)
+            doSpawnCarrots(game)
         );
-        const moveWolves = (game) => (
-            updateWolves(game)
+        const updateWolves = (game) => (
+            doUpdateWolves(game)
         );
-        const addXp = (game) => (
-            setXp(game.xp + 1, game)
+        const setXp = (game) => (
+            doSetXp(game.xp + 1, game)
         );
         
-        const baseChanges = [spawnPlayer, removePlayer, addMove, spawnCarrots, moveWolves];
+        const baseChanges = [spawnPlayer, removePlayer, setPlayerMoves, spawnCarrots, updateWolves];
         const stateChanges = game.grid[newY][newX].entity.type === 'carrot'
-            ? [...baseChanges, addXp]
+            ? [...baseChanges, setXp]
             : baseChanges; 
 
         return stateChanges.reduce((a, stateChange) => (
@@ -146,9 +203,9 @@ const movePlayer = (direction, game) => {
     return game;
 };
 
-const tryWolfMoves = (game) => {
+const doMoveWolves = (game) => {
     const wolfTiles = getWolves(game.grid);
-    const playerPos = getTile('player', game.grid)[0];
+    const playerPos = getPlayerCoords(game.grid);
 
     return wolfTiles.reduce((a, wolfTile) => {
         const direction = getWolfDirection(playerPos.x, playerPos.y, wolfTile, game.grid);
@@ -156,7 +213,7 @@ const tryWolfMoves = (game) => {
 
         if (!isOutOfBounds(newX, newY) && checkMove(a.grid[newY][newX])) {
             const spawnWolf = (a) => (
-                setTileWolf({ x: newX, y: newY, newTile: wolfTile }, a)
+                setTileEntity({ x: newX, y: newY, newTile: wolfTile }, a)
             );
             const removeWolf = (a) => (
                 setTile({ x: wolfTile.coords.x, y: wolfTile.coords.y, newTile: 'grass' }, a)
@@ -172,11 +229,11 @@ const tryWolfMoves = (game) => {
     }, game);
 };
 
-const checkCarrotSpawn = (game) => {
+const doSpawnCarrots = (game) => {
     const numCarrots = getTile('carrot', game.grid).length;
     if (numCarrots < constants.carrotCap) {
         if (Math.floor(Math.random() * 5) === 0) {
-            return spawn('carrot', 1, game);
+            return spawnCarrot(1, game);
         } else {
             return game;
         }
@@ -185,25 +242,28 @@ const checkCarrotSpawn = (game) => {
     }
 };
 
-const updateWolves = (game) => {
+const doUpdateWolves = (game) => {
+    const checkWolvesAttacks = (game) => (
+        doCheckWolfAttacks(game)
+    );
     const moveWolves = (game) => (
-        tryWolfMoves(game)
+        doMoveWolves(game)
     );
-    const checkWolfSpawn = (game) => (
-        spawnWolves(game)
+    const spawnWolves = (game) => (
+        doSpawnWolves(game)
     );
-    const updateWolfMoves = (game) => (
-        addWolfMoves(1, game)
+    const addWolfMoves = (game) => (
+        doAddWolfMoves(1, game)
     );
 
-    const stateChanges = [moveWolves, checkWolfSpawn, updateWolfMoves];
+    const stateChanges = [checkWolvesAttacks, moveWolves, spawnWolves, addWolfMoves];
     return stateChanges.reduce((a, stateChange) => (
         stateChange(a)
     ), game);
 
 };
 
-const spawnWolves = (game) => {
+const doSpawnWolves = (game) => {
     const numWolves = getTile('wolf', game.grid).length;
     if (numWolves < constants.wolfCap) {
         if (Math.floor(Math.random() * 50) === 0) {
@@ -216,11 +276,11 @@ const spawnWolves = (game) => {
     }
 };
 
-const setMoves = (moves, game) => (
+const doSetPlayerMoves = (moves, game) => (
     { ...game, moves: moves }
 );
 
-const addWolfMoves = (num, game) => (
+const doAddWolfMoves = (num, game) => (
     { ...game, grid: 
         game.grid.map((row, Yindex) => (
             row.map((tile, Xindex) => {
@@ -241,15 +301,99 @@ const addWolfMoves = (num, game) => (
     }
 );
 
-const setLevel = (level, game) => (
+const attack = (game) => {
+    const playerTile = getPlayerCoords(game.grid);
+    const tileBeingHit = newCoordinatesInDirection(playerTile.x, playerTile.y, game.direction);
+    const entityBeingHit = game.grid[tileBeingHit.newY][tileBeingHit.newX].entity;
+
+    if(entityBeingHit.type === 'wolf' || entityBeingHit.type === 'fence') {
+
+        const reduceHp = (game) => (
+            doChangeHp(game, {x: tileBeingHit.newX, y:tileBeingHit.newY}, -game.attack)
+        );
+
+        const checkForDeath = (game) => (
+            doCheckForDeath(game, tileBeingHit)
+        );
+        const addMove = (game) => (
+            doSetPlayerMoves(game.moves + 1, game)
+        );
+        const spawnCarrots = (game) => (
+            doSpawnCarrots(game)
+        );
+        const updateWolves = (game) => (
+            doUpdateWolves(game)
+        );
+
+        const stateChanges = [reduceHp, checkForDeath, addMove, spawnCarrots, updateWolves];
+        return stateChanges.reduce((a, stateChange) => (
+            stateChange(a)
+        ), game);
+    } 
+    
+    return game;
+};
+
+const doCheckWolfAttacks = (game) => {
+    const playerCoords = getPlayerCoords(game.grid);
+    const locationsAroundPlayer = [
+        newCoordinatesInDirection(playerCoords.x, playerCoords.y, 'w'),
+        newCoordinatesInDirection(playerCoords.x, playerCoords.y, 'a'),
+        newCoordinatesInDirection(playerCoords.x, playerCoords.y, 's'),
+        newCoordinatesInDirection(playerCoords.x, playerCoords.y, 'd'),
+    ];
+    
+    return locationsAroundPlayer.reduce( (a, coord) => {
+        return a.grid[coord.newY][coord.newX].entity.type === 'wolf'
+            ? doChangeHp(a, {x: playerCoords.x, y: playerCoords.y}, -a.grid[coord.newY][coord.newX].entity.attack)
+            : a
+    }, game);
+};
+
+const doChangeHp = (game, coord, dHp) => (
+    { ...game, grid: 
+        game.grid.map((row, Yindex) => (
+            row.map((tile, Xindex) => (
+                Xindex === coord.x && Yindex === coord.y
+                    ? {
+                        ...tile, 
+                        entity: {
+                            ...tile.entity,
+                            hp: tile.entity.hp + dHp,
+                        },
+                    }
+                    : tile
+            ))
+        ))
+    }
+);
+
+const doCheckForDeath = (game) => (
+    { ...game, grid: 
+        game.grid.map((row) => (
+            row.map((tile) => (
+                tile.entity.hp <= 0
+                    ? {
+                        ...tile, 
+                        entity: {
+                            type: 'grass',
+                        },
+                    }
+                    : tile
+            ))
+        ))
+    }
+);
+
+const doSetLevel = (level, game) => (
     { ...game, level: level }
 );
 
-const setXp = (xp, game) => {
+const doSetXp = (xp, game) => {
     const dif = xp - game.maxXp;
     if (dif >= 0) {
         const addLevel = (game) => (
-            setLevel(game.level + 1, game)
+            doSetLevel(game.level + 1, game)
         );
         const updateMaxXp = (game) => (
             setMaxXp(Math.floor(game.maxXp * 1.1), game)

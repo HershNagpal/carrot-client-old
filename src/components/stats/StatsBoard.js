@@ -1,7 +1,7 @@
 import { Container, Typography } from '@material-ui/core';
 import useStyles from './styles';
 import { useSelector } from 'react-redux';
-import { getTile, getWolves } from '../../reducers/selectors';
+import { getPlayer, getTile, getWolves } from '../../reducers/selectors';
 
 const StatsBoard = () => {
     const game = useSelector((state) => state.game);
@@ -11,7 +11,7 @@ const StatsBoard = () => {
         <Container className={classes.outerContainer}>
             <Typography variant="h6">Moves: {game.moves}</Typography>
             <Typography variant="h6">Level: {game.level}</Typography>
-            <Typography variant="h6">HP: {game.hp} / {game.maxHp}</Typography>
+            <Typography variant="h6">HP: {getPlayer(game.grid) ? getPlayer(game.grid).entity.hp : 0} / {getPlayer(game.grid) ? getPlayer(game.grid).entity.maxHp : 0}</Typography>
             <Typography variant="h6">XP: {game.xp} / {game.maxXp}</Typography>
             <Typography variant="h6">Atk: {game.attack}</Typography>
             <hr />
