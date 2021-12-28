@@ -178,22 +178,22 @@ const movePlayer = (direction, game) => {
         const removePlayer = (game) => (
             setTile({ x: x, y: y, newTile: 'grass' }, game)
         );
-        const addMove = (game) => (
-            setMoves(game.moves + 1, game)
+        const setPlayerMoves = (game) => (
+            doSetPlayerMoves(game.moves + 1, game)
         );
         const spawnCarrots = (game) => (
-            checkCarrotSpawn(game)
+            doSpawnCarrots(game)
         );
-        const moveWolves = (game) => (
-            updateWolves(game)
+        const updateWolves = (game) => (
+            doUpdateWolves(game)
         );
-        const addXp = (game) => (
-            setXp(game.xp + 1, game)
+        const setXp = (game) => (
+            doSetXp(game.xp + 1, game)
         );
         
-        const baseChanges = [spawnPlayer, removePlayer, addMove, spawnCarrots, moveWolves];
+        const baseChanges = [spawnPlayer, removePlayer, setPlayerMoves, spawnCarrots, updateWolves];
         const stateChanges = game.grid[newY][newX].entity.type === 'carrot'
-            ? [...baseChanges, addXp]
+            ? [...baseChanges, setXp]
             : baseChanges; 
 
         return stateChanges.reduce((a, stateChange) => (
@@ -203,7 +203,7 @@ const movePlayer = (direction, game) => {
     return game;
 };
 
-const tryWolfMoves = (game) => {
+const doMoveWolves = (game) => {
     const wolfTiles = getWolves(game.grid);
     const playerPos = getPlayerCoords(game.grid);
 
@@ -229,7 +229,7 @@ const tryWolfMoves = (game) => {
     }, game);
 };
 
-const checkCarrotSpawn = (game) => {
+const doSpawnCarrots = (game) => {
     const numCarrots = getTile('carrot', game.grid).length;
     if (numCarrots < constants.carrotCap) {
         if (Math.floor(Math.random() * 5) === 0) {
@@ -242,25 +242,28 @@ const checkCarrotSpawn = (game) => {
     }
 };
 
-const updateWolves = (game) => {
+const doUpdateWolves = (game) => {
+    const checkWolvesAttacks = (game) => (
+        doCheckWolfAttacks(game)
+    );
     const moveWolves = (game) => (
-        tryWolfMoves(game)
+        doMoveWolves(game)
     );
-    const checkWolfSpawn = (game) => (
-        spawnWolves(game)
+    const spawnWolves = (game) => (
+        doSpawnWolves(game)
     );
-    const updateWolfMoves = (game) => (
-        addWolfMoves(1, game)
+    const addWolfMoves = (game) => (
+        doAddWolfMoves(1, game)
     );
 
-    const stateChanges = [moveWolves, checkWolfSpawn, updateWolfMoves];
+    const stateChanges = [checkWolvesAttacks, moveWolves, spawnWolves, addWolfMoves];
     return stateChanges.reduce((a, stateChange) => (
         stateChange(a)
     ), game);
 
 };
 
-const spawnWolves = (game) => {
+const doSpawnWolves = (game) => {
     const numWolves = getTile('wolf', game.grid).length;
     if (numWolves < constants.wolfCap) {
         if (Math.floor(Math.random() * 50) === 0) {
@@ -273,11 +276,11 @@ const spawnWolves = (game) => {
     }
 };
 
-const setMoves = (moves, game) => (
+const doSetPlayerMoves = (moves, game) => (
     { ...game, moves: moves }
 );
 
-const addWolfMoves = (num, game) => (
+const doAddWolfMoves = (num, game) => (
     { ...game, grid: 
         game.grid.map((row, Yindex) => (
             row.map((tile, Xindex) => {
@@ -312,21 +315,17 @@ const attack = (game) => {
         const checkForDeath = (game) => (
             doCheckForDeath(game, tileBeingHit)
         );
-
-        const checkWolfAttacks = (game) => (
-            doCheckWolfAttacks(game)
-        );
         const addMove = (game) => (
-            setMoves(game.moves + 1, game)
+            doSetPlayerMoves(game.moves + 1, game)
         );
         const spawnCarrots = (game) => (
-            checkCarrotSpawn(game)
+            doSpawnCarrots(game)
         );
-        const moveWolves = (game) => (
-            updateWolves(game)
+        const updateWolves = (game) => (
+            doUpdateWolves(game)
         );
 
-        const stateChanges = [reduceHp, checkForDeath, checkWolfAttacks, addMove, spawnCarrots, moveWolves];
+        const stateChanges = [reduceHp, checkForDeath, addMove, spawnCarrots, updateWolves];
         return stateChanges.reduce((a, stateChange) => (
             stateChange(a)
         ), game);
@@ -386,15 +385,15 @@ const doCheckForDeath = (game) => (
     }
 );
 
-const setLevel = (level, game) => (
+const doSetLevel = (level, game) => (
     { ...game, level: level }
 );
 
-const setXp = (xp, game) => {
+const doSetXp = (xp, game) => {
     const dif = xp - game.maxXp;
     if (dif >= 0) {
         const addLevel = (game) => (
-            setLevel(game.level + 1, game)
+            doSetLevel(game.level + 1, game)
         );
         const updateMaxXp = (game) => (
             setMaxXp(Math.floor(game.maxXp * 1.1), game)
