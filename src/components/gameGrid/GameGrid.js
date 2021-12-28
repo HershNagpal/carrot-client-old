@@ -21,9 +21,8 @@ const GameGrid = () => {
                 dispatch(changeDirection(keyPressed.key));
             } else if (keyPressed.key === 'ArrowUp' || keyPressed.key === 'ArrowDown' || keyPressed.key === 'ArrowLeft' || keyPressed.key === 'ArrowRight') {
                 dispatch(changeDirection(keyPressed.key));
-            } else if (keyPressed === 'Spacebar') {
+            } else if (keyPressed.key === ' ') {
                 dispatch(attack());
-                console.log("yee");
             }
         }
     }, [keyPressed, dispatch]);
@@ -53,7 +52,6 @@ const GameGrid = () => {
                 ))
                 }
             </Grid>
-            <Button onClick={attackButtonThingy}>Attack</Button>
         </Container>
     </>
 };
