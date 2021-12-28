@@ -1,5 +1,5 @@
 import * as constants from '../constants';
-import { getPlayer, getTile, getWolves } from './selectors';
+import { getPlayer, getPlayerCoords, getTile, getWolves } from './selectors';
 import { checkMove, newCoordinatesInDirection, isOutOfBounds, getWolfDirection, wolfSpawnCoords, directionConvert } from './moveHelpers';
 
 const game = (game = constants.defaultGame, action) => {
@@ -168,8 +168,10 @@ const setTileEntity = (coord, game) => (
 );
 
 const movePlayer = (direction, game) => {
-    const { x, y } = getTile('player', game.grid)[0];
+    const { x, y } = getPlayerCoords(game.grid);
     const { newX, newY } = newCoordinatesInDirection(x, y, direction);
+
+    console.log(getPlayer(game.grid).entity);
 
     if (!isOutOfBounds(newX, newY) && checkMove(game.grid[newY][newX])) {
         const spawnPlayer = (game) => (
@@ -205,7 +207,7 @@ const movePlayer = (direction, game) => {
 
 const tryWolfMoves = (game) => {
     const wolfTiles = getWolves(game.grid);
-    const playerPos = getTile('player', game.grid)[0];
+    const playerPos = getPlayerCoords(game.grid);
 
     return wolfTiles.reduce((a, wolfTile) => {
         const direction = getWolfDirection(playerPos.x, playerPos.y, wolfTile, game.grid);
@@ -299,14 +301,14 @@ const addWolfMoves = (num, game) => (
 );
 
 const attack = (game) => {
-    const playerTile = getTile('player', game.grid)[0];
+    const playerTile = getPlayerCoords(game.grid);
     const tileBeingHit = newCoordinatesInDirection(playerTile.x, playerTile.y, game.direction);
     const entityBeingHit = game.grid[tileBeingHit.newY][tileBeingHit.newX].entity;
 
     if(entityBeingHit.type === 'wolf' || entityBeingHit.type === 'fence') {
 
         const reduceHp = (game) => (
-            doReduceHp(game, tileBeingHit)
+            doChangeHp(game, {x: tileBeingHit.newX, y:tileBeingHit.newY}, -game.attack)
         );
 
         const checkForDeath = (game) => (
@@ -326,7 +328,7 @@ const attack = (game) => {
             updateWolves(game)
         );
 
-        const stateChanges = [reduceHp, checkForDeath, addMove, spawnCarrots, moveWolves];
+        const stateChanges = [reduceHp, checkForDeath, checkWolfAttacks, addMove, spawnCarrots, moveWolves];
         return stateChanges.reduce((a, stateChange) => (
             stateChange(a)
         ), game);
@@ -336,7 +338,7 @@ const attack = (game) => {
 };
 
 const doCheckWolfAttacks = (game) => {
-    const playerCoords = getTile('player', game.grid)[0];
+    const playerCoords = getPlayerCoords(game.grid);
     const locationsAroundPlayer = [
         newCoordinatesInDirection(playerCoords.x, playerCoords.y, 'w'),
         newCoordinatesInDirection(playerCoords.x, playerCoords.y, 'a'),
@@ -346,21 +348,21 @@ const doCheckWolfAttacks = (game) => {
     
     return locationsAroundPlayer.reduce( (a, coord) => {
         return a.grid[coord.newY][coord.newX].entity.type === 'wolf'
-            ? doReduceHp(a, a.grid[playerCoords.y][playerCoords.x], a.grid[coord.newY][coord.newX].attack)
+            ? doChangeHp(a, {x: playerCoords.x, y: playerCoords.y}, -a.grid[coord.newY][coord.newX].entity.attack)
             : a
     }, game);
 };
 
-const doReduceHp = (game, tileBeingHit, hp = -game.attack) => (
+const doChangeHp = (game, coord, dHp) => (
     { ...game, grid: 
         game.grid.map((row, Yindex) => (
             row.map((tile, Xindex) => (
-                Xindex === tileBeingHit.newX && Yindex === tileBeingHit.newY
+                Xindex === coord.x && Yindex === coord.y
                     ? {
                         ...tile, 
                         entity: {
                             ...tile.entity,
-                            hp: tile.entity.hp + hp,
+                            hp: tile.entity.hp + dHp,
                         },
                     }
                     : tile
