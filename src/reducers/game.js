@@ -11,7 +11,7 @@ const game = (game = constants.defaultGame, action) => {
             return movePlayer(action.payload, game);
 
         case 'SET_DIRECTION':
-            return { ...game, direction: action.payload };
+            return setDirection(action.payload, game);
 
         case 'ATTACK':
             return attack(game);
@@ -21,15 +21,30 @@ const game = (game = constants.defaultGame, action) => {
     }
 };
 
+const setDirection = (direction, game) => {
+    switch (direction) {
+        case "ArrowUp":
+            return {...game, direction: "w"};
+        case "ArrowDown":
+            return {...game, direction: "s"};
+        case "ArrowLeft":
+            return {...game, direction: "a"};
+        case "ArrowRight":
+            return {...game, direction: "d"};
+        default:
+            return {...game, direction: direction};
+    }
+};
+
 const initGrid = (game) => {
     const spawnPlayer = (game) => (
         setTile({ x: constants.playerStart.x, y: constants.playerStart.y, newTile: 'player' }, game)
     );
     const spawnCarrots = (game) => (
-        spawn('carrot', 10, game)
+        spawnCarrot(10, game)
     );
     const spawnFences = (game) => (
-        spawn('fence', 10, game)
+        spawnFence(10, game)
     );
 
     const stateChanges = [spawnPlayer, spawnCarrots, spawnFences];
@@ -38,7 +53,7 @@ const initGrid = (game) => {
     ), game);
 };
 
-const spawn = (newTile, num, game) => {
+const spawnCarrot = (num, game) => {
     const arr = Array(num).fill(0);
     const coords = arr.reduce((a) => {
         while (true) {
@@ -56,11 +71,36 @@ const spawn = (newTile, num, game) => {
     return { ...game, grid: game.grid.map((row, Yindex) => (
         row.map((tile, Xindex) => (
             coords.find((coord) => coord.x === Xindex && coord.y === Yindex)
-            ? { ...tile, entity: { type: newTile } }
+            ? { ...tile, entity: { type: 'carrot' } }
             : tile
         ))
     ))};
 };
+
+const spawnFence = (num, game, hp=3) => {
+    const arr = Array(num).fill(0);
+    const coords = arr.reduce((a) => {
+        while (true) {
+            const x = Math.floor(Math.random() * 15);
+            const y = Math.floor(Math.random() * 15);
+            if (
+                game.grid[y][x].entity.type === 'grass' &&
+                !a.find((coord) => coord.x === x && coord.y === y)
+            ) {
+                return [...a, { x: x, y: y }];
+            }
+        }
+    }, []);
+
+    return { ...game, grid: game.grid.map((row, Yindex) => (
+        row.map((tile, Xindex) => (
+            coords.find((coord) => coord.x === Xindex && coord.y === Yindex)
+            ? { ...tile, entity: { type: 'fence', hp: hp } }
+            : tile
+        ))
+    ))};
+}
+
 
 const spawnWolf = (num, game) => {
     const arr = Array(num).fill(0);
@@ -179,7 +219,7 @@ const checkCarrotSpawn = (game) => {
     const numCarrots = getTile('carrot', game.grid).length;
     if (numCarrots < constants.carrotCap) {
         if (Math.floor(Math.random() * 5) === 0) {
-            return spawn('carrot', 1, game);
+            return spawnCarrot(1, game);
         } else {
             return game;
         }
@@ -245,11 +285,29 @@ const addWolfMoves = (num, game) => (
 );
 
 const attack = (game) => {
-    const attack = game.attack;
     const playerTile = getTile('player', game.grid)[0];
-    const playerDirection = directionConvert(game.direction);
-    const tileBeingHit = newCoordinatesInDirection(playerTile.newX, playerTile.newY, playerDirection);
-    console.log(tileBeingHit);
+    const tileBeingHit = newCoordinatesInDirection(playerTile.x, playerTile.y, game.direction);
+    const entityBeingHit = game.grid[tileBeingHit.newY][tileBeingHit.newX].entity;
+
+    if(entityBeingHit.type === 'wolf' || entityBeingHit.type === 'fence') {
+        return { ...game, grid: 
+            game.grid.map((row, Yindex) => (
+                row.map((tile, Xindex) => {
+                    if (Xindex === tileBeingHit.newX && Yindex === tileBeingHit.newY) console.log(tile);
+                    return Xindex === tileBeingHit.newX && Yindex === tileBeingHit.newY
+                        ? {
+                            ...tile, 
+                            entity: {
+                                ...tile.entity,
+                                hp: tile.entity.hp - game.attack,
+                            },
+                        }
+                        : tile;
+                })
+            ))
+        }
+    } 
+    
     return game;
 };
 
