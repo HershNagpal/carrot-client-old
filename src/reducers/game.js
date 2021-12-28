@@ -1,7 +1,7 @@
 import * as constants from '../constants';
 import { getPlayerCoords } from './selectors';
 import { doSetPlayerMoves, doChangeHp, doSetXp, doCheckForDeath } from './setters';
-import { spawnPlayer, spawnCarrot, spawnFence, spawnTree, doSpawnCarrots } from './spawn';
+import { spawnPlayer, spawnCarrot, spawnFence, spawnTree, doSpawnCarrots, doSpawnTrees } from './spawn';
 import { setTile, setTileEntity, doUpdateWolves } from './movement';
 import { checkMove, newCoordinatesInDirection, isOutOfBounds } from './moveHelpers';
 
@@ -61,6 +61,9 @@ const movePlayer = (direction, game) => {
         const spawnCarrots = (game) => (
             doSpawnCarrots(game)
         );
+        const spawnTrees = (game) => (
+            doSpawnTrees(game)
+        );
         const updateWolves = (game) => (
             doUpdateWolves(game)
         );
@@ -71,7 +74,7 @@ const movePlayer = (direction, game) => {
             doChangeHp(game, { x: newX, y: newY }, game.carrotHealing)
         );
         
-        const baseChanges = [spawnPlayer, removePlayer, setPlayerMoves, spawnCarrots, updateWolves];
+        const baseChanges = [spawnPlayer, removePlayer, setPlayerMoves, spawnCarrots, spawnTrees, updateWolves];
         const stateChanges = game.grid[newY][newX].entity.type === 'carrot'
             ? [...baseChanges, setXp, setHp]
             : baseChanges; 

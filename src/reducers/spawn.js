@@ -137,3 +137,16 @@ export const doSpawnCarrots = (game) => {
         return game;
     }
 };
+
+export const doSpawnTrees = (game) => {
+    const numTrees = getTile('tree', game.grid).length;
+    if (numTrees < constants.treeCap) {
+        if (Math.floor(Math.random() * 30) === 0) {
+            return spawnTree(1, game);
+        } else {
+            return game;
+        }
+    } else {
+        return game;
+    }
+};
