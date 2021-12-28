@@ -5,6 +5,9 @@ Attacking:
 - ~Wolves can attack players when attacked~
 - ~Wolves attack players next to them~
 
+Player
+- Upgrades upon levelling up
+
 Inventory:
 - Players can view the inventory
 - Players can equip or use items from inventory
