@@ -344,7 +344,7 @@ const doCheckWolfAttacks = (game) => {
     ];
     
     return locationsAroundPlayer.reduce( (a, coord) => {
-        return a.grid[coord.newY][coord.newX].entity.type === 'wolf'
+        return !isOutOfBounds(coord.newX, coord.newY) && a.grid[coord.newY][coord.newX].entity.type === 'wolf'
             ? doChangeHp(a, {x: playerCoords.x, y: playerCoords.y}, -a.grid[coord.newY][coord.newX].entity.attack)
             : a
     }, game);
