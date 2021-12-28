@@ -32,6 +32,11 @@ const StatsBoard = () => {
             <Link to="/">
                 <Button variant="contained" color="primary">Title Screen</Button>
             </Link>
+            <Container className={classes.logContainer}>
+                {game.log.map((gameEvent, i) => (
+                    <Typography key={i}>{gameEvent}</Typography>
+                ))}
+            </Container>
         </Container>
     </>
 };

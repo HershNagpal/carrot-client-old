@@ -16,6 +16,7 @@ export const defaultGame = {
     attack: 1,
     carrotHealing: 1,
     gameOver: false,
+    log: ['Welcome to CarrotWolf.'],
     grid: Array(gridY).fill(Array(gridX).fill(0)).map((row, Yindex) => (
         row.map((tile, Xindex) => ({
             coords: { x: Xindex, y: Yindex },
