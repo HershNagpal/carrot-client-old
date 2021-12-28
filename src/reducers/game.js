@@ -359,6 +359,7 @@ const doChangeHp = (game, coord, dHp) => {
     if (entity.type === 'player') {
         if (checkHp <= 0) {
             alert('git rekt scrub');
+            return toggleGameOver(game);
         }
     }
     const newHp = checkHp > entity.maxHp
@@ -424,6 +425,10 @@ const doSetXp = (xp, game) => {
 
 const setMaxXp = (maxXp, game) => (
     { ...game, maxXp: maxXp }
+);
+
+const toggleGameOver = (game) => (
+    { ...game, gameOver: !game.gameOver }
 );
 
 export default game;
