@@ -171,8 +171,6 @@ const movePlayer = (direction, game) => {
     const { x, y } = getPlayerCoords(game.grid);
     const { newX, newY } = newCoordinatesInDirection(x, y, direction);
 
-    console.log(getPlayer(game.grid).entity);
-
     if (!isOutOfBounds(newX, newY) && checkMove(game.grid[newY][newX])) {
         const spawnPlayer = (game) => (
             setTileEntity({x: newX, y:newY, newTile: game.grid[y][x]}, game)
