@@ -16,10 +16,17 @@ const game = (game = constants.defaultGame, action) => {
         case 'ATTACK':
             return attack(game);
 
+        case 'USE_SUPER_CARROT':
+            return superCarrot(game);
+
         default:
             return game;
     }
 };
+
+const superCarrot = (game) => {
+    return game;
+}
 
 const setDirection = (direction, game) => {
     switch (direction) {
