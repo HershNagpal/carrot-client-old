@@ -1,6 +1,6 @@
 import * as constants from '../constants';
-import { getPlayer, getPlayerCoords, getTile, getWolves } from './selectors';
-import { checkMove, newCoordinatesInDirection, isOutOfBounds, getWolfDirection, wolfSpawnCoords, directionConvert } from './moveHelpers';
+import { getPlayerCoords, getTile, getWolves } from './selectors';
+import { checkMove, newCoordinatesInDirection, isOutOfBounds, getWolfDirection, wolfSpawnCoords } from './moveHelpers';
 
 const game = (game = constants.defaultGame, action) => {
     switch (action.type) {
