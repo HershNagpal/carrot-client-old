@@ -1,11 +1,11 @@
 import * as constants from '../constants';
-import { getPlayer, getPlayerCoords, getTile, getWolves } from './selectors';
-import { checkMove, newCoordinatesInDirection, isOutOfBounds, getWolfDirection, wolfSpawnCoords, directionConvert } from './moveHelpers';
+import { getPlayerCoords, getTile, getWolves } from './selectors';
+import { checkMove, newCoordinatesInDirection, isOutOfBounds, getWolfDirection, wolfSpawnCoords } from './moveHelpers';
 
 const game = (game = constants.defaultGame, action) => {
     switch (action.type) {
         case 'INIT_GRID':
-            return initGrid(game);
+            return initGrid();
 
         case 'MOVE_PLAYER':
             return movePlayer(action.payload, game);
@@ -36,7 +36,7 @@ const setDirection = (direction, game) => {
     }
 };
 
-const initGrid = (game) => {
+const initGrid = () => {
     const spawnPlayers = (game) => (
         spawnPlayer({ x: constants.playerStart.x, y: constants.playerStart.y}, constants.playerStartHp, game)
     );
@@ -50,7 +50,7 @@ const initGrid = (game) => {
     const stateChanges = [spawnPlayers, spawnCarrots, spawnFences];
     return stateChanges.reduce((a, stateChange) => (
         stateChange(a)
-    ), game);
+    ), constants.defaultGame);
 };
 
 const spawnPlayer = (coord, hp, game) => (
@@ -344,7 +344,7 @@ const doCheckWolfAttacks = (game) => {
     ];
     
     return locationsAroundPlayer.reduce( (a, coord) => {
-        return a.grid[coord.newY][coord.newX].entity.type === 'wolf'
+        return !isOutOfBounds(coord.newX, coord.newY) && a.grid[coord.newY][coord.newX].entity.type === 'wolf'
             ? doChangeHp(a, {x: playerCoords.x, y: playerCoords.y}, -a.grid[coord.newY][coord.newX].entity.attack)
             : a
     }, game);

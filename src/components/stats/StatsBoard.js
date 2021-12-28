@@ -1,4 +1,5 @@
-import { Container, Typography } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import { Container, Typography, Button } from '@material-ui/core';
 import useStyles from './styles';
 import { useSelector } from 'react-redux';
 import { getPlayer, getTile, getWolves } from '../../reducers/selectors';
@@ -27,6 +28,10 @@ const StatsBoard = () => {
                 )) 
                 : <Typography variant="h6">No wolves have appeared yet.</Typography>
             }
+            <hr />
+            <Link to="/">
+                <Button variant="contained" color="primary">Title Screen</Button>
+            </Link>
         </Container>
     </>
 };

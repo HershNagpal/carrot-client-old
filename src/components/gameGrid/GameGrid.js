@@ -1,4 +1,4 @@
-import { Container, Grid, Button } from '@material-ui/core';
+import { Container, Grid } from '@material-ui/core';
 import { useEffect } from 'react';
 import useStyles from './styles';
 import { useSelector, useDispatch } from 'react-redux';
