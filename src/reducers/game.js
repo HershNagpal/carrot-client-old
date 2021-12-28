@@ -1,5 +1,5 @@
 import * as constants from '../constants';
-import { getTile, getWolves } from './selectors';
+import { getPlayer, getTile, getWolves } from './selectors';
 import { checkMove, newCoordinatesInDirection, isOutOfBounds, getWolfDirection, wolfSpawnCoords, directionConvert } from './moveHelpers';
 
 const game = (game = constants.defaultGame, action) => {
@@ -312,7 +312,7 @@ const attack = (game) => {
             updateWolves(game)
         );
 
-        const stateChanges = [reduceHp, checkForDeath, checkWolfAttacks, addMove, spawnCarrots, moveWolves];
+        const stateChanges = [reduceHp, checkForDeath, addMove, spawnCarrots, moveWolves];
         return stateChanges.reduce((a, stateChange) => (
             stateChange(a)
         ), game);
@@ -321,11 +321,23 @@ const attack = (game) => {
     return game;
 };
 
-const doCheckWolfAttacks = (game) => (
-    game
-);
+const doCheckWolfAttacks = (game) => {
+    const playerCoords = getTile('player', game.grid)[0];
+    const locationsAroundPlayer = [
+        newCoordinatesInDirection(playerCoords.x, playerCoords.y, 'w'),
+        newCoordinatesInDirection(playerCoords.x, playerCoords.y, 'a'),
+        newCoordinatesInDirection(playerCoords.x, playerCoords.y, 's'),
+        newCoordinatesInDirection(playerCoords.x, playerCoords.y, 'd'),
+    ];
+    
+    return locationsAroundPlayer.reduce( (a, coord) => {
+        return a.grid[coord.newY][coord.newX].entity.type === 'wolf'
+            ? doReduceHp(a, a.grid[playerCoords.y][playerCoords.x], a.grid[coord.newY][coord.newX].attack)
+            : a
+    }, game);
+};
 
-const doReduceHp = (game, tileBeingHit) => (
+const doReduceHp = (game, tileBeingHit, hp = -game.attack) => (
     { ...game, grid: 
         game.grid.map((row, Yindex) => (
             row.map((tile, Xindex) => (
@@ -334,7 +346,7 @@ const doReduceHp = (game, tileBeingHit) => (
                         ...tile, 
                         entity: {
                             ...tile.entity,
-                            hp: tile.entity.hp - game.attack,
+                            hp: tile.entity.hp + hp,
                         },
                     }
                     : tile
