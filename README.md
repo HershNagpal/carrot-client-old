@@ -1,9 +1,9 @@
 TODO:
 
 Attacking:
-- Players can attack wolves
-- Wolves can attack players when attacked
-- Wolves attack players next to them
+- ~Players can attack wolves~
+- ~Wolves can attack players when attacked~
+- ~Wolves attack players next to them~
 
 Inventory:
 - Players can view the inventory
@@ -32,6 +32,7 @@ Carrots:
 - Collectibles
 
 Wolves:
+- Overall AI improvements
 - Different wolf types
 - Different AI
 - Different stats
