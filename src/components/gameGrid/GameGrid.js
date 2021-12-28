@@ -1,9 +1,9 @@
-import { Container, Grid } from '@material-ui/core';
+import { Container, Grid, Button } from '@material-ui/core';
 import { useEffect } from 'react';
 import useStyles from './styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { useKeyData } from './keyListenerHook';
-import { initGrid, movePlayer, changeDirection } from '../../actions/game';
+import { initGrid, movePlayer, changeDirection, attack } from '../../actions/game';
 import Tile from './tile/Tile';
 
 const GameGrid = () => {
@@ -21,6 +21,8 @@ const GameGrid = () => {
                 dispatch(changeDirection(keyPressed.key));
             } else if (keyPressed.key === 'ArrowUp' || keyPressed.key === 'ArrowDown' || keyPressed.key === 'ArrowLeft' || keyPressed.key === 'ArrowRight') {
                 dispatch(changeDirection(keyPressed.key));
+            } else if (keyPressed.key === ' ') {
+                dispatch(attack());
             }
         }
     }, [keyPressed, dispatch]);

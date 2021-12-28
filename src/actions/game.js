@@ -21,3 +21,11 @@ export const changeDirection = (direction) => async (dispatch) => {
         console.log(error.message);
     }
 };
+
+export const attack = () => async (dispatch) => {
+    try {
+        dispatch({ type: 'ATTACK', payload: null });
+    } catch (error) {
+        console.log(error.message);
+    }
+};

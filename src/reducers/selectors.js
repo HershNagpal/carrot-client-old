@@ -17,3 +17,13 @@ export const getWolves = (grid) => (
         grid[coord.y][coord.x]
     ))
 );
+
+export const getPlayer = (grid) => (
+    getTile('player', grid).map((coord) => (
+        grid[coord.y][coord.x]
+    ))[0]
+);
+
+export const getPlayerCoords = (grid) => (
+    getTile('player', grid)[0]
+);
