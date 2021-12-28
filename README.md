@@ -1,7 +1,7 @@
 TODO:
 
 Next Time:
-- Trees respawn
+- ~Trees respawn~
 - ~Refactor game reducer into multiple files~
 - Fix wolf AI
 - Inventory
