@@ -1,5 +1,12 @@
 TODO:
 
+Next Time:
+Trees respawn
+Refactor game reducer into multiple files
+Fix wolf AI
+Invetory
+UI Concepting
+
 Attacking:
 - ~Players can attack wolves~
 - ~Wolves can attack players when attacked~
@@ -19,7 +26,7 @@ Weapons:
 - Weapons can be equipped or stored in inventory
 
 Fences:
-- Wolves and players can break fences
+- Wolves and ~players can break fences~
 - Players can build new fences
 
 Title Screen:
@@ -42,7 +49,7 @@ Wolves:
 - Different stats
 
 Animations:
-- Rotate player icon in CSS
+- ~Rotate player icon in CSS~
 - Movement animation
 - Attack animation
 
