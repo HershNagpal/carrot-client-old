@@ -358,7 +358,7 @@ const doChangeHp = (game, coord, dHp) => {
     const checkHp = entity.hp + dHp;
     if (entity.type === 'player') {
         if (checkHp <= 0) {
-            alert('git rekt scrub');
+            // alert('git rekt scrub');
             return toggleGameOver(game);
         }
     }
