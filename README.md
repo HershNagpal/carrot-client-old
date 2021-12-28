@@ -2,9 +2,9 @@ TODO:
 
 Next Time:
 - Trees respawn
-- Refactor game reducer into multiple files
+- ~Refactor game reducer into multiple files~
 - Fix wolf AI
-- Invetory
+- Inventory
 - UI Concepting
 
 Attacking:
