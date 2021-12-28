@@ -1,11 +1,11 @@
 TODO:
 
 Next Time:
-Trees respawn
-Refactor game reducer into multiple files
-Fix wolf AI
-Invetory
-UI Concepting
+- Trees respawn
+- Refactor game reducer into multiple files
+- Fix wolf AI
+- Invetory
+- UI Concepting
 
 Attacking:
 - ~Players can attack wolves~
