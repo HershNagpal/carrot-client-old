@@ -15,7 +15,8 @@ const GameGrid = () => {
     const keyPressed = keyData[0];
 
     useEffect(() => {
-        if (!keyPressed.disabled) {
+        // if (!keyPressed.disabled) {
+        if (!game.gameOver) {
             if (keyPressed.key === 'w' || keyPressed.key === 's' || keyPressed.key === 'a' || keyPressed.key === 'd') {
                 dispatch(movePlayer(keyPressed.key));
                 dispatch(changeDirection(keyPressed.key));
@@ -25,7 +26,7 @@ const GameGrid = () => {
                 dispatch(attack());
             }
         }
-    }, [keyPressed, dispatch]);
+    }, [keyPressed, game.gameOver, dispatch]);
 
     useEffect(() => {
         dispatch(initGrid());
