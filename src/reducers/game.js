@@ -37,8 +37,8 @@ const setDirection = (direction, game) => {
 };
 
 const initGrid = (game) => {
-    const spawnPlayer = (game) => (
-        setTile({ x: constants.playerStart.x, y: constants.playerStart.y, newTile: 'player' }, game)
+    const spawnPlayers = (game) => (
+        spawnPlayer({ x: constants.playerStart.x, y: constants.playerStart.y}, constants.playerStartHp, game)
     );
     const spawnCarrots = (game) => (
         spawnCarrot(10, game)
@@ -47,11 +47,25 @@ const initGrid = (game) => {
         spawnFence(10, game)
     );
 
-    const stateChanges = [spawnPlayer, spawnCarrots, spawnFences];
+    const stateChanges = [spawnPlayers, spawnCarrots, spawnFences];
     return stateChanges.reduce((a, stateChange) => (
         stateChange(a)
     ), game);
 };
+
+const spawnPlayer = (coord, hp, game) => (
+    { ...game, grid:
+        game.grid.map((row, Yindex) => 
+            coord.y === Yindex 
+            ? row.map((tile, Xindex) => 
+                coord.x === Xindex 
+                    ? { ...tile, entity: { type: 'player', hp: hp, maxHp: hp } } 
+                    : tile
+            ) 
+            : row
+        )
+    }
+);
 
 const spawnCarrot = (num, game) => {
     const arr = Array(num).fill(0);
@@ -125,13 +139,13 @@ const spawnWolf = (num, game) => {
     ))};
 };
 
-const setTile = (payload, game) => (
+const setTile = (coord, game) => (
     { ...game, grid:
         game.grid.map((row, Yindex) => 
-            payload.y === Yindex 
+            coord.y === Yindex 
             ? row.map((tile, Xindex) => 
-                payload.x === Xindex 
-                    ? { ...tile, entity: { type: payload.newTile } } 
+                coord.x === Xindex 
+                    ? { ...tile, entity: { type: coord.newTile } } 
                     : tile
             ) 
             : row
@@ -139,13 +153,13 @@ const setTile = (payload, game) => (
     }
 );
 
-const setTileWolf = (payload, game) => (
+const setTileEntity = (coord, game) => (
     { ...game, grid:
         game.grid.map((row, Yindex) => 
-            payload.y === Yindex 
+            coord.y === Yindex 
             ? row.map((tile, Xindex) => 
-                payload.x === Xindex 
-                    ? { ...tile, entity: payload.newTile.entity } 
+                coord.x === Xindex 
+                    ? { ...tile, entity: coord.newTile.entity } 
                     : tile
             ) 
             : row
@@ -159,7 +173,7 @@ const movePlayer = (direction, game) => {
 
     if (!isOutOfBounds(newX, newY) && checkMove(game.grid[newY][newX])) {
         const spawnPlayer = (game) => (
-            setTile({ x: newX, y: newY, newTile: 'player' }, game)
+            setTileEntity({x: newX, y:newY, newTile: game.grid[y][x]}, game)
         );
         const removePlayer = (game) => (
             setTile({ x: x, y: y, newTile: 'grass' }, game)
@@ -199,7 +213,7 @@ const tryWolfMoves = (game) => {
 
         if (!isOutOfBounds(newX, newY) && checkMove(a.grid[newY][newX])) {
             const spawnWolf = (a) => (
-                setTileWolf({ x: newX, y: newY, newTile: wolfTile }, a)
+                setTileEntity({ x: newX, y: newY, newTile: wolfTile }, a)
             );
             const removeWolf = (a) => (
                 setTile({ x: wolfTile.coords.x, y: wolfTile.coords.y, newTile: 'grass' }, a)
