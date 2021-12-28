@@ -190,10 +190,13 @@ const movePlayer = (direction, game) => {
         const setXp = (game) => (
             doSetXp(game.xp + 1, game)
         );
+        const setHp = (game) => (
+            doChangeHp(game, {x: newX, y: newY,}, game.carrotHealing)
+        );
         
         const baseChanges = [spawnPlayer, removePlayer, setPlayerMoves, spawnCarrots, updateWolves];
         const stateChanges = game.grid[newY][newX].entity.type === 'carrot'
-            ? [...baseChanges, setXp]
+            ? [...baseChanges, setXp, setHp]
             : baseChanges; 
 
         return stateChanges.reduce((a, stateChange) => (
