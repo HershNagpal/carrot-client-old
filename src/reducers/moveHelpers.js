@@ -15,6 +15,29 @@ export const checkMove = (nextTile) => {
     }
 };
 
+export const directionConvert = (direction) => {
+    switch (direction) {
+        case 'w':
+            return "ArrowUp";
+        case 's':
+            return "ArrowDown";
+        case 'a':
+            return "ArrowLeft";
+        case 'd':
+            return "ArrowRight";
+        case "ArrowUp":
+            return "w";
+        case "ArrowDown":
+            return "s";
+        case "ArrowLeft":
+            return "a";
+        case "ArrowRight":
+            return "d";
+        default:
+            break;
+    }
+}
+
 export const newCoordinatesInDirection = (x, y, direction) => {
     switch (direction) {
         case 'w':

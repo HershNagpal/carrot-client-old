@@ -1,4 +1,4 @@
-import { Container, Typography } from '@material-ui/core';
+import { Button, Container, Typography } from '@material-ui/core';
 import useStyles from './styles';
 import { useSelector } from 'react-redux';
 import { getTile, getWolves } from '../../reducers/selectors';

@@ -1,6 +1,6 @@
 import * as constants from '../constants';
 import { getTile, getWolves } from './selectors';
-import { checkMove, newCoordinatesInDirection, isOutOfBounds, getWolfDirection, wolfSpawnCoords } from './moveHelpers';
+import { checkMove, newCoordinatesInDirection, isOutOfBounds, getWolfDirection, wolfSpawnCoords, directionConvert } from './moveHelpers';
 
 const game = (game = constants.defaultGame, action) => {
     switch (action.type) {
@@ -12,6 +12,9 @@ const game = (game = constants.defaultGame, action) => {
 
         case 'SET_DIRECTION':
             return { ...game, direction: action.payload };
+
+        case 'ATTACK':
+            return attack(game);
 
         default:
             return game;
@@ -240,6 +243,15 @@ const addWolfMoves = (num, game) => (
         ))
     }
 );
+
+const attack = (game) => {
+    const attack = game.attack;
+    const playerTile = getTile('player', game.grid)[0];
+    const playerDirection = directionConvert(game.direction);
+    const tileBeingHit = newCoordinatesInDirection(playerTile.newX, playerTile.newY, playerDirection);
+    console.log(tileBeingHit);
+    return game;
+};
 
 const setLevel = (level, game) => (
     { ...game, level: level }
