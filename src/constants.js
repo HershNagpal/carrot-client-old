@@ -14,6 +14,7 @@ export const defaultGame = {
     moves: 0,
     direction: 'ArrowRight',
     attack: 1,
+    carrotHealing: 1,
     grid: Array(gridY).fill(Array(gridX).fill(0)).map((row, Yindex) => (
         row.map((tile, Xindex) => ({
             coords: { x: Xindex, y: Yindex },
