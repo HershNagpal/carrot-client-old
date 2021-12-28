@@ -31,10 +31,6 @@ const GameGrid = () => {
         dispatch(initGrid());
     }, [dispatch]);
 
-    const attackButtonThingy = () => {
-        dispatch(attack());
-    };
-
     return <>
         <Container className={classes.outerContainer}>
             <Grid container direction="column">
