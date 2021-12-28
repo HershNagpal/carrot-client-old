@@ -54,7 +54,12 @@ const Tile = ({type}) => {
 
     return <>
         <div className={classes.tile}>
-            <img className={classes.icon} src={icon} alt={icon}></img>
+            {
+            type === 'grass' 
+                ? null // TODO: Add Grass Icon
+                : <img className={classes.icon} src={icon} alt={icon}></img>
+            }
+            
         </div>
     </>
 };
