@@ -353,8 +353,19 @@ const doCheckWolfAttacks = (game) => {
     }, game);
 };
 
-const doChangeHp = (game, coord, dHp) => (
-    { ...game, grid: 
+const doChangeHp = (game, coord, dHp) => {
+    const entity = game.grid[coord.y][coord.x].entity;
+    const checkHp = entity.hp + dHp;
+    if (entity.type === 'player') {
+        if (checkHp <= 0) {
+            alert('git rekt scrub');
+        }
+    }
+    const newHp = checkHp > entity.maxHp
+        ? entity.maxHp
+        : checkHp;
+
+    return { ...game, grid: 
         game.grid.map((row, Yindex) => (
             row.map((tile, Xindex) => (
                 Xindex === coord.x && Yindex === coord.y
@@ -362,14 +373,14 @@ const doChangeHp = (game, coord, dHp) => (
                         ...tile, 
                         entity: {
                             ...tile.entity,
-                            hp: tile.entity.hp + dHp,
+                            hp: newHp,
                         },
                     }
                     : tile
             ))
         ))
-    }
-);
+    };
+};
 
 const doCheckForDeath = (game) => (
     { ...game, grid: 
