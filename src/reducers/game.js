@@ -46,8 +46,11 @@ const initGrid = () => {
     const spawnFences = (game) => (
         spawnFence(10, game)
     );
+    const spawnTrees = (game) => (
+        spawnTree(10, game)
+    );
 
-    const stateChanges = [spawnPlayers, spawnCarrots, spawnFences];
+    const stateChanges = [spawnPlayers, spawnCarrots, spawnFences, spawnTrees];
     return stateChanges.reduce((a, stateChange) => (
         stateChange(a)
     ), constants.defaultGame);
@@ -110,6 +113,30 @@ const spawnFence = (num, game, hp=3) => {
         row.map((tile, Xindex) => (
             coords.find((coord) => coord.x === Xindex && coord.y === Yindex)
             ? { ...tile, entity: { type: 'fence', hp: hp } }
+            : tile
+        ))
+    ))};
+}
+
+const spawnTree = (num, game, hp=5) => {
+    const arr = Array(num).fill(0);
+    const coords = arr.reduce((a) => {
+        while (true) {
+            const x = Math.floor(Math.random() * 15);
+            const y = Math.floor(Math.random() * 15);
+            if (
+                game.grid[y][x].entity.type === 'grass' &&
+                !a.find((coord) => coord.x === x && coord.y === y)
+            ) {
+                return [...a, { x: x, y: y }];
+            }
+        }
+    }, []);
+
+    return { ...game, grid: game.grid.map((row, Yindex) => (
+        row.map((tile, Xindex) => (
+            coords.find((coord) => coord.x === Xindex && coord.y === Yindex)
+            ? { ...tile, entity: { type: 'tree', hp: hp } }
             : tile
         ))
     ))};
@@ -309,7 +336,7 @@ const attack = (game) => {
     const tileBeingHit = newCoordinatesInDirection(playerTile.x, playerTile.y, game.direction);
     const entityBeingHit = game.grid[tileBeingHit.newY][tileBeingHit.newX].entity;
 
-    if (entityBeingHit.type === 'wolf' || entityBeingHit.type === 'fence') {
+    if (entityBeingHit.type === 'wolf' || entityBeingHit.type === 'fence' || entityBeingHit.type === 'tree') {
         const reduceHp = (game) => (
             doChangeHp(game, {x: tileBeingHit.newX, y:tileBeingHit.newY}, -game.attack)
         );

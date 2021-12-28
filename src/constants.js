@@ -3,6 +3,7 @@ export const gridY = 15;
 export const carrotCap = 10;
 export const fenceCap = 10;
 export const wolfCap = 3;
+export const treeCap = 10;
 
 export const playerStart = { x: 7, y: 7 };
 export const playerStartHp = 10;
@@ -16,6 +17,7 @@ export const defaultGame = {
     attack: 1,
     carrotHealing: 1,
     gameOver: false,
+    inventory: [],
     log: ['Welcome to CarrotWolf.'],
     grid: Array(gridY).fill(Array(gridX).fill(0)).map((row, Yindex) => (
         row.map((tile, Xindex) => ({

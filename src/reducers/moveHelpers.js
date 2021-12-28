@@ -10,6 +10,8 @@ export const checkMove = (nextTile) => {
             return false;
         case 'grass':
             return true;
+        case 'tree':
+            return false;
         default:
             return false;
     }

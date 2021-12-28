@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useStyles from './styles';
-import { playerRightIcon, playerLeftIcon, playerUpIcon, playerDownIcon, carrotIcon, wolfIcon, fenceIcon } from '../../../images';
+import { playerRightIcon, playerLeftIcon, playerUpIcon, playerDownIcon, carrotIcon, wolfIcon, fenceIcon, treeIcon } from '../../../images';
 
 const Tile = ({type}) => {
     const classes = useStyles();
@@ -43,6 +43,9 @@ const Tile = ({type}) => {
                 break;
             case 'fence':
                 setIcon(fenceIcon);
+                break;
+            case 'tree':
+                setIcon(treeIcon);
                 break;
             default:
                 break;
