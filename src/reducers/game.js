@@ -316,12 +316,10 @@ const attack = (game) => {
     const tileBeingHit = newCoordinatesInDirection(playerTile.x, playerTile.y, game.direction);
     const entityBeingHit = game.grid[tileBeingHit.newY][tileBeingHit.newX].entity;
 
-    if(entityBeingHit.type === 'wolf' || entityBeingHit.type === 'fence') {
-
+    if (entityBeingHit.type === 'wolf' || entityBeingHit.type === 'fence') {
         const reduceHp = (game) => (
             doChangeHp(game, {x: tileBeingHit.newX, y:tileBeingHit.newY}, -game.attack)
         );
-
         const checkForDeath = (game) => (
             doCheckForDeath(game, tileBeingHit)
         );
@@ -437,5 +435,9 @@ const setMaxXp = (maxXp, game) => (
 const toggleGameOver = (game) => (
     { ...game, gameOver: !game.gameOver }
 );
+
+/*const updateLog = (gameEvent, game) => (
+    { ...game, log: [...game.log, gameEvent] }
+);*/
 
 export default game;

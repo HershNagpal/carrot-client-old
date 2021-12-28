@@ -9,4 +9,13 @@ export default makeStyles(() => ({
         maxWidth: '20vw',
         marginTop: '2.5vh',
     },
+    logContainer: {
+        position: 'absolute',
+        bottom: '10vh',
+        background: 'aliceblue',
+        border: '1px solid black',
+        minHeight: '20vh',
+        minWidth: '17vw',
+        maxWidth: '17vw',
+    },
 }));
