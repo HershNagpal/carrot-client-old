@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useStyles from './styles';
-import { playerRightIcon, playerLeftIcon, playerUpIcon, playerDownIcon, carrotIcon, wolfIcon, fenceIcon, treeIcon } from '../../../images';
+import { grassIcon, playerRightIcon, playerLeftIcon, playerUpIcon, playerDownIcon, carrotIcon, wolfIcon, fenceIcon, treeIcon } from '../../../images';
 
 const Tile = ({type}) => {
     const classes = useStyles();
@@ -11,7 +11,7 @@ const Tile = ({type}) => {
     useEffect(() => {
         switch (type) {
             case 'grass':
-                setIcon('');
+                setIcon(grassIcon);
                 break;
             case 'player':
                 switch (game.direction) {
@@ -48,7 +48,7 @@ const Tile = ({type}) => {
                 setIcon(treeIcon);
                 break;
             default:
-                break;
+                setIcon(grassIcon);
         }
     }, [type, game]);
 

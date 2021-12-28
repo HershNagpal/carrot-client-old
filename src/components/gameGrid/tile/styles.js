@@ -8,10 +8,11 @@ export default makeStyles(() => ({
         color: 'black',
         height: '5vh',
         width: '5vh',
-        border: '3px solid black',
+        border: '1px solid mediumseagreen',
     },
     icon: {
         height: '5vh',
         width: '5vh',
+        borderStyle: 'none',
     },
 }));
