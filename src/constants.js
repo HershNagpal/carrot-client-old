@@ -14,7 +14,7 @@ export const defaultGame = {
     maxXp: 10,
     moves: 0,
     direction: 'ArrowRight',
-    attack: 10,
+    attack: 1,
     grid: Array(gridY).fill(Array(gridX).fill(0)).map((row, Yindex) => (
         row.map((tile, Xindex) => ({
             coords: { x: Xindex, y: Yindex },

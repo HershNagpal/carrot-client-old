@@ -290,26 +290,75 @@ const attack = (game) => {
     const entityBeingHit = game.grid[tileBeingHit.newY][tileBeingHit.newX].entity;
 
     if(entityBeingHit.type === 'wolf' || entityBeingHit.type === 'fence') {
-        return { ...game, grid: 
-            game.grid.map((row, Yindex) => (
-                row.map((tile, Xindex) => {
-                    if (Xindex === tileBeingHit.newX && Yindex === tileBeingHit.newY) console.log(tile);
-                    return Xindex === tileBeingHit.newX && Yindex === tileBeingHit.newY
-                        ? {
-                            ...tile, 
-                            entity: {
-                                ...tile.entity,
-                                hp: tile.entity.hp - game.attack,
-                            },
-                        }
-                        : tile;
-                })
-            ))
-        }
+
+        const reduceHp = (game) => (
+            doReduceHp(game, tileBeingHit)
+        );
+
+        const checkForDeath = (game) => (
+            doCheckForDeath(game, tileBeingHit)
+        );
+
+        const checkWolfAttacks = (game) => (
+            doCheckWolfAttacks(game)
+        );
+        const addMove = (game) => (
+            setMoves(game.moves + 1, game)
+        );
+        const spawnCarrots = (game) => (
+            checkCarrotSpawn(game)
+        );
+        const moveWolves = (game) => (
+            updateWolves(game)
+        );
+
+        const stateChanges = [reduceHp, checkForDeath, checkWolfAttacks, addMove, spawnCarrots, moveWolves];
+        return stateChanges.reduce((a, stateChange) => (
+            stateChange(a)
+        ), game);
     } 
     
     return game;
 };
+
+const doCheckWolfAttacks = (game) => (
+    game
+);
+
+const doReduceHp = (game, tileBeingHit) => (
+    { ...game, grid: 
+        game.grid.map((row, Yindex) => (
+            row.map((tile, Xindex) => (
+                Xindex === tileBeingHit.newX && Yindex === tileBeingHit.newY
+                    ? {
+                        ...tile, 
+                        entity: {
+                            ...tile.entity,
+                            hp: tile.entity.hp - game.attack,
+                        },
+                    }
+                    : tile
+            ))
+        ))
+    }
+);
+
+const doCheckForDeath = (game) => (
+    { ...game, grid: 
+        game.grid.map((row) => (
+            row.map((tile) => (
+                tile.entity.hp <= 0
+                    ? {
+                        ...tile, 
+                        entity: {
+                            type: 'grass',
+                        },
+                    }
+                    : tile
+            ))
+        ))
+    }
+);
 
 const setLevel = (level, game) => (
     { ...game, level: level }
