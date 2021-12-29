@@ -1,5 +1,6 @@
 {
   "name": "carrot-client",
+  "homepage": "https://hershnagpal.github.io/carrot-client/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
