@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.js": "/static/js/main.1ddf68a8.js",
-    "static/media/playerLeft.png": "/static/media/playerLeft.7353d600771a8e43f614.png",
-    "static/media/playerRight.png": "/static/media/playerRight.166ea73d12f31965f1dd.png",
-    "static/media/playerUp.png": "/static/media/playerUp.7f3a5bcdd5bf780f17fc.png",
-    "static/media/playerDown.png": "/static/media/playerDown.789c00a85bc465f2215d.png",
-    "static/media/wolf.png": "/static/media/wolf.69fcd364522798f36984.png",
-    "static/media/carrot.png": "/static/media/carrot.2a03ae341b255e6a6220.png",
-    "index.html": "/index.html",
-    "main.1ddf68a8.js.map": "/static/js/main.1ddf68a8.js.map"
+    "main.js": "/carrot-client/static/js/main.ce0cf420.js",
+    "static/media/playerLeft.png": "/carrot-client/static/media/playerLeft.7353d600771a8e43f614.png",
+    "static/media/playerRight.png": "/carrot-client/static/media/playerRight.166ea73d12f31965f1dd.png",
+    "static/media/playerUp.png": "/carrot-client/static/media/playerUp.7f3a5bcdd5bf780f17fc.png",
+    "static/media/playerDown.png": "/carrot-client/static/media/playerDown.789c00a85bc465f2215d.png",
+    "static/media/wolf.png": "/carrot-client/static/media/wolf.69fcd364522798f36984.png",
+    "static/media/carrot.png": "/carrot-client/static/media/carrot.2a03ae341b255e6a6220.png",
+    "index.html": "/carrot-client/index.html",
+    "main.ce0cf420.js.map": "/carrot-client/static/js/main.ce0cf420.js.map"
   },
   "entrypoints": [
-    "static/js/main.1ddf68a8.js"
+    "static/js/main.ce0cf420.js"
   ]
 }
