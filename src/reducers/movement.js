@@ -4,7 +4,7 @@ import { doAddWolfMoves, doChangeHp, setPocketItem } from './setters';
 import { doSpawnWolves } from './spawn';
 import { checkMove, newCoordinatesInDirection, isOutOfBounds, getWolfDirection, reflectPosition } from './moveHelpers';
 
-export const setTile = (coord, entityType, game) => ( // TODO Split
+export const setTile = (coord, entityType, game) => (
     { ...game, grid:
         game.grid.map((row, Yindex) => 
             coord.y === Yindex 
