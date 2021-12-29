@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useStyles from './styles';
 import { grassIcon, playerRightIcon, playerLeftIcon, playerUpIcon, playerDownIcon, carrotIcon, wolfIcon, fenceIcon, treeIcon } from '../../../images';
+import HealthBar from './HealthBar';
 
-const Tile = ({type}) => {
+const Tile = ({type, hp, maxHp}) => {
     const classes = useStyles();
     const game = useSelector((state) => state.game);
     const [icon, setIcon] = useState('grass');
@@ -54,6 +55,7 @@ const Tile = ({type}) => {
 
     return <>
         <div className={classes.tile}>
+            <HealthBar hp={hp} maxHp={maxHp} />
             {
             type === 'grass' 
                 ? null // TODO: Add Grass Icon

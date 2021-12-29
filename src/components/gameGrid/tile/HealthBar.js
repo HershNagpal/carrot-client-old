@@ -1,13 +1,17 @@
 import useStyles from './styles';
 
-const Tile = ({hp, maxHp}) => {
+const HealthBar = ({hp, maxHp}) => {
     const classes = useStyles();
 
     return <>
-        <div className={classes.healthBarContainer}>
-            <div className={classes.healthBar} />
-        </div>
+        {
+            hp !== undefined
+                ? hp < maxHp
+                    ? <div className={classes.healthBar}> {hp}/{maxHp} </div>
+                    : <div className={classes.healthBar}> {hp} </div>
+                : null 
+        }
     </>
 };
 
-export default Tile;
+export default HealthBar;

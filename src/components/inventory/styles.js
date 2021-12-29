@@ -1,8 +1,11 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(() => ({
-    outerContainer: {
-        backgroundColor: 'gray',
-        marginTop: '4vh',
+    fenceContainer: {
+        
+    },
+    fence: {
+        height: '25px',
+        width: '25px',  
     },
 }));
