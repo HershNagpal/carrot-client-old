@@ -41,6 +41,19 @@ const GameGrid = () => {
                         {
                             row.map((tile, Xindex) => (
                                 <Grid item key={Xindex}>
+                                    {
+                                        game.grid[Yindex][Xindex].entity.hp !== undefined
+                                            ? <div className={classes.entityInfo}>
+                                                {game.grid[Yindex][Xindex].entity.hp}
+                                                {
+                                                    game.grid[Yindex][Xindex].entity.hp < game.grid[Yindex][Xindex].entity.maxHp
+                                                    ? '/' + game.grid[Yindex][Xindex].entity.maxHp
+                                                    : null
+                                                }
+                                                
+                                                </div>
+                                            : null
+                                    }
                                     <Tile type={tile.entity.type}/>
                                 </Grid>
                             ))
