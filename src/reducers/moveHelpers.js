@@ -38,6 +38,17 @@ export const isOutOfBounds = (x, y) => {
     return false;
 };
 
+export const reflectPosition = (reflectCoord, originCoord = {x:7, y:7}) => (
+    {
+        x: reflectCoord.x >= originCoord.x 
+            ? reflectCoord.x - (reflectCoord.x - originCoord.x) * 2
+            : reflectCoord.x + (originCoord.x - reflectCoord.x) * 2,
+        y: reflectCoord.y >= originCoord.y 
+            ? reflectCoord.y - (reflectCoord.y - originCoord.y) * 2
+            : reflectCoord.y + (originCoord.y - reflectCoord.y) * 2,
+    }
+);
+
 export const getWolfDirection = (playerX, playerY, wolfTile, grid) => {
     const vDistance = Math.abs(playerY - wolfTile.coords.y);
     const hDistance = Math.abs(playerX - wolfTile.coords.x);
@@ -48,6 +59,13 @@ export const getWolfDirection = (playerX, playerY, wolfTile, grid) => {
     const down = newCoordinatesInDirection(wolfTile.coords.x, wolfTile.coords.y, 's');
     const left = newCoordinatesInDirection(wolfTile.coords.x, wolfTile.coords.y, 'a');
     const right = newCoordinatesInDirection(wolfTile.coords.x, wolfTile.coords.y, 'd');
+
+    const playerIsNear = [up, down, left, right].reduce((a, coord) => (
+        playerX === coord.newX && playerY === coord.newY
+            ? true
+            : a
+    ), false);
+
     const upValid = !isOutOfBounds(up.newX, up.newY) && checkMove(grid[up.newY][up.newX]);
     const downValid = !isOutOfBounds(down.newX, down.newY) && checkMove(grid[down.newY][down.newX]);
     const leftValid = !isOutOfBounds(left.newX, left.newY) && checkMove(grid[left.newY][left.newX]);
@@ -56,33 +74,33 @@ export const getWolfDirection = (playerX, playerY, wolfTile, grid) => {
     // Up and Left - negative = player is up/left
     if (vDirection <= 0 && hDirection <= 0) {
         if (vDistance >= hDistance) {
-            return upValid ? 'w' : 'a';
+            return upValid || playerIsNear ? 'w' : 'a';
         } else {
-            return leftValid ? 'a' : 'w';
+            return leftValid || playerIsNear ? 'a' : 'w';
         }
     }
     // Up and Right
     else if (vDirection <= 0 && hDirection >= 0) {
         if (vDistance >= hDistance) {
-            return upValid ? 'w' : 'd';
+            return upValid || playerIsNear ? 'w' : 'd';
         } else {
-            return rightValid ? 'd' : 'w';
+            return rightValid || playerIsNear ? 'd' : 'w';
         }
     }
     // Down and Left
     else if (vDirection >= 0 && hDirection <= 0) {
         if (vDistance >= hDistance) {
-            return downValid ? 's' : 'a';
+            return downValid || playerIsNear ? 's' : 'a';
         } else {
-            return leftValid ? 'a' : 's';
+            return leftValid || playerIsNear ? 'a' : 's';
         }
     }
     // Down and Right
     else if (vDirection >= 0 && hDirection >= 0) {
         if (vDistance >= hDistance) {
-            return downValid ? 's' : 'd';
+            return downValid || playerIsNear ? 's' : 'd';
         } else {
-            return rightValid ? 'd' : 's';
+            return rightValid || playerIsNear ? 'd' : 's';
         }
     }
 };

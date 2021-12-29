@@ -2,7 +2,7 @@ import * as constants from '../constants';
 import { getPlayerCoords, getWolves } from './selectors';
 import { doAddWolfMoves, doChangeHp, setPocketItem } from './setters';
 import { doSpawnWolves } from './spawn';
-import { checkMove, newCoordinatesInDirection, isOutOfBounds, getWolfDirection } from './moveHelpers';
+import { checkMove, newCoordinatesInDirection, isOutOfBounds, getWolfDirection, reflectPosition } from './moveHelpers';
 
 export const setTile = (coord, entityType, game) => ( // TODO Split
     { ...game, grid:
@@ -74,7 +74,10 @@ const doMoveWolves = (game) => {
     const playerPos = getPlayerCoords(game.grid);
 
     return wolfTiles.reduce((a, wolfTile) => {
-        const direction = getWolfDirection(playerPos.x, playerPos.y, wolfTile, game.grid);
+        const direction = Math.floor(Math.random() * 3) === 0
+            ? getWolfDirection(reflectPosition({x: playerPos.x, y: playerPos.y}).x, reflectPosition({x: playerPos.x, y: playerPos.y}).y, wolfTile, game.grid)
+            : getWolfDirection(playerPos.x, playerPos.y, wolfTile, game.grid);
+        
         const { newX, newY } = newCoordinatesInDirection(wolfTile.coords.x, wolfTile.coords.y, direction);
 
         if (!isOutOfBounds(newX, newY) && checkMove(a.grid[newY][newX])) {
