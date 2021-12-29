@@ -13,7 +13,7 @@ export const defaultGame = {
     xp: 0,
     maxXp: 10,
     moves: 0,
-    direction: 'ArrowRight',
+    direction: 'w',
     inventoryFences: 3,
     inventorySuperCarrot: 2,
     inventoryWeapon: 1,
@@ -29,6 +29,44 @@ export const defaultGame = {
             entity: { type: 'grass' },
         }))
     )),
+};
+
+export const itemDict = {
+    0: {
+        id: 0,
+        name: 'Carrot of Riddles',
+        description: 'It does something... but what?',
+        flavor: 'An average looking carrot I found on the floor. Something about it is off.',
+        type: 'superCarrot',
+    },
+    1: {
+        id: 1,
+        name: 'Vowed Mithril Spell-carrot',
+        description: '',
+        flavor: '',
+        type: 'superCarrot',
+    },
+    2: {
+        id: 2,
+        name: 'Relentless Steel Carrot',
+        description: '',
+        flavor: '',
+        type: 'superCarrot',
+    },
+    3: {
+        id: 3,
+        name: 'Carrot of Faded Memories',
+        description: '',
+        flavor: '',
+        type: 'superCarrot',
+    },
+    4: {
+        id: 4,
+        name: 'Carrotified Squire\'s Blade',
+        description: '',
+        flavor: '',
+        type: 'weapon',
+    }
 };
 
 export const gameDefinition = 'avoid fences and wolves, collect carrots';

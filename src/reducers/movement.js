@@ -1,15 +1,16 @@
+import * as constants from '../constants';
 import { getPlayerCoords, getWolves } from './selectors';
-import { doAddWolfMoves, doChangeHp } from './setters';
+import { doAddWolfMoves, doChangeHp, setPocketItem } from './setters';
 import { doSpawnWolves } from './spawn';
 import { checkMove, newCoordinatesInDirection, isOutOfBounds, getWolfDirection } from './moveHelpers';
 
-export const setTile = (coord, game) => (
+export const setTile = (coord, entityType, game) => ( // TODO Split
     { ...game, grid:
         game.grid.map((row, Yindex) => 
             coord.y === Yindex 
             ? row.map((tile, Xindex) => 
                 coord.x === Xindex 
-                    ? { ...tile, entity: { type: coord.newTile } } 
+                    ? { ...tile, entity: { type: entityType } } 
                     : tile
             ) 
             : row
@@ -17,13 +18,13 @@ export const setTile = (coord, game) => (
     }
 );
 
-export const setTileEntity = (coord, game) => (
+export const setTileEntity = (coord, newTile, game) => (
     { ...game, grid:
         game.grid.map((row, Yindex) => 
             coord.y === Yindex 
             ? row.map((tile, Xindex) => 
                 coord.x === Xindex 
-                    ? { ...tile, entity: coord.newTile.entity } 
+                    ? { ...tile, entity: newTile.entity } 
                     : tile
             ) 
             : row
@@ -63,7 +64,7 @@ const doCheckWolfAttacks = (game) => {
     
     return locationsAroundPlayer.reduce((a, coord) => (
         !isOutOfBounds(coord.newX, coord.newY) && a.grid[coord.newY][coord.newX].entity.type === 'wolf'
-            ? doChangeHp(a, {x: playerCoords.x, y: playerCoords.y}, -a.grid[coord.newY][coord.newX].entity.attack)
+            ? doChangeHp({x: playerCoords.x, y: playerCoords.y}, -a.grid[coord.newY][coord.newX].entity.attack, a)
             : a
     ), game);
 };
@@ -78,10 +79,10 @@ const doMoveWolves = (game) => {
 
         if (!isOutOfBounds(newX, newY) && checkMove(a.grid[newY][newX])) {
             const spawnWolf = (a) => (
-                setTileEntity({ x: newX, y: newY, newTile: wolfTile }, a)
+                setTileEntity({ x: newX, y: newY }, wolfTile, a)
             );
             const removeWolf = (a) => (
-                setTile({ x: wolfTile.coords.x, y: wolfTile.coords.y, newTile: 'grass' }, a)
+                setTile({ x: wolfTile.coords.x, y: wolfTile.coords.y }, 'grass', a)
             );
 
             const stateChanges = [spawnWolf, removeWolf];
@@ -93,3 +94,9 @@ const doMoveWolves = (game) => {
         }
     }, game);
 };
+
+export const doCheckSuperCarrotPickup = (game) => (
+    Math.floor(Math.random() * 10) === 0 
+        ? setPocketItem(Math.floor(Math.random() * Object.keys(constants.itemDict).length), game)
+        : game
+);

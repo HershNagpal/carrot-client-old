@@ -16,19 +16,15 @@ const Tile = ({type, hp, maxHp}) => {
                 break;
             case 'player':
                 switch (game.direction) {
-                    case 'ArrowRight':
                     case 'd':
                         setIcon(playerRightIcon);
                         break;
-                    case 'ArrowLeft':
                     case 'a':
                         setIcon(playerLeftIcon);
                         break;
-                    case 'ArrowUp':
                     case 'w':
                         setIcon(playerUpIcon);
                         break;
-                    case 'ArrowDown':
                     case 's':
                         setIcon(playerDownIcon);
                         break;
