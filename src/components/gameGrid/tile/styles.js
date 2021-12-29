@@ -15,4 +15,12 @@ export default makeStyles(() => ({
         width: '5vh',
         borderStyle: 'none',
     },
+    healthBar: {
+        position: 'absolute',
+        zIndex: '2',
+        fontFamily: 'Helvetica',
+        fontSize: '0.4em',
+        color: 'green',
+        textShadow: '0px 0px 3px white',
+    },
 }));

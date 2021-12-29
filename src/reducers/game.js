@@ -1,8 +1,8 @@
 import * as constants from '../constants';
 import { getPlayerCoords } from './selectors';
-import { doSetPlayerMoves, doChangeHp, doSetXp, doCheckForDeath } from './setters';
+import { doSetPlayerMoves, doChangeHp, doSetXp } from './setters';
 import { spawnPlayer, spawnCarrot, spawnFence, spawnTree, doSpawnCarrots, doSpawnTrees } from './spawn';
-import { setTile, setTileEntity, doUpdateWolves } from './movement';
+import { setTile, setTileEntity, doUpdateWolves, doCheckSuperCarrotPickup } from './movement';
 import { checkMove, newCoordinatesInDirection, isOutOfBounds } from './moveHelpers';
 
 const game = (game = constants.defaultGame, action) => {
@@ -18,6 +18,9 @@ const game = (game = constants.defaultGame, action) => {
 
         case 'ATTACK':
             return attack(game);
+
+        case 'USE_SUPER_CARROT':
+            return game;
 
         default:
             return game;
@@ -50,10 +53,10 @@ const movePlayer = (direction, game) => {
 
     if (!isOutOfBounds(newX, newY) && checkMove(game.grid[newY][newX])) {
         const spawnPlayer = (game) => (
-            setTileEntity({ x: newX, y: newY, newTile: game.grid[y][x] }, game)
+            setTileEntity({ x: newX, y: newY}, game.grid[y][x], game)
         );
         const removePlayer = (game) => (
-            setTile({ x: x, y: y, newTile: 'grass' }, game)
+            setTile({ x: x, y: y}, 'grass', game)
         );
         const setPlayerMoves = (game) => (
             doSetPlayerMoves(game.moves + 1, game)
@@ -70,13 +73,16 @@ const movePlayer = (direction, game) => {
         const setXp = (game) => (
             doSetXp(game.xp + 1, game)
         );
-        const setHp = (game) => (
-            doChangeHp(game, { x: newX, y: newY }, game.carrotHealing)
+        const heal = (game) => (
+            doChangeHp({ x: newX, y: newY }, game.carrotHealing, game)
+        );
+        const checkSuperCarrotPickup = (game) => (
+            doCheckSuperCarrotPickup(game)
         );
         
         const baseChanges = [spawnPlayer, removePlayer, setPlayerMoves, spawnCarrots, spawnTrees, updateWolves];
         const stateChanges = game.grid[newY][newX].entity.type === 'carrot'
-            ? [...baseChanges, setXp, setHp]
+            ? [...baseChanges, setXp, heal, checkSuperCarrotPickup]
             : baseChanges; 
 
         return stateChanges.reduce((a, stateChange) => (
@@ -88,13 +94,13 @@ const movePlayer = (direction, game) => {
 
 const setDirection = (direction, game) => {
     switch (direction) {
-        case 'ArrowUp':
+        case 'arrowup':
             return { ...game, direction: 'w' };
-        case 'ArrowDown':
+        case 'arrowdown':
             return { ...game, direction: 's' };
-        case 'ArrowLeft':
+        case 'arrowleft':
             return { ...game, direction: 'a' };
-        case 'ArrowRight':
+        case 'arrowright':
             return { ...game, direction: 'd' };
         default:
             return { ...game, direction: direction  };
@@ -108,10 +114,7 @@ const attack = (game) => {
 
     if (entityBeingHit.type === 'wolf' || entityBeingHit.type === 'fence' || entityBeingHit.type === 'tree') {
         const reduceHp = (game) => (
-            doChangeHp(game, { x: tileBeingHit.newX, y: tileBeingHit.newY }, -game.attack)
-        );
-        const checkForDeath = (game) => (
-            doCheckForDeath(game, tileBeingHit)
+            doChangeHp({ x: tileBeingHit.newX, y: tileBeingHit.newY }, -game.attack, game)
         );
         const addMove = (game) => (
             doSetPlayerMoves(game.moves + 1, game)
@@ -123,7 +126,7 @@ const attack = (game) => {
             doUpdateWolves(game)
         );
 
-        const stateChanges = [reduceHp, checkForDeath, addMove, spawnCarrots, updateWolves];
+        const stateChanges = [reduceHp, addMove, spawnCarrots, updateWolves];
         return stateChanges.reduce((a, stateChange) => (
             stateChange(a)
         ), game);

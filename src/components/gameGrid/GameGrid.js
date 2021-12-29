@@ -17,12 +17,13 @@ const GameGrid = () => {
     useEffect(() => {
         // if (!keyPressed.disabled) {
         if (!game.gameOver) {
-            if (keyPressed.key === 'w' || keyPressed.key === 's' || keyPressed.key === 'a' || keyPressed.key === 'd') {
-                dispatch(movePlayer(keyPressed.key));
-                dispatch(changeDirection(keyPressed.key));
-            } else if (keyPressed.key === 'ArrowUp' || keyPressed.key === 'ArrowDown' || keyPressed.key === 'ArrowLeft' || keyPressed.key === 'ArrowRight') {
-                dispatch(changeDirection(keyPressed.key));
-            } else if (keyPressed.key === ' ') {
+            const key = keyPressed.key.toLowerCase();
+            if (key === 'w' || key === 's' || key === 'a' || key === 'd') {
+                dispatch(movePlayer(key));
+                dispatch(changeDirection(key));
+            } else if (key === 'arrowup' || key === 'arrowdown' || key === 'arrowleft' || key === 'arrowright') {
+                dispatch(changeDirection(key));
+            } else if (key === ' ') {
                 dispatch(attack());
             }
         }
@@ -41,20 +42,7 @@ const GameGrid = () => {
                         {
                             row.map((tile, Xindex) => (
                                 <Grid item key={Xindex}>
-                                    {
-                                        game.grid[Yindex][Xindex].entity.hp !== undefined
-                                            ? <div className={classes.entityInfo}>
-                                                {game.grid[Yindex][Xindex].entity.hp}
-                                                {
-                                                    game.grid[Yindex][Xindex].entity.hp < game.grid[Yindex][Xindex].entity.maxHp
-                                                    ? '/' + game.grid[Yindex][Xindex].entity.maxHp
-                                                    : null
-                                                }
-                                                
-                                                </div>
-                                            : null
-                                    }
-                                    <Tile type={tile.entity.type}/>
+                                    <Tile type={tile.entity.type} hp={tile.entity.hp} maxHp={tile.entity.maxHp}/>
                                 </Grid>
                             ))
                         }

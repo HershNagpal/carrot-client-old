@@ -29,3 +29,11 @@ export const attack = () => async (dispatch) => {
         console.log(error.message);
     }
 };
+
+export const useSuperCarrot = () => async (dispatch) => {
+    try {
+        dispatch({ type: 'USE_SUPER_CARROT', payload: null });
+    } catch (error) {
+        console.log(error.message);
+    }
+};

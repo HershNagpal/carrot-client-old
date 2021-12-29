@@ -10,8 +10,8 @@ export default makeStyles(() => ({
         marginTop: '2.5vh',
     },
     logContainer: {
-        position: 'absolute',
         bottom: '10vh',
+        margin: '20px',
         background: 'aliceblue',
         border: '1px solid black',
         minHeight: '20vh',
