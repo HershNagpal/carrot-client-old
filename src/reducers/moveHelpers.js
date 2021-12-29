@@ -20,13 +20,13 @@ export const checkMove = (nextTile) => {
 export const newCoordinatesInDirection = (x, y, direction) => {
     switch (direction) {
         case 'w':
-            return { newX: x, newY: y-1 };
+            return { newX: x, newY: y - 1 };
         case 's':
-            return { newX: x, newY: y+1 };
+            return { newX: x, newY: y + 1 };
         case 'a':
-            return { newX: x-1, newY: y };
+            return { newX: x - 1, newY: y };
         case 'd':
-            return { newX: x+1, newY: y };
+            return { newX: x + 1, newY: y };
         default:
             break;
     }
@@ -38,16 +38,15 @@ export const isOutOfBounds = (x, y) => {
     return false;
 };
 
-export const reflectPosition = (reflectCoord, originCoord = {x:7, y:7}) => (
-    {
+// TODO: Does not work with even number board dimensions
+export const reflectPosition = (reflectCoord, originCoord) => ({
         x: reflectCoord.x >= originCoord.x 
             ? reflectCoord.x - (reflectCoord.x - originCoord.x) * 2
             : reflectCoord.x + (originCoord.x - reflectCoord.x) * 2,
         y: reflectCoord.y >= originCoord.y 
             ? reflectCoord.y - (reflectCoord.y - originCoord.y) * 2
             : reflectCoord.y + (originCoord.y - reflectCoord.y) * 2,
-    }
-);
+});
 
 export const getWolfDirection = (playerX, playerY, wolfTile, grid) => {
     const vDistance = Math.abs(playerY - wolfTile.coords.y);
@@ -113,10 +112,10 @@ export const wolfSpawnCoords = (xLength, yLength) => (
 
 const leftRightEdgeCoords = (xLength, yLength) => ({
     x: Math.round(Math.random() * xLength),
-    y: Math.floor(Math.random()) * (yLength-1)
+    y: Math.floor(Math.random()) * (yLength - 1),
 });
 
 const topBottomEdgeCoords = (xLength, yLength) => ({
-    x: Math.round(Math.random()) * (xLength-1),
-    y: Math.floor(Math.random() * yLength)
+    x: Math.round(Math.random()) * (xLength - 1),
+    y: Math.floor(Math.random() * yLength),
 });

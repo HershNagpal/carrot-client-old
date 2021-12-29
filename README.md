@@ -1,11 +1,9 @@
 TODO:
 
 Next Time:
-- ~Trees respawn~
-- ~Refactor game reducer into multiple files~
-- Fix wolf AI
-- Inventory
-- UI Concepting
+- Using Super Carrots
+- Inventory management
+- Fence Placement
 
 Attacking:
 - ~Players can attack wolves~
@@ -17,7 +15,7 @@ Player
 - Player log with all actions on scoreboard
 
 Inventory:
-- Players can view the inventory
+- ~Players can view the inventory~
 - Players can equip or use items from inventory
 
 Weapons:
@@ -38,12 +36,13 @@ Title Screen:
 - Different route
 
 Carrots:
-- Carrots can drop super carrots
+- ~Carrots can drop super carrots~
 - Weapon drops
 - Collectibles
 
 Wolves:
 - Overall AI improvements
+- - getDirection overhaul into main wolf AI
 - Different wolf types
 - Different AI
 - Different stats

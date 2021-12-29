@@ -1,9 +1,9 @@
 import { Container, Grid } from '@material-ui/core';
 import { useEffect } from 'react';
-import useStyles from './styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { useKeyData } from './keyListenerHook';
-import { initGrid, movePlayer, changeDirection, attack } from '../../actions/game';
+import { initGrid, movePlayer, changeDirection, attack } from '../../../actions/game';
+import useStyles from './styles';
 import Tile from './tile/Tile';
 
 const GameGrid = () => {
