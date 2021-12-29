@@ -1,7 +1,7 @@
 import { Container, Grid } from '@material-ui/core';
 import useStyles from './styles';
 import { useSelector } from 'react-redux';
-import { fenceIcon, carrotIcon, swordIcon, grassIcon } from '../../images';
+import { fenceIcon, carrotIcon, swordIcon, grassIcon } from '../../../../images';
 
 const Inventory = () => {
     const game = useSelector((state) => state.game);

@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 import { Grid, Container, Typography, Button } from '@material-ui/core';
 import useStyles from './styles';
 import { useSelector } from 'react-redux';
-import { getPlayer } from '../../reducers/selectors';
-import Inventory from '../inventory/Inventory';
+import { getPlayer } from '../../../reducers/selectors';
+import Inventory from './inventory/Inventory';
 
 const StatsBoard = () => {
     const game = useSelector((state) => state.game);

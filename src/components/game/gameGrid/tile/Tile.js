@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useStyles from './styles';
-import { grassIcon, playerRightIcon, playerLeftIcon, playerUpIcon, playerDownIcon, carrotIcon, wolfIcon, fenceIcon, treeIcon } from '../../../images';
+import { grassIcon, playerRightIcon, playerLeftIcon, playerUpIcon, playerDownIcon, carrotIcon, wolfIcon, fenceIcon, treeIcon } from '../../../../images';
 import HealthBar from './HealthBar';
 
 const Tile = ({type, hp, maxHp}) => {
