@@ -5,3 +5,5 @@ export const playerDownIcon = require('./playerDown.png');
 export const carrotIcon = require('./carrot.png');
 export const wolfIcon = require('./wolf.png');
 export const fenceIcon = require('./fence.png');
+export const treeIcon = require('./tree.png');
+export const grassIcon = require('./grass.png');

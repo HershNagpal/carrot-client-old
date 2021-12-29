@@ -7,7 +7,6 @@ export default makeStyles(() => ({
         transform: 'translate(-50%, 0)',
         margin: '0 auto',
         zIndex: '10',
-        margin: 'auto',
         textAlign: 'center',
         verticalAlign: 'center',
     },

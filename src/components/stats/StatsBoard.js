@@ -15,8 +15,7 @@ const StatsBoard = () => {
             <Typography variant="h6">HP: {getPlayer(game.grid) ? getPlayer(game.grid).entity.hp : 0} / {getPlayer(game.grid) ? getPlayer(game.grid).entity.maxHp : 0}</Typography>
             <Typography variant="h6">XP: {game.xp} / {game.maxXp}</Typography>
             <Typography variant="h6">Atk: {game.attack}</Typography>
-            <hr />
-            {   
+            {/*   
                 getTile('wolf', game.grid).length > 0
                 ? getWolves(game.grid).map((tile, index) => (
                     <div key={index}>
@@ -27,8 +26,7 @@ const StatsBoard = () => {
                     </div>
                 )) 
                 : <Typography variant="h6">No wolves have appeared yet.</Typography>
-            }
-            <hr />
+                */}
             <Link to="/">
                 <Button variant="contained" color="primary">Title Screen</Button>
             </Link>
