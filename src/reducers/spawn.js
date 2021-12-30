@@ -40,7 +40,7 @@ export const spawnCarrot = (num, game) => {
     ))};
 };
 
-export const spawnFence = (num, game, hp=3) => {
+export const spawnFence = (num, game) => {
     const arr = Array(num).fill(0);
     const coords = arr.reduce((a) => {
         while (true) {
@@ -58,7 +58,7 @@ export const spawnFence = (num, game, hp=3) => {
     return { ...game, grid: game.grid.map((row, Yindex) => (
         row.map((tile, Xindex) => (
             coords.find((coord) => coord.x === Xindex && coord.y === Yindex)
-            ? { ...tile, entity: { type: 'fence', hp: hp, maxHp: hp } }
+            ? { ...tile, entity: { type: 'fence', hp: game.fenceHp, maxHp: game.fenceHp } }
             : tile
         ))
     ))};

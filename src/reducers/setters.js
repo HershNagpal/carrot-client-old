@@ -82,8 +82,10 @@ const doSetHp = (coord, hp, game) => (
 );
 
 const changePlayerFences = (dFences, game) => (
-    { ...game, inventoryFences: game.inventoryFences + dFences }
-);
+    game.inventoryFences < game.maxHeldFences
+        ? { ...game, inventoryFences: game.inventoryFences + dFences }
+        : game
+);  
 
 export const doSetXp = (xp, game) => {
     const dif = xp - game.maxXp;
