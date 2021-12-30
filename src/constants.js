@@ -15,13 +15,13 @@ export const defaultGame = {
     moves: 0,
     direction: 'w',
     inventoryFences: 3,
-    inventorySuperCarrot: 2,
+    inventorySuperCarrot: 1,
     inventoryWeapon: 1,
     pocketItem: -1,
     attack: 1,
     carrotHealing: 1,
     gameOver: false,
-    log: ['Welcome to CarrotWolf.'],
+    log: ['WASD to move, arrow keys to change direction. Spacebar to attack. Pick up carrots to heal and level up. Wolves will hit you if you end your turn on a tile next to them.'],
     grid: Array(gridY).fill(Array(gridX).fill(0)).map((row, Yindex) => (
         row.map((tile, Xindex) => ({
             coords: { x: Xindex, y: Yindex },
