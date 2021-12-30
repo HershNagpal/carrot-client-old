@@ -1,9 +1,12 @@
 TODO:
 
 Next Time:
-- Using Super Carrots
-- Inventory management
-- Fence Placement
+- ~Using Super Carrots~
+- ~Inventory management~
+- ~Fence Placement~
+- Possible bug when carrots or wolves spawn out of bounds
+- Inventory display needs to show item info
+- Wolf AI
 
 Attacking:
 - ~Players can attack wolves~
@@ -16,12 +19,12 @@ Player
 
 Inventory:
 - ~Players can view the inventory~
-- Players can equip or use items from inventory
+- ~Players can equip or use items from inventory~
 
 Weapons:
-- Player attack damage is linked to equipped weapon
-- Weapons can be found by picking up carrots
-- Weapons can be equipped or stored in inventory
+- ~Player attack damage is linked to equipped weapon~
+- ~Weapons can be found by picking up carrots~
+- ~Weapons can be equipped or stored in inventory~
 
 Fences:
 - Wolves and ~players can break fences~
@@ -37,7 +40,7 @@ Title Screen:
 
 Carrots:
 - ~Carrots can drop super carrots~
-- Weapon drops
+- ~Weapon drops~
 - Collectibles
 
 Wolves:
