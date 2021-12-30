@@ -1,7 +1,7 @@
 import * as constants from '../constants';
 import { getPlayerCoords } from './selectors';
 import { setTile, setTileEntity } from './movement';
-import { newCoordinatesInDirection } from './moveHelpers';
+import { newCoordinatesInDirection, isOutOfBounds } from './moveHelpers';
 import { doChangeHp, doSetXp } from './setters';
 
 export const doUseSuperCarrot = (game) => {
@@ -95,7 +95,7 @@ const randomGrassLocation = (game) => {
     }
 };
 
-const fourDirectionAttack = (game, attack=game.attack) => {
+const fourDirectionAttack = (game, damage=constants.itemDict[game.inventoryWeapon].damage) => {
     const playerTile = getPlayerCoords(game.grid);
     const tilesBeingHit = [
         newCoordinatesInDirection(playerTile.x, playerTile.y, 'w'),
@@ -103,12 +103,13 @@ const fourDirectionAttack = (game, attack=game.attack) => {
         newCoordinatesInDirection(playerTile.x, playerTile.y, 's'),
         newCoordinatesInDirection(playerTile.x, playerTile.y, 'd'),
     ].filter( (coord) => (
-        game.grid[coord.newY][coord.newX].entity.type === 'wolf' || 
+        !isOutOfBounds(coord.newX, coord.newY) &&
+        (game.grid[coord.newY][coord.newX].entity.type === 'wolf' || 
         game.grid[coord.newY][coord.newX].entity.type === 'fence' ||
-        game.grid[coord.newY][coord.newX].entity.type === 'tree'
+        game.grid[coord.newY][coord.newX].entity.type === 'tree')
     ));
 
     return tilesBeingHit.reduce((a, tile) => (
-        doChangeHp({ x: tile.newX, y: tile.newY }, -attack, a)
+        doChangeHp({ x: tile.newX, y: tile.newY }, -damage, a)
     ), game);
 }

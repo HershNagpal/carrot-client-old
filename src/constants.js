@@ -15,10 +15,9 @@ export const defaultGame = {
     moves: 0,
     direction: 'w',
     inventoryFences: 3,
-    inventorySuperCarrot: 3,
-    inventoryWeapon: 1,
+    inventorySuperCarrot: 2,
+    inventoryWeapon: 4,
     pocketItem: -1,
-    attack: 1,
     carrotHealing: 1,
     gameOver: false,
     log: ['WASD to move, arrow keys to change direction. Spacebar to attack. Pick up carrots to heal and level up. Wolves will hit you if you end your turn on a tile next to them.'],
@@ -61,11 +60,20 @@ export const itemDict = {
     },
     4: {
         id: 4,
-        name: 'Carrotified Squire\'s Blade',
-        description: '',
-        flavor: '',
+        name: 'Farmer\'s Pitchfork',
+        description: '1 Damage',
+        flavor: 'We are going to fork it up.',
         type: 'weapon',
-    }
+        damage: 1,
+    },
+    5: {
+        id: 4,
+        name: 'Carrotified Squire\'s Blade',
+        description: '2 Damage',
+        flavor: 'Carrotified.',
+        type: 'weapon',
+        damage: 2,
+    },
 };
 
 export const gameDefinition = 'avoid fences and wolves, collect carrots';

@@ -1,3 +1,4 @@
+import * as constants from '../../../constants';
 import { Link } from 'react-router-dom';
 import { Grid, Container, Typography, Button } from '@material-ui/core';
 import useStyles from './styles';
@@ -17,7 +18,7 @@ const StatsBoard = () => {
                     <Typography variant="h6">HP: {getPlayer(game.grid) ? getPlayer(game.grid).entity.hp : 0} / {getPlayer(game.grid) ? getPlayer(game.grid).entity.maxHp : 0}</Typography>
                     <Typography variant="h6">Level: {game.level}</Typography>
                     <Typography variant="h6">XP: {game.xp} / {game.maxXp}</Typography>
-                    <Typography variant="h6">Atk: {game.attack}</Typography>
+                    <Typography variant="h6">Atk: {constants.itemDict[game.inventoryWeapon].damage}</Typography>
                 </Container>
             </Grid>
 

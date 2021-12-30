@@ -158,7 +158,7 @@ const attack = (game) => {
 
     if (entityBeingHit.type === 'wolf' || entityBeingHit.type === 'fence' || entityBeingHit.type === 'tree') {
         const reduceHp = (game) => (
-            doChangeHp({ x: tileBeingHit.newX, y: tileBeingHit.newY }, -game.attack, game)
+            doChangeHp({ x: tileBeingHit.newX, y: tileBeingHit.newY }, -constants.itemDict[game.inventoryWeapon].damage , game)
         );
         const addMove = (game) => (
             doSetPlayerMoves(game.moves + 1, game)
