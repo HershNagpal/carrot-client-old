@@ -45,7 +45,7 @@ const attackAllDirections = (game) => {
     return stateChanges.reduce((a, stateChange) => (
         stateChange(a)
     ), game);
-}
+};
 
 // Vowed Mithril Spell-carrot
 const randomPlayerTeleport = (game) => {
@@ -112,4 +112,12 @@ const fourDirectionAttack = (game, damage=constants.itemDict[game.inventoryWeapo
     return tilesBeingHit.reduce((a, tile) => (
         doChangeHp({ x: tile.newX, y: tile.newY }, -damage, a)
     ), game);
+}
+
+export const doPlaceFence = (coord, game) => {
+    const fenceTile = {
+        coords: {x: coord.x, y: coord.y}, 
+        entity: {type: 'fence', hp: game.fenceHp, maxHp: game.fenceHp}
+    };
+    return setTileEntity({ x: coord.x, y: coord.y }, fenceTile, game)
 }

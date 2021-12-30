@@ -1,10 +1,10 @@
 import * as constants from '../constants';
-import { getPlayerCoords } from './selectors';
+import { getPlayerCoords, getTile } from './selectors';
 import { doSetPlayerMoves, doChangeHp, doSetXp } from './setters';
 import { spawnPlayer, spawnCarrot, spawnFence, spawnTree, doSpawnCarrots, doSpawnTrees } from './spawn';
 import { setTile, setTileEntity, doUpdateWolves, doCheckSuperCarrotPickup } from './movement';
 import { checkMove, newCoordinatesInDirection, isOutOfBounds } from './moveHelpers';
-import { doUseSuperCarrot, doUnequipSuperCarrot } from './item';
+import { doUseSuperCarrot, doUnequipSuperCarrot, doPlaceFence } from './item';
 
 const game = (game = constants.defaultGame, action) => {
     switch (action.type) {
@@ -25,10 +25,48 @@ const game = (game = constants.defaultGame, action) => {
 
         case 'SWAP_POCKET':
             return swapPocket(game);
+        
+        case 'PLACE_FENCE':
+            return placeFence(game);
 
         default:
             return game;
     }
+};
+
+const placeFence = (game) => {
+    const playerTile = getPlayerCoords(game.grid);
+    const tileBeingPlacedOn = newCoordinatesInDirection(playerTile.x, playerTile.y, game.direction);
+    if (
+        !isOutOfBounds(tileBeingPlacedOn.newX, tileBeingPlacedOn.newY) &&
+        game.grid[tileBeingPlacedOn.newY][tileBeingPlacedOn.newX].entity.type === 'grass' &&
+        game.inventoryFences > 0 &&
+        getTile('fence', game.grid).length < game.maxFencesPlaced
+    ) {
+
+        const placeFence = (game) => (
+            doPlaceFence({ x: tileBeingPlacedOn.newX, y: tileBeingPlacedOn.newY}, game)
+        );
+        const reduceFences = (game) => (
+            {...game, inventoryFences: game.inventoryFences-1}
+        );
+        const addMove = (game) => (
+            doSetPlayerMoves(game.moves + 1, game)
+        );
+        const spawnCarrots = (game) => (
+            doSpawnCarrots(game)
+        );
+        const updateWolves = (game) => (
+            doUpdateWolves(game)
+        );
+
+        const stateChanges = [placeFence, reduceFences, addMove, spawnCarrots, updateWolves];
+        return stateChanges.reduce((a, stateChange) => (
+            stateChange(a)
+        ), game);
+    } 
+    
+    return game;
 };
 
 const swapPocket = (game) => (

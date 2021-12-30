@@ -45,3 +45,11 @@ export const swapPocket = () => async (dispatch) => {
         console.log(error.message);
     }
 };
+
+export const placeFence = () => async (dispatch) => {
+    try {
+        dispatch({ type: 'PLACE_FENCE', payload: null });
+    } catch (error) {
+        console.log(error.message);
+    }
+};
