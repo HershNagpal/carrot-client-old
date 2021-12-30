@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "/carrot-client/static/js/main.312a7c04.js",
+    "main.js": "/carrot-client/static/js/main.028180c1.js",
     "static/media/playerLeft.png": "/carrot-client/static/media/playerLeft.7353d600771a8e43f614.png",
     "static/media/playerRight.png": "/carrot-client/static/media/playerRight.166ea73d12f31965f1dd.png",
     "static/media/playerUp.png": "/carrot-client/static/media/playerUp.7f3a5bcdd5bf780f17fc.png",
@@ -9,9 +9,9 @@
     "static/media/carrot.png": "/carrot-client/static/media/carrot.2a03ae341b255e6a6220.png",
     "static/media/sword.png": "/carrot-client/static/media/sword.90966220ca88bea601f0.png",
     "index.html": "/carrot-client/index.html",
-    "main.312a7c04.js.map": "/carrot-client/static/js/main.312a7c04.js.map"
+    "main.028180c1.js.map": "/carrot-client/static/js/main.028180c1.js.map"
   },
   "entrypoints": [
-    "static/js/main.312a7c04.js"
+    "static/js/main.028180c1.js"
   ]
 }
