@@ -2,7 +2,7 @@ import * as constants from '../constants';
 import { getPlayerCoords } from './selectors';
 import { setTile, setTileEntity } from './movement';
 import { newCoordinatesInDirection } from './moveHelpers';
-import { doChangeHp } from './setters';
+import { doChangeHp, doSetXp } from './setters';
 
 export const doUseSuperCarrot = (game) => {
     switch (game.inventorySuperCarrot) {
@@ -16,8 +16,8 @@ export const doUseSuperCarrot = (game) => {
             console.log('Relentless Steel Carrot');
             return attackAllDirections(game);
         case 3:
-            console.log('Carrot of Faded Memories');
-            return carrotOfRiddles(game);
+            console.log('Life\'s Limit');
+            return levelUp(game);
         case 4:
             console.log('Carrotified Squire\'s Blade');
             return carrotOfRiddles(game);
@@ -50,10 +50,8 @@ const attackAllDirections = (game) => {
 // Vowed Mithril Spell-carrot
 const randomPlayerTeleport = (game) => {
     const { x, y } = getPlayerCoords(game.grid);
-
     const coords = randomGrassLocation(game);
-    console.log(coords);
-    
+
     const spawnPlayer = (game) => (
         setTileEntity({ x: coords.x, y: coords.y}, game.grid[y][x], game)
     );
@@ -62,6 +60,26 @@ const randomPlayerTeleport = (game) => {
     );
 
     const stateChanges = [ spawnPlayer, removePlayer]
+    return stateChanges.reduce((a, stateChange) => (
+        stateChange(a)
+    ), game);
+};
+
+const levelUp = (game) => {
+    const { x, y } = getPlayerCoords(game.grid);
+    const damageToDeal = game.grid[y][x].entity.hp > game.grid[y][x].entity.maxHp/2
+        ? Math.floor(game.grid[y][x].entity.maxHp * 0.5)
+        : game.grid[y][x].entity.hp - 1;
+    const xpToLevelUp = game.maxXp - game.xp;
+    
+    const increaseXp = (game) => (
+        doSetXp(game.xp + xpToLevelUp, game)
+    );
+    const damagePlayer = (game) => (
+        doChangeHp({x: x, y: y}, -damageToDeal, game)
+    );
+
+    const stateChanges = [ increaseXp, damagePlayer]
     return stateChanges.reduce((a, stateChange) => (
         stateChange(a)
     ), game);
@@ -89,8 +107,6 @@ const fourDirectionAttack = (game, attack=game.attack) => {
         game.grid[coord.newY][coord.newX].entity.type === 'fence' ||
         game.grid[coord.newY][coord.newX].entity.type === 'tree'
     ));
-
-    console.log(tilesBeingHit);
 
     return tilesBeingHit.reduce((a, tile) => (
         doChangeHp({ x: tile.newX, y: tile.newY }, -attack, a)
