@@ -4,6 +4,7 @@ import { doSetPlayerMoves, doChangeHp, doSetXp } from './setters';
 import { spawnPlayer, spawnCarrot, spawnFence, spawnTree, doSpawnCarrots, doSpawnTrees } from './spawn';
 import { setTile, setTileEntity, doUpdateWolves, doCheckSuperCarrotPickup } from './movement';
 import { checkMove, newCoordinatesInDirection, isOutOfBounds } from './moveHelpers';
+import { doUseSuperCarrot, doUnequipSuperCarrot } from './item';
 
 const game = (game = constants.defaultGame, action) => {
     switch (action.type) {
@@ -19,12 +20,55 @@ const game = (game = constants.defaultGame, action) => {
         case 'ATTACK':
             return attack(game);
 
-        case 'USE_SUPER_CARROT':
-            return game;
+        case 'CONSUME_SUPER_CARROT':
+            return consumeSuperCarrot(game);
+
+        case 'SWAP_POCKET':
+            return swapPocket(game);
 
         default:
             return game;
     }
+};
+
+const swapPocket = (game) => (
+    game.pocketItem !== -1
+        ? constants.itemDict[game.pocketItem].type === 'superCarrot'
+            ? { ...game, pocketItem: game.inventorySuperCarrot, inventorySuperCarrot: game.pocketItem }
+            : constants.itemDict[game.pocketItem].type === 'weapon'
+                ? { ...game, pocketItem: game.inventoryWeapon, inventoryWeapon: game.pocketItem }
+                : game
+        : game
+);
+
+const consumeSuperCarrot = (game) => {
+    if (game.inventorySuperCarrot === -1) {
+        return game;
+    };
+
+    const useSuperCarrot = (game) => (
+        doUseSuperCarrot(game)
+    );
+    const unequipSuperCarrot = (game) => (
+        doUnequipSuperCarrot(game)
+    );
+    const setPlayerMoves = (game) => (
+        doSetPlayerMoves(game.moves + 1, game)
+    );
+    const spawnCarrots = (game) => (
+        doSpawnCarrots(game)
+    );
+    const spawnTrees = (game) => (
+        doSpawnTrees(game)
+    );
+    const updateWolves = (game) => (
+        doUpdateWolves(game)
+    );
+
+    const stateChanges = [useSuperCarrot, unequipSuperCarrot, setPlayerMoves, spawnCarrots, spawnTrees, updateWolves];
+    return stateChanges.reduce((a, stateChange) => (
+        stateChange(a)
+    ), game);
 };
 
 const initGrid = () => {

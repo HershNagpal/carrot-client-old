@@ -30,9 +30,17 @@ export const attack = () => async (dispatch) => {
     }
 };
 
-export const useSuperCarrot = () => async (dispatch) => {
+export const consumeSuperCarrot = () => async (dispatch) => {
     try {
-        dispatch({ type: 'USE_SUPER_CARROT', payload: null });
+        dispatch({ type: 'CONSUME_SUPER_CARROT', payload: null });
+    } catch (error) {
+        console.log(error.message);
+    }
+};
+
+export const swapPocket = () => async (dispatch) => {
+    try {
+        dispatch({ type: 'SWAP_POCKET', payload: null });
     } catch (error) {
         console.log(error.message);
     }

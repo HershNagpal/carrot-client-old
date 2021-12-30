@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import useStyles from './styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { useKeyData } from './keyListenerHook';
-import { initGrid, movePlayer, changeDirection, attack } from '../../actions/game';
+import { initGrid, movePlayer, changeDirection, attack, consumeSuperCarrot, swapPocket } from '../../actions/game';
 import Tile from './tile/Tile';
 
 const GameGrid = () => {
@@ -25,6 +25,10 @@ const GameGrid = () => {
                 dispatch(changeDirection(key));
             } else if (key === ' ') {
                 dispatch(attack());
+            } else if (key === 'c') {
+                dispatch(consumeSuperCarrot())
+            } else if (key === 'v') {
+                dispatch(swapPocket())
             }
         }
     }, [keyPressed, game.gameOver, dispatch]);
