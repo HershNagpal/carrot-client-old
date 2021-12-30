@@ -4,7 +4,7 @@ import { doAddWolfMoves, doChangeHp, setPocketItem } from './setters';
 import { doSpawnWolves } from './spawn';
 import { checkMove, newCoordinatesInDirection, isOutOfBounds, getWolfDirection, reflectPosition } from './moveHelpers';
 
-export const setTile = (coord, entityType, game) => ( // TODO Split
+export const setTile = (coord, entityType, game) => (
     { ...game, grid:
         game.grid.map((row, Yindex) => 
             coord.y === Yindex 
@@ -64,19 +64,20 @@ const doCheckWolfAttacks = (game) => {
     
     return locationsAroundPlayer.reduce((a, coord) => (
         !isOutOfBounds(coord.newX, coord.newY) && a.grid[coord.newY][coord.newX].entity.type === 'wolf'
-            ? doChangeHp({x: playerCoords.x, y: playerCoords.y}, -a.grid[coord.newY][coord.newX].entity.attack, a)
+            ? doChangeHp({ x: playerCoords.x, y: playerCoords.y }, -a.grid[coord.newY][coord.newX].entity.attack, a)
             : a
     ), game);
 };
 
 const doMoveWolves = (game) => {
     const wolfTiles = getWolves(game.grid);
-    const playerPos = getPlayerCoords(game.grid);
+    const playerCoords = getPlayerCoords(game.grid);
 
     return wolfTiles.reduce((a, wolfTile) => {
+        const reflectPos = reflectPosition({ x: playerCoords.x, y: playerCoords.y }, { x: Math.floor(constants.gridX / 2), y: Math.floor(constants.gridY / 2) });
         const direction = Math.floor(Math.random() * 3) === 0
-            ? getWolfDirection(reflectPosition({x: playerPos.x, y: playerPos.y}).x, reflectPosition({x: playerPos.x, y: playerPos.y}).y, wolfTile, game.grid)
-            : getWolfDirection(playerPos.x, playerPos.y, wolfTile, game.grid);
+            ? getWolfDirection(reflectPos.x, reflectPos.y, wolfTile, game.grid)
+            : getWolfDirection(playerCoords.x, playerCoords.y, wolfTile, game.grid);
         
         const { newX, newY } = newCoordinatesInDirection(wolfTile.coords.x, wolfTile.coords.y, direction);
 
@@ -92,9 +93,9 @@ const doMoveWolves = (game) => {
             return stateChanges.reduce((a, stateChange) => (
                 stateChange(a)
             ), a);
-        } else {
-            return a;
         }
+
+        return a;
     }, game);
 };
 

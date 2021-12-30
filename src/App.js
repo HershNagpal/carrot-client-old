@@ -1,11 +1,11 @@
 import React from 'react';
-import { HashRouter, Route, Routes, } from 'react-router-dom';
-import Game from './components/Game';
+import { HashRouter, Route, Routes } from 'react-router-dom';
+import Game from './components/game/Game';
 import Title from './components/title/Title';
 
 const App = () => {
     return  (
-        <div className='App'>
+        <div className="App">
             <HashRouter> {/* TODO Remove for Browser router when deploying */}
                 <Routes>
                     <Route path="/" element={<Title />} />

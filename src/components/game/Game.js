@@ -1,9 +1,9 @@
 import StatsBoard from './stats/StatsBoard';
 import GameGrid from './gameGrid/GameGrid';
-import useStyles from './styles';
 import GameOver from './gameOver/GameOver'
 import { useSelector } from 'react-redux';
 import { Grid, Container } from '@material-ui/core';
+import useStyles from './styles';
 
 const Game = () => {
     const game = useSelector((state) => state.game);

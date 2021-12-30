@@ -46,7 +46,7 @@ export const doChangeHp = (coord, dHp, game) => {
     );
 
     const removeEntity = (game) => (
-        setTile({x: coord.x, y: coord.y}, 'grass', game)
+        setTile({ x: coord.x, y: coord.y }, 'grass', game)
     );
 
     const baseChanges = [setHp];

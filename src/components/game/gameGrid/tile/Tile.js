@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useStyles from './styles';
-import { grassIcon, playerRightIcon, playerLeftIcon, playerUpIcon, playerDownIcon, carrotIcon, wolfIcon, fenceIcon, treeIcon } from '../../../images';
+import { grassIcon, playerRightIcon, playerLeftIcon, playerUpIcon, playerDownIcon, carrotIcon, wolfIcon, fenceIcon, treeIcon } from '../../../../images';
 import HealthBar from './HealthBar';
 
 const Tile = ({type, hp, maxHp}) => {
@@ -53,9 +53,9 @@ const Tile = ({type, hp, maxHp}) => {
         <div className={classes.tile}>
             <HealthBar hp={hp} maxHp={maxHp} />
             {
-            type === 'grass' 
-                ? null // TODO: Add Grass Icon
-                : <img className={classes.icon} src={icon} alt={icon}></img>
+                type === 'grass' 
+                    ? null // TODO: Add Grass Icon
+                    : <img className={classes.icon} src={icon} alt={icon}></img>
             }
             
         </div>
