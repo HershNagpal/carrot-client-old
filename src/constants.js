@@ -15,7 +15,7 @@ export const defaultGame = {
     moves: 0,
     direction: 'w',
     inventoryFences: 3,
-    inventorySuperCarrot: 0,
+    inventorySuperCarrot: 2,
     inventoryWeapon: 1,
     pocketItem: -1,
     attack: 1,
