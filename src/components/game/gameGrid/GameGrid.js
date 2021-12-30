@@ -2,7 +2,7 @@ import { Container, Grid } from '@material-ui/core';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useKeyData } from './keyListenerHook';
-import { initGrid, movePlayer, changeDirection, attack, consumeSuperCarrot, swapPocket } from '../../actions/game';
+import { initGrid, movePlayer, changeDirection, attack, consumeSuperCarrot, swapPocket } from '../../../actions/game';
 import useStyles from './styles';
 import Tile from './tile/Tile';
 
