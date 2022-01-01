@@ -15,7 +15,7 @@ const InventoryIcons = () => {
                     <Grid item className={classes.iconContainer}>
                         <div>
                             <div className={classes.smallIconContainer}>{constants.itemDict[game.inventoryWeapon].damage}</div>
-                            <img className={classes.icon} src={swordIcon} alt="swordIcon" />
+                            <img className={classes.icon} src={itemIcons[game.inventoryWeapon]} alt="swordIcon" />
                         </div>
                     </Grid>
 
