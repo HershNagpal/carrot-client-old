@@ -37,7 +37,7 @@ const GameGrid = () => {
                 dispatch(toggleInventory());
             }
         }
-    }, [keyPressed, game.gameOver, dispatch]);
+    }, [keyPressed, game.gameOver, game.isInInventory, dispatch]);
 
     useEffect(() => {
         dispatch(initGrid());

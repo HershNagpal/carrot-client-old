@@ -20,8 +20,8 @@ export const spawnCarrot = (num, game) => {
     const arr = Array(num).fill(0);
     const coords = arr.reduce((a) => {
         while (true) {
-            const x = Math.floor(Math.random() * 15);
-            const y = Math.floor(Math.random() * 15);
+            const x = Math.floor(Math.random() * constants.gridX);
+            const y = Math.floor(Math.random() * constants.gridY);
             if (
                 game.grid[y][x].entity.type === 'grass' &&
                 !a.find((coord) => coord.x === x && coord.y === y)
@@ -44,8 +44,8 @@ export const spawnFence = (num, game) => {
     const arr = Array(num).fill(0);
     const coords = arr.reduce((a) => {
         while (true) {
-            const x = Math.floor(Math.random() * 15);
-            const y = Math.floor(Math.random() * 15);
+            const x = Math.floor(Math.random() * constants.gridX);
+            const y = Math.floor(Math.random() * constants.gridY);
             if (
                 game.grid[y][x].entity.type === 'grass' &&
                 !a.find((coord) => coord.x === x && coord.y === y)
@@ -68,8 +68,8 @@ export const spawnTree = (num, game, hp=5) => {
     const arr = Array(num).fill(0);
     const coords = arr.reduce((a) => {
         while (true) {
-            const x = Math.floor(Math.random() * 15);
-            const y = Math.floor(Math.random() * 15);
+            const x = Math.floor(Math.random() * constants.gridX);
+            const y = Math.floor(Math.random() * constants.gridY);
             if (
                 game.grid[y][x].entity.type === 'grass' &&
                 !a.find((coord) => coord.x === x && coord.y === y)
@@ -115,7 +115,7 @@ export const spawnWolf = (num, game, hp=3) => {
 export const doSpawnWolves = (game) => {
     const numWolves = getTile('wolf', game.grid).length;
     if (numWolves < constants.wolfCap) {
-        if (Math.floor(Math.random() * 50) === 0) {
+        if (Math.floor(Math.random() * constants.wolfSpawnRate) === 0) {
             return spawnWolf(1, game);
         } else {
             return game;
@@ -128,7 +128,7 @@ export const doSpawnWolves = (game) => {
 export const doSpawnCarrots = (game) => {
     const numCarrots = getTile('carrot', game.grid).length;
     if (numCarrots < constants.carrotCap) {
-        if (Math.floor(Math.random() * 5) === 0) {
+        if (Math.floor(Math.random() * constants.carrotSpawnRate) === 0) {
             return spawnCarrot(1, game);
         } else {
             return game;
@@ -141,7 +141,7 @@ export const doSpawnCarrots = (game) => {
 export const doSpawnTrees = (game) => {
     const numTrees = getTile('tree', game.grid).length;
     if (numTrees < constants.treeCap) {
-        if (Math.floor(Math.random() * 30) === 0) {
+        if (Math.floor(Math.random() * constants.treeSpawnRate) === 0) {
             return spawnTree(1, game);
         } else {
             return game;

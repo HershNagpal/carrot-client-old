@@ -37,81 +37,6 @@ const game = (game = constants.defaultGame, action) => {
     }
 };
 
-const placeFence = (game) => {
-    const playerTile = getPlayerCoords(game.grid);
-    const tileBeingPlacedOn = newCoordinatesInDirection(playerTile.x, playerTile.y, game.direction);
-    if (
-        !isOutOfBounds(tileBeingPlacedOn.newX, tileBeingPlacedOn.newY) &&
-        game.grid[tileBeingPlacedOn.newY][tileBeingPlacedOn.newX].entity.type === 'grass' &&
-        game.inventoryFences > 0 &&
-        getTile('fence', game.grid).length < game.maxFencesPlaced
-    ) {
-
-        const placeFence = (game) => (
-            doPlaceFence({ x: tileBeingPlacedOn.newX, y: tileBeingPlacedOn.newY}, game)
-        );
-        const reduceFences = (game) => (
-            {...game, inventoryFences: game.inventoryFences-1}
-        );
-        const addMove = (game) => (
-            doSetPlayerMoves(game.moves + 1, game)
-        );
-        const spawnCarrots = (game) => (
-            doSpawnCarrots(game)
-        );
-        const updateWolves = (game) => (
-            doUpdateWolves(game)
-        );
-
-        const stateChanges = [placeFence, reduceFences, addMove, spawnCarrots, updateWolves];
-        return stateChanges.reduce((a, stateChange) => (
-            stateChange(a)
-        ), game);
-    } 
-    
-    return game;
-};
-
-const swapPocket = (game) => (
-    game.pocketItem !== -1
-        ? constants.itemDict[game.pocketItem].type === 'superCarrot'
-            ? { ...game, pocketItem: game.inventorySuperCarrot, inventorySuperCarrot: game.pocketItem }
-            : constants.itemDict[game.pocketItem].type === 'weapon'
-                ? { ...game, pocketItem: game.inventoryWeapon, inventoryWeapon: game.pocketItem }
-                : game
-        : game
-);
-
-const consumeSuperCarrot = (game) => {
-    if (game.inventorySuperCarrot === -1) {
-        return game;
-    };
-
-    const useSuperCarrot = (game) => (
-        doUseSuperCarrot(game)
-    );
-    const unequipSuperCarrot = (game) => (
-        doUnequipSuperCarrot(game)
-    );
-    const setPlayerMoves = (game) => (
-        doSetPlayerMoves(game.moves + 1, game)
-    );
-    const spawnCarrots = (game) => (
-        doSpawnCarrots(game)
-    );
-    const spawnTrees = (game) => (
-        doSpawnTrees(game)
-    );
-    const updateWolves = (game) => (
-        doUpdateWolves(game)
-    );
-
-    const stateChanges = [useSuperCarrot, unequipSuperCarrot, setPlayerMoves, spawnCarrots, spawnTrees, updateWolves];
-    return stateChanges.reduce((a, stateChange) => (
-        stateChange(a)
-    ), game);
-};
-
 const initGrid = () => {
     const spawnPlayers = (game) => (
         spawnPlayer({ x: constants.playerStart.x, y: constants.playerStart.y }, constants.playerStartHp, game)
@@ -188,7 +113,7 @@ const setDirection = (direction, game) => {
         case 'arrowright':
             return { ...game, direction: 'd' };
         default:
-            return { ...game, direction: direction  };
+            return { ...game, direction: direction };
     }
 };
 
@@ -212,6 +137,81 @@ const attack = (game) => {
         );
 
         const stateChanges = [reduceHp, addMove, spawnCarrots, updateWolves];
+        return stateChanges.reduce((a, stateChange) => (
+            stateChange(a)
+        ), game);
+    } 
+    
+    return game;
+};
+
+const consumeSuperCarrot = (game) => {
+    if (game.inventorySuperCarrot === -1) {
+        return game;
+    };
+
+    const useSuperCarrot = (game) => (
+        doUseSuperCarrot(game)
+    );
+    const unequipSuperCarrot = (game) => (
+        doUnequipSuperCarrot(game)
+    );
+    const setPlayerMoves = (game) => (
+        doSetPlayerMoves(game.moves + 1, game)
+    );
+    const spawnCarrots = (game) => (
+        doSpawnCarrots(game)
+    );
+    const spawnTrees = (game) => (
+        doSpawnTrees(game)
+    );
+    const updateWolves = (game) => (
+        doUpdateWolves(game)
+    );
+
+    const stateChanges = [useSuperCarrot, unequipSuperCarrot, setPlayerMoves, spawnCarrots, spawnTrees, updateWolves];
+    return stateChanges.reduce((a, stateChange) => (
+        stateChange(a)
+    ), game);
+};
+
+const swapPocket = (game) => (
+    game.pocketItem !== -1
+        ? constants.itemDict[game.pocketItem].type === 'superCarrot'
+            ? { ...game, pocketItem: game.inventorySuperCarrot, inventorySuperCarrot: game.pocketItem }
+            : constants.itemDict[game.pocketItem].type === 'weapon'
+                ? { ...game, pocketItem: game.inventoryWeapon, inventoryWeapon: game.pocketItem }
+                : game
+        : game
+);
+
+const placeFence = (game) => {
+    const playerTile = getPlayerCoords(game.grid);
+    const tileBeingPlacedOn = newCoordinatesInDirection(playerTile.x, playerTile.y, game.direction);
+    if (
+        !isOutOfBounds(tileBeingPlacedOn.newX, tileBeingPlacedOn.newY) &&
+        game.grid[tileBeingPlacedOn.newY][tileBeingPlacedOn.newX].entity.type === 'grass' &&
+        game.inventoryFences > 0 &&
+        getTile('fence', game.grid).length < game.maxFencesPlaced
+    ) {
+
+        const placeFence = (game) => (
+            doPlaceFence({ x: tileBeingPlacedOn.newX, y: tileBeingPlacedOn.newY }, game)
+        );
+        const reduceFences = (game) => (
+            { ...game, inventoryFences: game.inventoryFences - 1 }
+        );
+        const addMove = (game) => (
+            doSetPlayerMoves(game.moves + 1, game)
+        );
+        const spawnCarrots = (game) => (
+            doSpawnCarrots(game)
+        );
+        const updateWolves = (game) => (
+            doUpdateWolves(game)
+        );
+
+        const stateChanges = [placeFence, reduceFences, addMove, spawnCarrots, updateWolves];
         return stateChanges.reduce((a, stateChange) => (
             stateChange(a)
         ), game);

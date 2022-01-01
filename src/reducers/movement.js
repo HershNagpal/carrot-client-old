@@ -75,7 +75,7 @@ const doMoveWolves = (game) => {
 
     return wolfTiles.reduce((a, wolfTile) => {
         const reflectPos = reflectPosition({ x: playerCoords.x, y: playerCoords.y }, { x: Math.floor(constants.gridX / 2), y: Math.floor(constants.gridY / 2) });
-        const direction = Math.floor(Math.random() * 3) === 0
+        const direction = Math.floor(Math.random() * constants.wolfRetreatChance) === 0
             ? getWolfDirection(reflectPos.x, reflectPos.y, wolfTile, game.grid)
             : getWolfDirection(playerCoords.x, playerCoords.y, wolfTile, game.grid);
         
@@ -100,7 +100,7 @@ const doMoveWolves = (game) => {
 };
 
 export const doCheckSuperCarrotPickup = (game) => (
-    Math.floor(Math.random() * 10) === 0 
+    Math.floor(Math.random() * constants.superCarrotChance) === 0 
         ? setPocketItem(Math.floor(Math.random() * constants.itemDict.length), game)
         : game
 );

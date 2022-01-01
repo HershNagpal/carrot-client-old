@@ -1,3 +1,4 @@
+// Entity caps
 export const gridX = 15;
 export const gridY = 15;
 export const carrotCap = 10;
@@ -5,8 +6,16 @@ export const fenceCap = 10;
 export const wolfCap = 3;
 export const treeCap = 10;
 
+// Player start info
 export const playerStart = { x: 7, y: 7 };
 export const playerStartHp = 10;
+
+// RNG values
+export const carrotSpawnRate = 5;
+export const wolfSpawnRate = 50;
+export const treeSpawnRate = 30;
+export const wolfRetreatChance = 3;
+export const superCarrotChance = 10;
 
 export const defaultGame = {
     level: 1,
@@ -45,21 +54,21 @@ export const itemDict = [
         id: 1,
         name: 'Vowed Mithril Spell-carrot',
         description: 'Teleports you to a random location.',
-        flavor: '',
+        flavor: 'It is vowed and also mithril.',
         type: 'superCarrot',
     },
     {
         id: 2,
         name: 'Relentless Steel Carrot',
         description: 'Attacks in all four directions around you simultaneously.',
-        flavor: '',
+        flavor: 'It is steel and also relentless.',
         type: 'superCarrot',
     },
     {
         id: 3,
         name: 'Life\'s Limit',
         description: 'Levels you up instantly for half of your maximum HP.',
-        flavor: '',
+        flavor: 'Uneat the carrots to then consume all at once.',
         type: 'superCarrot',
     },
     {
