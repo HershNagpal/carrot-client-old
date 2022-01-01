@@ -2,15 +2,18 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(() => ({
     outerContainer: {
-        background: 'gray',
+        background: '#999',
         minWidth: '95vw',
         minHeight: '95vh',
         border: '5px solid black',
         borderRadius: '5px',
+        paddingTop: '15px',
     },
     image: {
         border: '5px solid black',
-        borderRadius: '5px',
+        borderRadius: '10px',
+        padding: '5px',
         width: '5vw',
+        backgroundColor: 'aliceblue',
     },
 }));
