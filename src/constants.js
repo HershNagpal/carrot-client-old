@@ -33,7 +33,7 @@ export const defaultGame = {
     maxFencesPlaced: 15,
     gameOver: false,
     isInInventory: false,
-    log: ['WASD to move, arrow keys to change direction. Spacebar to attack. Pick up carrots to heal and level up. Wolves will hit you if you end your turn on a tile next to them.'],
+    log: ['WASD to move, Arrows to change direction, Space to attack, I for inventory, C to use super carrot, V to swap with pocket. Pick up carrots to heal and level up. Wolves will hit you if you end your turn on a tile next to them.'],
     grid: Array(gridY).fill(Array(gridX).fill(0)).map((row, Yindex) => (
         row.map((tile, Xindex) => ({
             coords: { x: Xindex, y: Yindex },
