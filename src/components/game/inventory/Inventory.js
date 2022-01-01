@@ -2,7 +2,7 @@ import useStyles from './styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container, Grid, Typography, Button } from '@material-ui/core';
 import { toggleInventory } from '../../../actions/game';
-import { swordIcon, carrotIcon, grassIcon } from '../../../images';
+import { swordIcon, carrotIcon, pocketIcon, emptyIcon, itemIcons } from '../../../images';
 import * as constants from '../../../constants';
 
 const Inventory = () => {
@@ -19,49 +19,56 @@ const Inventory = () => {
             <Grid container direction="column">
                 <Grid item>
                     <Typography variant="h4">Inventory</Typography>
+                    <Typography variant="h6">Press 'V' to swap with pocket.</Typography>
                     <hr />
                 </Grid>
 
-                {game.inventoryWeapon >= 0
-                    ? <Grid item>
+                {game.inventoryWeapon > 0
+                    ? <Grid item className={classes.itemSlot}>
                         <img src={swordIcon} alt="swordIcon" width="50vw" />
-                        <Typography>{constants.itemDict[game.inventoryWeapon].name}</Typography>
+                        <img className={classes.slotIcon} src={itemIcons[game.inventoryWeapon]} alt={itemIcons[game.inventoryWeapon].name} width="50vw" />
+                        <Typography variant="h6"><b>{constants.itemDict[game.inventoryWeapon].name}</b></Typography>
                         <Typography>{constants.itemDict[game.inventoryWeapon].description}</Typography>
                         <Typography><i>'{constants.itemDict[game.inventoryWeapon].flavor}'</i></Typography>
                         <br />
                     </Grid>
-                    : <Grid item>
+                    : <Grid item className={classes.itemSlot}>
                         <img src={swordIcon} alt="swordIcon" width="50vw" />
+                        <img className={classes.slotIcon} src={emptyIcon} alt="emptyIcon" width="50vw" />
                         <Typography>No weapon equipped.</Typography>
                         <br />
                     </Grid>
                 }
 
-                {game.inventorySuperCarrot >= 0
-                    ? <Grid item>
+                {game.inventorySuperCarrot > 0
+                    ? <Grid item className={classes.itemSlot}>
                         <img src={carrotIcon} alt="carrotIcon" width="50vw" />
-                        <Typography>{constants.itemDict[game.inventorySuperCarrot].name}</Typography>
+                        <img className={classes.slotIcon} src={itemIcons[game.inventorySuperCarrot]} alt={itemIcons[game.inventorySuperCarrot].name} width="50vw" />
+                        <Typography variant="h6"><b>{constants.itemDict[game.inventorySuperCarrot].name}</b></Typography>
                         <Typography>{constants.itemDict[game.inventorySuperCarrot].description}</Typography>
                         <Typography><i>'{constants.itemDict[game.inventorySuperCarrot].flavor}'</i></Typography>
                         <br />
                     </Grid>
-                    : <Grid item>
+                    : <Grid item className={classes.itemSlot}>
                         <img src={carrotIcon} alt="carrotIcon" width="50vw" />
+                        <img src={emptyIcon} alt="emptyIcon" width="50vw" />
                         <Typography>No super carrot equipped.</Typography>
                         <br />
                     </Grid>
                 }
 
-                {game.pocketItem >= 0
-                    ? <Grid item>
-                        <img src={grassIcon} alt="grassIcon" width="50vw" />
-                        <Typography>{constants.itemDict[game.pocketItem].name}</Typography>
+                {game.pocketItem > 0
+                    ? <Grid item className={classes.itemSlot}>
+                        <img src={pocketIcon} alt="pocketIcon" width="50vw" />
+                        <img className={classes.slotIcon} src={itemIcons[game.pocketItem]} alt={itemIcons[game.pocketItem].name} width="50vw" />
+                        <Typography variant="h6"><b>{constants.itemDict[game.pocketItem].name}</b></Typography>
                         <Typography>{constants.itemDict[game.pocketItem].description}</Typography>
                         <Typography><i>'{constants.itemDict[game.pocketItem].flavor}'</i></Typography>
                         <br />
                     </Grid>
-                    : <Grid item>
-                        <img src={grassIcon} alt="grassIcon" width="50vw" />
+                    : <Grid item className={classes.itemSlot}>
+                        <img src={pocketIcon} alt="pocketIcon" width="50vw" />
+                        <img className={classes.slotIcon} src={emptyIcon} alt="emptyIcon" width="50vw" />
                         <Typography>No item in pocket.</Typography>
                         <br />
                     </Grid>

@@ -146,7 +146,7 @@ const attack = (game) => {
 };
 
 const consumeSuperCarrot = (game) => {
-    if (game.inventorySuperCarrot === -1) {
+    if (game.inventorySuperCarrot === 0) {
         return game;
     };
 
@@ -176,13 +176,9 @@ const consumeSuperCarrot = (game) => {
 };
 
 const swapPocket = (game) => (
-    game.pocketItem !== -1
-        ? constants.itemDict[game.pocketItem].type === 'superCarrot'
-            ? { ...game, pocketItem: game.inventorySuperCarrot, inventorySuperCarrot: game.pocketItem }
-            : constants.itemDict[game.pocketItem].type === 'weapon'
-                ? { ...game, pocketItem: game.inventoryWeapon, inventoryWeapon: game.pocketItem }
-                : game
-        : game
+    constants.itemDict[game.pocketItem].type === 'weapon'
+        ? { ...game, pocketItem: game.inventoryWeapon, inventoryWeapon: game.pocketItem }
+        : { ...game, pocketItem: game.inventorySuperCarrot, inventorySuperCarrot: game.pocketItem }
 );
 
 const placeFence = (game) => {

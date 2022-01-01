@@ -6,16 +6,15 @@ import { doChangeHp, doSetXp } from './setters';
 
 export const doUseSuperCarrot = (game) => {
     const id = game.inventorySuperCarrot;
-    const item = constants.itemDict[id];
-    console.log(item.name);
+    
     switch (id) {
-        case 0:
-            return carrotOfRiddles(game);
         case 1:
-            return randomPlayerTeleport(game);
+            return carrotOfRiddles(game);
         case 2:
-            return attackAllDirections(game);
+            return randomPlayerTeleport(game);
         case 3:
+            return attackAllDirections(game);
+        case 4:
             return levelUp(game);
         default:
             return carrotOfRiddles(game);
@@ -23,7 +22,7 @@ export const doUseSuperCarrot = (game) => {
 };
 
 export const doUnequipSuperCarrot = (game) => (
-    {...game, inventorySuperCarrot: -1 }
+    { ...game, inventorySuperCarrot: 0 }
 );
 
 
@@ -48,10 +47,10 @@ const randomPlayerTeleport = (game) => {
     const coords = randomGrassLocation(game);
 
     const spawnPlayer = (game) => (
-        setTileEntity({ x: coords.x, y: coords.y}, game.grid[y][x], game)
+        setTileEntity({ x: coords.x, y: coords.y }, game.grid[y][x], game)
     );
     const removePlayer = (game) => (
-        setTile({ x: x, y: y}, 'grass', game)
+        setTile({ x: x, y: y }, 'grass', game)
     );
 
     const stateChanges = [ spawnPlayer, removePlayer]
@@ -82,8 +81,8 @@ const levelUp = (game) => {
 
 const randomGrassLocation = (game) => {
     while (true) {
-        const x = Math.floor(Math.random() * 15);
-        const y = Math.floor(Math.random() * 15);
+        const x = Math.floor(Math.random() * constants.gridX);
+        const y = Math.floor(Math.random() * constants.gridY);
         if (game.grid[y][x].entity.type === 'grass') {
             return { x: x, y: y };
         }
@@ -97,7 +96,7 @@ const fourDirectionAttack = (game, damage=constants.itemDict[game.inventoryWeapo
         newCoordinatesInDirection(playerTile.x, playerTile.y, 'a'),
         newCoordinatesInDirection(playerTile.x, playerTile.y, 's'),
         newCoordinatesInDirection(playerTile.x, playerTile.y, 'd'),
-    ].filter( (coord) => (
+    ].filter((coord) => (
         !isOutOfBounds(coord.newX, coord.newY) &&
         (game.grid[coord.newY][coord.newX].entity.type === 'wolf' || 
         game.grid[coord.newY][coord.newX].entity.type === 'fence' ||
@@ -111,8 +110,8 @@ const fourDirectionAttack = (game, damage=constants.itemDict[game.inventoryWeapo
 
 export const doPlaceFence = (coord, game) => {
     const fenceTile = {
-        coords: {x: coord.x, y: coord.y}, 
-        entity: {type: 'fence', hp: game.fenceHp, maxHp: game.fenceHp}
+        coords: { x: coord.x, y: coord.y }, 
+        entity: { type: 'fence', hp: game.fenceHp, maxHp: game.fenceHp }
     };
     return setTileEntity({ x: coord.x, y: coord.y }, fenceTile, game)
 }

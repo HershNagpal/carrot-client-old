@@ -37,7 +37,7 @@ const GameGrid = () => {
                 dispatch(toggleInventory());
             }
         }
-    }, [keyPressed, game.gameOver, game.isInInventory, dispatch]);
+    }, [keyPressed, game.gameOver, dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         dispatch(initGrid());

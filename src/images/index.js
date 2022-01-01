@@ -8,3 +8,22 @@ export const fenceIcon = require('./fence.png');
 export const treeIcon = require('./tree.png');
 export const grassIcon = require('./grass.png');
 export const swordIcon = require('./sword.png');
+export const emptyIcon = require('./empty.png');
+export const pocketIcon = require('./pocket.png');
+export const carrotOutlineIcon = require('./carrotOutline.png');
+
+const riddleCarrotIcon = require('./riddleCarrot.png');
+const mithrilCarrotIcon = require('./mithrilCarrot.png');
+const relentlessCarrotIcon = require('./relentlessCarrot.png');
+const lifeCarrotIcon = require('./lifeCarrot.png');
+const pitchforkIcon = require('./pitchfork.png');
+const squiresBladeIcon = require('./squiresBlade.png');
+export const itemIcons = [
+    emptyIcon,
+    riddleCarrotIcon,
+    mithrilCarrotIcon,
+    relentlessCarrotIcon,
+    lifeCarrotIcon,
+    pitchforkIcon,
+    squiresBladeIcon,
+];

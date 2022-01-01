@@ -10,10 +10,18 @@ export default makeStyles(() => ({
         backgroundColor: 'lightgreen',
     },
     icon: {
-        height: '50px',
-        width: '50px',
+        height: '40px',
+        width: '40px',
+        position: 'absolute',
+        left: '50%',
+        top: '50%',
+        transform: 'translate(-50%, -50%)',
     },
-    fenceAmount: {
+    smallIcon: {
+        height: '20px',
+        width: '20px',
+    },
+    smallIconContainer: {
         backgroundColor: 'lightgrey',
         height: '1.2em',
         width: '1.2em',
