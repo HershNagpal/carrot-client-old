@@ -23,6 +23,7 @@ export const defaultGame = {
     maxHeldFences: 3,
     maxFencesPlaced: 15,
     gameOver: false,
+    isInInventory: false,
     log: ['WASD to move, arrow keys to change direction. Spacebar to attack. Pick up carrots to heal and level up. Wolves will hit you if you end your turn on a tile next to them.'],
     grid: Array(gridY).fill(Array(gridX).fill(0)).map((row, Yindex) => (
         row.map((tile, Xindex) => ({
@@ -32,36 +33,36 @@ export const defaultGame = {
     )),
 };
 
-export const itemDict = {
-    0: {
+export const itemDict = [
+    {
         id: 0,
         name: 'Carrot of Riddles',
         description: 'It does something... but what?',
         flavor: 'An average looking carrot I found on the floor. Something about it is off.',
         type: 'superCarrot',
     },
-    1: {
+    {
         id: 1,
         name: 'Vowed Mithril Spell-carrot',
         description: 'Teleports you to a random location.',
         flavor: '',
         type: 'superCarrot',
     },
-    2: {
+    {
         id: 2,
         name: 'Relentless Steel Carrot',
         description: 'Attacks in all four directions around you simultaneously.',
         flavor: '',
         type: 'superCarrot',
     },
-    3: {
+    {
         id: 3,
         name: 'Life\'s Limit',
         description: 'Levels you up instantly for half of your maximum HP.',
         flavor: '',
         type: 'superCarrot',
     },
-    4: {
+    {
         id: 4,
         name: 'Farmer\'s Pitchfork',
         description: '1 Damage',
@@ -69,7 +70,7 @@ export const itemDict = {
         type: 'weapon',
         damage: 1,
     },
-    5: {
+    {
         id: 4,
         name: 'Carrotified Squire\'s Blade',
         description: '2 Damage',
@@ -77,7 +78,7 @@ export const itemDict = {
         type: 'weapon',
         damage: 2,
     },
-};
+];
 
 export const gameDefinition = 'avoid fences and wolves, collect carrots';
 export const crash = false;

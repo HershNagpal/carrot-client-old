@@ -1,6 +1,7 @@
 import StatsBoard from './stats/StatsBoard';
 import GameGrid from './gameGrid/GameGrid';
 import GameOver from './gameOver/GameOver'
+import Inventory from './inventory/Inventory';
 import { useSelector } from 'react-redux';
 import { Grid, Container } from '@material-ui/core';
 import useStyles from './styles';
@@ -10,8 +11,9 @@ const Game = () => {
     const classes = useStyles();
     
     return <>
-        {game.gameOver ? <GameOver /> : null }
-        <Container className={classes.outerContainer} >
+        {game.gameOver ? <GameOver /> : null}
+        {game.isInInventory ? <Inventory /> : null}
+        <Container className={classes.outerContainer}>
             <Grid container direction='row'>
                 <Grid item>
                     <GameGrid />

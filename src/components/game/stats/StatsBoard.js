@@ -4,11 +4,18 @@ import { Grid, Container, Typography, Button } from '@material-ui/core';
 import useStyles from './styles';
 import { useSelector } from 'react-redux';
 import { getPlayer } from '../../../reducers/selectors';
-import Inventory from './inventory/Inventory';
+import { useDispatch } from 'react-redux';
+import { toggleInventory } from '../../../actions/game';
+import InventoryIcons from './inventoryIcons/InventoryIcons';
 
 const StatsBoard = () => {
     const game = useSelector((state) => state.game);
     const classes = useStyles();
+    const dispatch = useDispatch();
+
+    const doToggleInventory = () => (
+        dispatch(toggleInventory())
+    );
 
     return <>
         <Grid container className={classes.outerContainer}>
@@ -23,7 +30,7 @@ const StatsBoard = () => {
             </Grid>
 
             <Grid item>
-                <Inventory />
+                <InventoryIcons />
             </Grid>
 
             <Grid item>
@@ -31,6 +38,12 @@ const StatsBoard = () => {
                     <Link to="/">
                         <Button variant="contained" color="primary">Title Screen</Button>
                     </Link>
+                </Container>
+            </Grid>
+
+            <Grid item>
+                <Container >
+                    <Button variant="contained" color="primary" onClick={doToggleInventory}>Inventory</Button>
                 </Container>
             </Grid>
 

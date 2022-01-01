@@ -5,24 +5,19 @@ import { newCoordinatesInDirection, isOutOfBounds } from './moveHelpers';
 import { doChangeHp, doSetXp } from './setters';
 
 export const doUseSuperCarrot = (game) => {
-    switch (game.inventorySuperCarrot) {
+    const id = game.inventorySuperCarrot;
+    const item = constants.itemDict[id];
+    console.log(item.name);
+    switch (id) {
         case 0:
-            console.log('Carrot of Riddles');
             return carrotOfRiddles(game);
         case 1:
-            console.log('Vowed Mithril Spell-carrot');
             return randomPlayerTeleport(game);
         case 2:
-            console.log('Relentless Steel Carrot');
             return attackAllDirections(game);
         case 3:
-            console.log('Life\'s Limit');
             return levelUp(game);
-        case 4:
-            console.log('Carrotified Squire\'s Blade');
-            return carrotOfRiddles(game);
         default:
-            console.log('?? carrot');
             return carrotOfRiddles(game);
     }
 };

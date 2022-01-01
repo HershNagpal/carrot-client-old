@@ -29,6 +29,9 @@ const game = (game = constants.defaultGame, action) => {
         case 'PLACE_FENCE':
             return placeFence(game);
 
+        case 'TOGGLE_INVENTORY':
+            return { ...game, isInInventory: !game.isInInventory };
+
         default:
             return game;
     }
@@ -135,16 +138,16 @@ const movePlayer = (direction, game) => {
 
     if (!isOutOfBounds(newX, newY) && checkMove(game.grid[newY][newX])) {
         const spawnPlayer = (game) => (
-            setTileEntity({ x: newX, y: newY}, game.grid[y][x], game)
+            setTileEntity({ x: newX, y: newY }, game.grid[y][x], game)
         );
         const removePlayer = (game) => (
-            setTile({ x: x, y: y}, 'grass', game)
+            setTile({ x: x, y: y }, 'grass', game)
         );
         const setPlayerMoves = (game) => (
             doSetPlayerMoves(game.moves + 1, game)
         );
         const spawnCarrots = (game) => (
-            doSpawnCarrots(game)
+            doSpawnCarrots(game) 
         );
         const spawnTrees = (game) => (
             doSpawnTrees(game)

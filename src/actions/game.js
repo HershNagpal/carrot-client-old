@@ -53,3 +53,11 @@ export const placeFence = () => async (dispatch) => {
         console.log(error.message);
     }
 };
+
+export const toggleInventory = () => async (dispatch) => {
+    try {
+        dispatch({ type: 'TOGGLE_INVENTORY', payload: null });
+    } catch (error) {
+        console.log(error.message);
+    }
+};

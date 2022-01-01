@@ -3,7 +3,7 @@ import useStyles from './styles';
 import { useSelector } from 'react-redux';
 import { fenceIcon, carrotIcon, swordIcon, grassIcon } from '../../../../images';
 
-const Inventory = () => {
+const InventoryIcons = () => {
     const game = useSelector((state) => state.game);
     const classes = useStyles();
 
@@ -49,4 +49,4 @@ const Inventory = () => {
     </>
 };
 
-export default Inventory;
+export default InventoryIcons;

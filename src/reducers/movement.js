@@ -101,6 +101,6 @@ const doMoveWolves = (game) => {
 
 export const doCheckSuperCarrotPickup = (game) => (
     Math.floor(Math.random() * 10) === 0 
-        ? setPocketItem(Math.floor(Math.random() * Object.keys(constants.itemDict).length), game)
+        ? setPocketItem(Math.floor(Math.random() * constants.itemDict.length), game)
         : game
 );
