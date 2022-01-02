@@ -2,7 +2,7 @@ import { Container, Grid } from '@material-ui/core';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useKeyData } from './keyListenerHook';
-import { initGrid, movePlayer, changeDirection, attack, consumeSuperCarrot, swapPocket, placeFence, toggleInventory } from '../../../actions/game';
+import { initGrid, movePlayer, changeDirection, attack, consumeSuperCarrot, swapPocket, placeFence, toggleInventory, toggleCollection } from '../../../actions/game';
 import useStyles from './styles';
 import Tile from './tile/Tile';
 
@@ -15,26 +15,58 @@ const GameGrid = () => {
     const keyPressed = keyData[0];
 
     useEffect(() => {
-        if (!game.gameOver) {
-            const key = keyPressed.key.toLowerCase();
-            if (!game.isInInventory) {
-                if (key === 'w' || key === 's' || key === 'a' || key === 'd') {
+        if (game.gameOver) { return; }
+
+        const key = keyPressed.key.toLowerCase();
+        if (game.isInInventory || game.isInCollection) {
+            switch (key) {
+                case 'i':
+                    if (game.isInCollection) { dispatch(toggleCollection()); }
+                    dispatch(toggleInventory());
+                    break;
+                case 'u':
+                    if (game.isInInventory) { dispatch(toggleInventory()); }
+                    dispatch(toggleCollection());
+                    break;
+                case 'v':
+                    dispatch(swapPocket());
+                    break;
+            }
+        } else {
+            switch (key) {
+                case 'w':
+                case 's':
+                case 'a':
+                case 'd':
                     dispatch(movePlayer(key));
                     dispatch(changeDirection(key));
-                } else if (key === 'arrowup' || key === 'arrowdown' || key === 'arrowleft' || key === 'arrowright') {
+                    break;
+                case 'arrowup':
+                case 'arrowdown':
+                case 'arrowleft':
+                case 'arrowright':
                     dispatch(changeDirection(key));
-                } else if (key === ' ') {
+                    break;
+                case ' ':
                     dispatch(attack());
-                } else if (key === 'c') {
+                    break;
+                case 'c':
                     dispatch(consumeSuperCarrot());
-                } else if (key === 'f') {
+                    break;
+                case 'f':
                     dispatch(placeFence());
-                }
-            }
-            if (key === 'v') {
-                dispatch(swapPocket());
-            } else if (key === 'i') {
-                dispatch(toggleInventory());
+                    break;
+                case 'i':
+                    dispatch(toggleInventory());
+                    break;
+                case 'u':
+                    dispatch(toggleCollection());
+                    break;
+                case 'v':
+                    dispatch(swapPocket());
+                    break;
+                default:
+                    break;
             }
         }
     }, [keyPressed, game.gameOver, dispatch]); // eslint-disable-line react-hooks/exhaustive-deps

@@ -2,6 +2,7 @@ import StatsBoard from './stats/StatsBoard';
 import GameGrid from './gameGrid/GameGrid';
 import GameOver from './gameOver/GameOver'
 import Inventory from './inventory/Inventory';
+import Collection from './collection/Collection';
 import { useSelector } from 'react-redux';
 import { Grid, Container } from '@material-ui/core';
 import useStyles from './styles';
@@ -13,6 +14,7 @@ const Game = () => {
     return <>
         {game.gameOver ? <GameOver /> : null}
         {game.isInInventory ? <Inventory /> : null}
+        {game.isInCollection ? <Collection /> : null}
         <Container className={classes.outerContainer}>
             <Grid container direction='row'>
                 <Grid item>

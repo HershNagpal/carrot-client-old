@@ -61,3 +61,11 @@ export const toggleInventory = () => async (dispatch) => {
         console.log(error.message);
     }
 };
+
+export const toggleCollection = () => async (dispatch) => {
+    try {
+        dispatch({ type: 'TOGGLE_COLLECTION', payload: null });
+    } catch (error) {
+        console.log(error.message);
+    }
+};

@@ -4,7 +4,7 @@ import useStyles from './styles';
 import { useSelector } from 'react-redux';
 import { getPlayer } from '../../../reducers/selectors';
 import { useDispatch } from 'react-redux';
-import { toggleInventory } from '../../../actions/game';
+import { toggleInventory, toggleCollection } from '../../../actions/game';
 import InventoryIcons from './inventoryIcons/InventoryIcons';
 
 const StatsBoard = () => {
@@ -15,6 +15,11 @@ const StatsBoard = () => {
     const doToggleInventory = () => (
         dispatch(toggleInventory())
     );
+
+    const doToggleCollection = () => (
+        dispatch(toggleCollection())
+    );
+
 
     return <>
         <Grid container className={classes.outerContainer}>
@@ -42,6 +47,12 @@ const StatsBoard = () => {
             <Grid item>
                 <Container >
                     <Button variant="contained" color="primary" onClick={doToggleInventory}>Inventory</Button>
+                </Container>
+            </Grid>
+
+            <Grid item>
+                <Container >
+                    <Button variant="contained" color="primary" onClick={doToggleCollection}>Collection</Button>
                 </Container>
             </Grid>
 

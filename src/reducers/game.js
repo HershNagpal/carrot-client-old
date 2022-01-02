@@ -32,6 +32,9 @@ const game = (game = constants.defaultGame, action) => {
         case 'TOGGLE_INVENTORY':
             return { ...game, isInInventory: !game.isInInventory };
 
+        case 'TOGGLE_COLLECTION':
+            return { ...game, isInCollection: !game.isInCollection };
+
         default:
             return game;
     }
