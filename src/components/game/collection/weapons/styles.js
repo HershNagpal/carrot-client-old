@@ -10,7 +10,7 @@ export default makeStyles(() => ({
         width: '5vw',
     },
     selectedItem: {
-        border: '3px solid yellow',
+        border: '3px solid lightgreen',
         backgroundColor: 'aliceblue',
         padding: '5px',
     },

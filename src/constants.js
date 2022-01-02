@@ -17,33 +17,6 @@ export const treeSpawnRate = 30;
 export const wolfRetreatChance = 3;
 export const superCarrotChance = 10;
 
-export const defaultGame = {
-    level: 1,
-    xp: 0,
-    maxXp: 10,
-    moves: 0,
-    direction: 'w',
-    inventoryFences: 2,
-    inventorySuperCarrot: 3,
-    inventoryWeapon: 5,
-    pocketItem: 0,
-    carrotHealing: 1,
-    fenceHp: 3,
-    maxHeldFences: 3,
-    maxFencesPlaced: 15,
-    gameOver: false,
-    isInInventory: false,
-    isInCollection: false,
-    collectionSelect: 1,
-    log: ['WASD to move, Arrows to change direction, Space to attack, I for inventory, C to use super carrot, V to swap with pocket. Pick up carrots to heal and level up. Wolves will hit you if you end your turn on a tile next to them.'],
-    grid: Array(gridY).fill(Array(gridX).fill(0)).map((row, Yindex) => (
-        row.map((tile, Xindex) => ({
-            coords: { x: Xindex, y: Yindex },
-            entity: { type: 'grass' },
-        }))
-    )),
-};
-
 export const itemDict = [
     {
         id: 0,
@@ -97,6 +70,36 @@ export const itemDict = [
         damage: 2,
     },
 ];
+
+export const defaultGame = {
+    level: 1,
+    xp: 0,
+    maxXp: 10,
+    moves: 0,
+    direction: 'w',
+    inventoryFences: 2,
+    inventorySuperCarrot: 3,
+    inventoryWeapon: 5,
+    pocketItem: 0,
+    carrotHealing: 1,
+    fenceHp: 3,
+    maxHeldFences: 3,
+    maxFencesPlaced: 15,
+    gameOver: false,
+    isInInventory: false,
+    isInCollection: false,
+    collectionSelect: 5,
+    collection: Array(itemDict.length).fill(0).map((e, i) => (
+        { id: i, found: 0 }
+    )),
+    log: ['WASD to move, Arrows to change direction, Space to attack, I for inventory, C to use super carrot, V to swap with pocket. Pick up carrots to heal and level up. Wolves will hit you if you end your turn on a tile next to them.'],
+    grid: Array(gridY).fill(Array(gridX).fill(0)).map((row, Yindex) => (
+        row.map((tile, Xindex) => ({
+            coords: { x: Xindex, y: Yindex },
+            entity: { type: 'grass' },
+        }))
+    )),
+};
 
 export const gameDefinition = 'avoid fences and wolves, collect carrots';
 export const crash = false;
