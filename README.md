@@ -1,11 +1,7 @@
 TODO:
 
 Next Time:
-- ~Using Super Carrots~
-- ~Inventory management~
-- ~Fence Placement~
 - Possible bug when carrots or wolves spawn out of bounds
-- Inventory display needs to show item info
 - Wolf AI
 
 Attacking:
@@ -28,7 +24,7 @@ Weapons:
 
 Fences:
 - Wolves and ~players can break fences~
-- Players can build new fences
+- ~Players can build new fences~
 
 Title Screen:
 - Account stuff in the future
@@ -45,13 +41,13 @@ Carrots:
 
 Wolves:
 - Overall AI improvements
-- - getDirection overhaul into main wolf AI
+- getDirection overhaul into main wolf AI
 - Different wolf types
 - Different AI
 - Different stats
 
 Animations:
-- ~Rotate player icon in CSS~
+- Rotate player icon in CSS
 - Movement animation
 - Attack animation
 
