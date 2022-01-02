@@ -35,6 +35,9 @@ const game = (game = constants.defaultGame, action) => {
         case 'TOGGLE_COLLECTION':
             return { ...game, isInCollection: !game.isInCollection };
 
+        case 'COLLECTION_SELECT':
+            return { ...game, collectionSelect: action.payload };
+
         default:
             return game;
     }

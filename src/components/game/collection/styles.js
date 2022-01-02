@@ -16,4 +16,26 @@ export default makeStyles(() => ({
         paddingTop: '10px',
         paddingBottom: '20px',
     },
+    itemIcon: {
+        width: '5vw',
+        border: '3px solid black',
+        borderRadius: '25%',
+        backgroundColor: 'aliceblue',
+        marginLeft: '5px',
+        padding: '5px',
+    },
+    typeIcon: {
+        width: '5vw',
+    },
+    itemGrid: {
+        maxWidth: '45vw',
+    },
+    infoBox: {
+        minWidth: '30vw',
+        maxWidth: '30vw',
+        minHeight: '30vh',
+        backgroundColor: 'lightgray',
+        borderRadius: '10px',
+        padding: '10px',
+    },
 }));

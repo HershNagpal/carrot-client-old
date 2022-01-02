@@ -69,3 +69,11 @@ export const toggleCollection = () => async (dispatch) => {
         console.log(error.message);
     }
 };
+
+export const collectionSelect = (selection) => async (dispatch) => {
+    try {
+        dispatch({ type: 'COLLECTION_SELECT', payload: selection });
+    } catch (error) {
+        console.log(error.message);
+    }
+};

@@ -51,7 +51,7 @@ const Inventory = () => {
                     </Grid>
                     : <Grid item className={classes.itemSlot}>
                         <img src={carrotIcon} alt="carrotIcon" width="50vw" />
-                        <img src={emptyIcon} alt="emptyIcon" width="50vw" />
+                        <img className={classes.slotIcon} src={emptyIcon} alt="emptyIcon" width="50vw" />
                         <Typography>No super carrot equipped.</Typography>
                         <br />
                     </Grid>
