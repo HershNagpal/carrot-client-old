@@ -31,6 +31,8 @@ const GameGrid = () => {
                 case 'v':
                     dispatch(swapPocket());
                     break;
+                default:
+                    break;
             }
         } else {
             switch (key) {
