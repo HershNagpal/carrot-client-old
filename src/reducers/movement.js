@@ -1,6 +1,6 @@
 import * as constants from '../constants';
 import { getPlayerCoords, getWolves } from './selectors';
-import { doAddWolfMoves, doChangeHp, setPocketItem } from './setters';
+import { doAddWolfMoves, doChangeHp, doSetPocketItem, doUpdateFound } from './setters';
 import { doSpawnWolves } from './spawn';
 import { checkMove, newCoordinatesInDirection, isOutOfBounds, getWolfDirection, reflectPosition } from './moveHelpers';
 
@@ -99,8 +99,22 @@ const doMoveWolves = (game) => {
     }, game);
 };
 
-export const doCheckSuperCarrotPickup = (game) => (
-    Math.floor(Math.random() * constants.superCarrotChance) === 0 
-        ? setPocketItem(Math.floor(Math.random() * (constants.itemDict.length - 1) + 1), game)
-        : game
-);
+export const doCheckSuperCarrotPickup = (game) => {
+    if (Math.floor(Math.random() * constants.superCarrotChance) === 0) {
+        const itemId = Math.floor(Math.random() * (constants.itemDict.length - 1) + 1);
+
+        const setPocketItem = (game) => (
+            doSetPocketItem(itemId, game)
+        );
+        const updateFound = (game) => (
+            doUpdateFound(itemId, game)
+        );
+
+        const stateChanges = [setPocketItem, updateFound];
+        return stateChanges.reduce((a, stateChange) => (
+            stateChange(a)
+        ), game);
+    } else {
+        return game;
+    }
+};

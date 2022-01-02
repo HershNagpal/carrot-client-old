@@ -29,15 +29,11 @@ const Carrots = () => {
                     game.collection[2].found === 0
                         ? <img className={classes.collectionIcon} src={emptyIcon} alt="emptyIcon" />
                         : <img className={classes.collectionIcon} src={itemIcons[2]} alt="mithrilCarrotIcon" onClick={() => doCollectionSelect(2)} />
-                    }
+                }
                 </Grid>
 
                 <Grid item className={game.collectionSelect === 3 ? classes.selectedItem : classes.collectionItem}>
-                {
-                    game.collection[3].found === 0
-                        ? <img className={classes.collectionIcon} src={emptyIcon} alt="emptyIcon" />
-                        : <img className={classes.collectionIcon} src={itemIcons[3]} alt="relentlessCarrotIcon" onClick={() => doCollectionSelect(3)} />
-                }
+                    <img className={classes.collectionIcon} src={itemIcons[3]} alt="relentlessCarrotIcon" onClick={() => doCollectionSelect(3)} />
                 </Grid>
 
                 <Grid item className={game.collectionSelect === 4 ? classes.selectedItem : classes.collectionItem}>

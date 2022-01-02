@@ -136,8 +136,18 @@ export const doCheckForDeath = (game) => {
     }
 };
 
-export const setPocketItem = (id, game) => (
+export const doSetPocketItem = (id, game) => (
     { ...game, pocketItem: id }
+);
+
+export const doUpdateFound = (id, game) => (
+    { ...game, collection:
+        game.collection.map((item) => (
+            item.id === id
+                ? { ...item, found: item.found + 1 }
+                : item
+        ))
+    }
 );
 
 /*export const updateLog = (gameEvent, game) => (
