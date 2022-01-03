@@ -102,12 +102,14 @@ export const spawnWolf = (num, game) => {
             }
         }
     }, []);
-    const wolfTypeId = Math.floor(Math.random()*2)+1; // TODO: Change this to an actual random roll
+
+    const wolfTypeId = Math.floor(Math.random() * 2) + 1;
     const wolfEntity = constants.wolfMap[wolfTypeId]; // TODO: Actual levelled wolf stats
+
     return { ...game, grid: game.grid.map((row, Yindex) => (
         row.map((tile, Xindex) => (
             coords.find((coord) => coord.x === Xindex && coord.y === Yindex)
-            ? { ...tile, entity: {type: 'wolf', wolfType: wolfEntity.name, attack: wolfEntity.baseDamage, hp: wolfEntity.baseMaxHp, maxHp: wolfEntity.baseMaxHp} }
+            ? { ...tile, entity: { type: 'wolf', wolfType: wolfEntity.name, attack: wolfEntity.baseDamage, hp: wolfEntity.baseMaxHp, maxHp: wolfEntity.baseMaxHp } }
             : tile
         ))
     ))};

@@ -79,7 +79,7 @@ const wolfAI = (game) => {
     const wolfTiles = getWolves(game.grid);
 
     return wolfTiles.reduce((a, wolfTile) => {
-        switch(wolfTile.entity.wolfType) {
+        switch (wolfTile.entity.wolfType) {
             case 'timid':  
                 return timidWolfAI(wolfTile, a); 
             case 'stupid':
@@ -111,7 +111,6 @@ const timidWolfAI = (wolfTile, game) => {
             return doWolfMove(wolfTile, direction, game);
     }
 };
-
 
 export const doCheckSuperCarrotPickup = (game) => {
     if (Math.floor(Math.random() * constants.superCarrotChance) === 0) {
