@@ -84,26 +84,22 @@ const wolfAI = (game) => {
      * 2. determine an action to take based on type (if choosing randomly, randomness will be chosen here) 
      * 3. determine targeted tile, direction to attack, etc. pass to next step 
      * 4. branch off for types of movement, moving would call a move function or attack calls attack function 
-     * 5. check where it ends up and update its state 
      */
         switch(wolfTile.entity.wolfType) { // Step 1
             case 'timid':  
-                // Step 2
                 const playerCoords = getPlayerCoords(game.grid);
-                const up = newCoordinatesInDirection(wolfTile.coords.x, wolfTile.coords.y, 'w');
-                const down = newCoordinatesInDirection(wolfTile.coords.x, wolfTile.coords.y, 's');
-                const left = newCoordinatesInDirection(wolfTile.coords.x, wolfTile.coords.y, 'a');
-                const right = newCoordinatesInDirection(wolfTile.coords.x, wolfTile.coords.y, 'd');
+                // Step 2
 
-                const playerIsNear = [up, down, left, right].reduce((a, coord) => (
-                    playerCoords.x === coord.newX && playerCoords.y === coord.newY
-                        ? true
-                        : a
-                ), false);
-                console.log(playerIsNear);
+                const playerIsNear = ['w', 'a', 's', 'd'].reduce((a, direction) => {
+                    const {newX, newY} = newCoordinatesInDirection(wolfTile.coords.x, wolfTile.coords.y, direction)
+                    return newX === playerCoords.x && newY === playerCoords.y
+                        ? direction
+                        : a                        
+                }, false);
+
                 // Step 3
                 if (playerIsNear) {
-                    return doWolfAttack(wolfTile, getWolfDirection(playerCoords.x, playerCoords.y, wolfTile, game.grid), game);
+                    return doWolfAttack(wolfTile, playerIsNear, game);
                 } else {
                     const reflectPos = reflectPosition({ x: playerCoords.x, y: playerCoords.y }, { x: Math.floor(constants.gridX / 2), y: Math.floor(constants.gridY / 2) });
                     const direction = Math.floor(Math.random() * constants.wolfRetreatChance) === 0

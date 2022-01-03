@@ -104,7 +104,6 @@ export const spawnWolf = (num, game) => {
     }, []);
     const wolfTypeId = 1; // TODO: Change this to an actual random roll
     const wolfEntity = constants.wolfMap[wolfTypeId]; // TODO: Actual levelled wolf stats
-    console.log(wolfEntity);
     return { ...game, grid: game.grid.map((row, Yindex) => (
         row.map((tile, Xindex) => (
             coords.find((coord) => coord.x === Xindex && coord.y === Yindex)
