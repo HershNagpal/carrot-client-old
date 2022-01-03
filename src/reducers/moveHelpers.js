@@ -1,4 +1,5 @@
 import * as constants from '../constants';
+import { getPlayerCoords } from './selectors';
 
 export const checkMove = (nextTile) => {
     switch (nextTile.entity.type) {
@@ -16,6 +17,16 @@ export const checkMove = (nextTile) => {
             return false;
     }
 };
+
+export const isPlayerNear = (nearbyTile, game) => {
+    const playerCoords = getPlayerCoords(game.grid);
+    return ['w', 'a', 's', 'd'].reduce((a, direction) => {
+        const {newX, newY} = newCoordinatesInDirection(nearbyTile.coords.x, nearbyTile.coords.y, direction)
+        return newX === playerCoords.x && newY === playerCoords.y
+            ? direction
+            : a                        
+    }, false);
+}
 
 export const newCoordinatesInDirection = (x, y, direction) => {
     switch (direction) {

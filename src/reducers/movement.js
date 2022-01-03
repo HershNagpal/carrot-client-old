@@ -2,7 +2,7 @@ import * as constants from '../constants';
 import { getPlayerCoords, getWolves } from './selectors';
 import { doAddWolfMoves, doChangeHp, doSetPocketItem, doUpdateFound } from './setters';
 import { doSpawnWolves } from './spawn';
-import { checkMove, newCoordinatesInDirection, isOutOfBounds, getWolfDirection, reflectPosition } from './moveHelpers';
+import { checkMove, newCoordinatesInDirection, isOutOfBounds, getWolfDirection, reflectPosition, isPlayerNear } from './moveHelpers';
 
 export const setTile = (coord, entityType, game) => (
     { ...game, grid:
@@ -79,49 +79,31 @@ const wolfAI = (game) => {
     const wolfTiles = getWolves(game.grid);
 
     return wolfTiles.reduce((a, wolfTile) => {
-    /**
-     * 1. check wolf type 
-     * 2. determine an action to take based on type (if choosing randomly, randomness will be chosen here) 
-     * 3. determine targeted tile, direction to attack, etc. pass to next step 
-     * 4. branch off for types of movement, moving would call a move function or attack calls attack function 
-     */
-        switch(wolfTile.entity.wolfType) { // Step 1
+        switch(wolfTile.entity.wolfType) {
             case 'timid':  
-                const playerCoords = getPlayerCoords(game.grid);
-                // Step 2
-
-                const playerIsNear = ['w', 'a', 's', 'd'].reduce((a, direction) => {
-                    const {newX, newY} = newCoordinatesInDirection(wolfTile.coords.x, wolfTile.coords.y, direction)
-                    return newX === playerCoords.x && newY === playerCoords.y
-                        ? direction
-                        : a                        
-                }, false);
-
-                // Step 3
-                if (playerIsNear) {
-                    return doWolfAttack(wolfTile, playerIsNear, game);
-                } else {
-                    const reflectPos = reflectPosition({ x: playerCoords.x, y: playerCoords.y }, { x: Math.floor(constants.gridX / 2), y: Math.floor(constants.gridY / 2) });
-                    const direction = Math.floor(Math.random() * constants.wolfRetreatChance) === 0
-                        ? getWolfDirection(reflectPos.x, reflectPos.y, wolfTile, game.grid)
-                        : getWolfDirection(playerCoords.x, playerCoords.y, wolfTile, game.grid);
-                        return doWolfMove(wolfTile, direction, a); // Step 4
-                }
-                
+                return timidWolfAI(wolfTile, a);  
             default:
                 break;
         }
-
-
         return a;
     }, game);
-
-
-    // const stateChanges = [];
-    // return stateChanges.reduce((a, stateChange) => (
-    //     stateChange(a)
-    // ), game);
 };
+
+const timidWolfAI = (wolfTile, game) => {
+    const playerCoords = getPlayerCoords(game.grid);
+    const playerDirection = isPlayerNear(wolfTile, game);
+
+    if (playerDirection) {
+        return doWolfAttack(wolfTile, playerDirection, game);
+    } else {
+        const reflectPos = reflectPosition({ x: playerCoords.x, y: playerCoords.y }, { x: Math.floor(constants.gridX / 2), y: Math.floor(constants.gridY / 2) });
+        const direction = Math.floor(Math.random() * constants.wolfRetreatChance) === 0
+            ? getWolfDirection(reflectPos.x, reflectPos.y, wolfTile, game.grid)
+            : getWolfDirection(playerCoords.x, playerCoords.y, wolfTile, game.grid);
+            return doWolfMove(wolfTile, direction, game);
+    }
+};
+
 
 export const doCheckSuperCarrotPickup = (game) => {
     if (Math.floor(Math.random() * constants.superCarrotChance) === 0) {
