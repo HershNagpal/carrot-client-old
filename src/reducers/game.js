@@ -194,7 +194,7 @@ const placeFence = (game) => {
         !isOutOfBounds(tileBeingPlacedOn.newX, tileBeingPlacedOn.newY) &&
         game.grid[tileBeingPlacedOn.newY][tileBeingPlacedOn.newX].entity.type === 'grass' &&
         game.inventoryFences > 0 &&
-        getTile('fence', game.grid).length < game.maxFencesPlaced
+        getTile('fence', game.grid).length < constants.fenceCap
     ) {
 
         const placeFence = (game) => (

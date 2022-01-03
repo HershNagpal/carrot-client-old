@@ -4,7 +4,7 @@ export const gridY = 15;
 export const carrotCap = 10;
 export const fenceSpawn = 10;
 export const fenceCap = 15;
-export const wolfCap = 3;
+export const wolfCap = 5;
 export const treeCap = 10;
 
 // Player start info
@@ -21,10 +21,10 @@ export const superCarrotChance = 10;
 export const wolfMap = [
     {
         id: 0,
-        name: 'error',
+        name: 'stupid',
         baseDamage: 0,
-        baseMaxHp: 1,
-        description: 'If this wolf exists, don\'t.',
+        baseMaxHp: 5,
+        description: 'Moves in a random, stupid direction. Never attacks.',
     },
     {
         id: 1,
@@ -33,13 +33,6 @@ export const wolfMap = [
         baseMaxHp: 3,
         description: 'Runs at the player, but has a 33% chance to walk away from the player. Attacks if it begins its turn next to the player.',
     },
-    {
-        id: 2,
-        name: 'stupid',
-        baseDamage: 0,
-        baseMaxHp: 5,
-        description: 'Moves in a random, stupid direction. Never attacks.',
-    }
 ]
 
 export const itemDict = [

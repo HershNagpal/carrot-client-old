@@ -18,10 +18,10 @@ export const checkMove = (nextTile) => {
     }
 };
 
-export const isPlayerNear = (nearbyTile, game) => {
+export const isPlayerNear = (coord, game) => {
     const playerCoords = getPlayerCoords(game.grid);
     return ['w', 'a', 's', 'd'].reduce((a, direction) => {
-        const { newX, newY } = newCoordinatesInDirection(nearbyTile.coords.x, nearbyTile.coords.y, direction)
+        const { newX, newY } = newCoordinatesInDirection(coord.x, coord.y, direction)
         return newX === playerCoords.x && newY === playerCoords.y
             ? direction
             : a                        
@@ -51,12 +51,12 @@ export const isOutOfBounds = (x, y) => {
 
 // TODO: Does not work with even number board dimensions
 export const reflectPosition = (reflectCoord, originCoord) => ({
-        x: reflectCoord.x >= originCoord.x 
-            ? reflectCoord.x - (reflectCoord.x - originCoord.x) * 2
-            : reflectCoord.x + (originCoord.x - reflectCoord.x) * 2,
-        y: reflectCoord.y >= originCoord.y 
-            ? reflectCoord.y - (reflectCoord.y - originCoord.y) * 2
-            : reflectCoord.y + (originCoord.y - reflectCoord.y) * 2,
+    x: reflectCoord.x >= originCoord.x 
+        ? reflectCoord.x - (reflectCoord.x - originCoord.x) * 2
+        : reflectCoord.x + (originCoord.x - reflectCoord.x) * 2,
+    y: reflectCoord.y >= originCoord.y 
+        ? reflectCoord.y - (reflectCoord.y - originCoord.y) * 2
+        : reflectCoord.y + (originCoord.y - reflectCoord.y) * 2,
 });
 
 export const getWolfDirection = (targetX, targetY, wolfTile, grid) => {
