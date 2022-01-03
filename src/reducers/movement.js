@@ -81,13 +81,21 @@ const wolfAI = (game) => {
     return wolfTiles.reduce((a, wolfTile) => {
         switch(wolfTile.entity.wolfType) {
             case 'timid':  
-                return timidWolfAI(wolfTile, a);  
+                return timidWolfAI(wolfTile, a); 
+            case 'stupid':
+                return stupidWolfAI(wolfTile, a);
             default:
                 break;
         }
         return a;
     }, game);
 };
+
+const stupidWolfAI = (wolfTile, game) => {
+    const directions = ['w', 'a', 's', 'd'];
+    const directionToMove = directions[Math.floor(Math.random()*directions.length)];
+    return doWolfMove(wolfTile, directionToMove, game);
+}
 
 const timidWolfAI = (wolfTile, game) => {
     const playerCoords = getPlayerCoords(game.grid);

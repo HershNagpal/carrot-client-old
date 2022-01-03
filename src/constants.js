@@ -31,7 +31,14 @@ export const wolfMap = [
         name: 'timid',
         baseDamage: 1,
         baseMaxHp: 3,
-        description: 'Runs at the player, but has a 33% chance to walk away from the player.',
+        description: 'Runs at the player, but has a 33% chance to walk away from the player. Attacks if it begins its turn next to the player.',
+    },
+    {
+        id: 2,
+        name: 'stupid',
+        baseDamage: 0,
+        baseMaxHp: 5,
+        description: 'Moves in a random, stupid direction. Never attacks.',
     }
 ]
 
