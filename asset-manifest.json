@@ -1,17 +1,24 @@
 {
   "files": {
-    "main.js": "/carrot-client/static/js/main.b2074bbc.js",
+    "main.js": "/carrot-client/static/js/main.890ccd3b.js",
     "static/media/playerLeft.png": "/carrot-client/static/media/playerLeft.7353d600771a8e43f614.png",
     "static/media/playerRight.png": "/carrot-client/static/media/playerRight.166ea73d12f31965f1dd.png",
     "static/media/playerUp.png": "/carrot-client/static/media/playerUp.7f3a5bcdd5bf780f17fc.png",
     "static/media/playerDown.png": "/carrot-client/static/media/playerDown.789c00a85bc465f2215d.png",
+    "static/media/carrotOutline.png": "/carrot-client/static/media/carrotOutline.5d31f3ad70869ef3b17d.png",
+    "static/media/pocket.png": "/carrot-client/static/media/pocket.0bdc086893c8e9180bf9.png",
     "static/media/wolf.png": "/carrot-client/static/media/wolf.69fcd364522798f36984.png",
+    "static/media/mithrilCarrot.png": "/carrot-client/static/media/mithrilCarrot.769d841feb915057d687.png",
+    "static/media/relentlessCarrot.png": "/carrot-client/static/media/relentlessCarrot.e056801c49b3e93c8c76.png",
     "static/media/carrot.png": "/carrot-client/static/media/carrot.2a03ae341b255e6a6220.png",
+    "static/media/empty.png": "/carrot-client/static/media/empty.caf6117cac48875f4c72.png",
+    "static/media/riddleCarrot.png": "/carrot-client/static/media/riddleCarrot.37e630eec61255a3ca38.png",
+    "static/media/lifeCarrot.png": "/carrot-client/static/media/lifeCarrot.f7afe9e0bc2ecf932fdc.png",
     "static/media/sword.png": "/carrot-client/static/media/sword.90966220ca88bea601f0.png",
     "index.html": "/carrot-client/index.html",
-    "main.b2074bbc.js.map": "/carrot-client/static/js/main.b2074bbc.js.map"
+    "main.890ccd3b.js.map": "/carrot-client/static/js/main.890ccd3b.js.map"
   },
   "entrypoints": [
-    "static/js/main.b2074bbc.js"
+    "static/js/main.890ccd3b.js"
   ]
 }
