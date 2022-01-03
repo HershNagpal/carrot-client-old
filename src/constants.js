@@ -2,7 +2,8 @@
 export const gridX = 15;
 export const gridY = 15;
 export const carrotCap = 10;
-export const fenceCap = 10;
+export const fenceSpawn = 10;
+export const fenceCap = 15;
 export const wolfCap = 3;
 export const treeCap = 10;
 
@@ -16,6 +17,23 @@ export const wolfSpawnRate = 50;
 export const treeSpawnRate = 30;
 export const wolfRetreatChance = 3;
 export const superCarrotChance = 10;
+
+export const wolfMap = [
+    {
+        id: 0,
+        name: 'error',
+        baseDamage: 0,
+        baseMaxHp: 1,
+        description: 'If this wolf exists, don\'t.',
+    },
+    {
+        id: 1,
+        name: 'timid',
+        baseDamage: 1,
+        baseMaxHp: 3,
+        description: 'Runs at the player, but has a 33% chance to walk away from the player.',
+    }
+]
 
 export const itemDict = [
     {
@@ -84,7 +102,6 @@ export const defaultGame = {
     carrotHealing: 1,
     fenceHp: 3,
     maxHeldFences: 3,
-    maxFencesPlaced: 15,
     gameOver: false,
     isInInventory: false,
     isInCollection: false,

@@ -89,7 +89,7 @@ export const spawnTree = (num, game, hp=5) => {
 }
 
 
-export const spawnWolf = (num, game, hp=3) => {
+export const spawnWolf = (num, game) => {
     const arr = Array(num).fill(0);
     const coords = arr.reduce((a) => {
         while (true) {
@@ -102,11 +102,13 @@ export const spawnWolf = (num, game, hp=3) => {
             }
         }
     }, []);
-
+    const wolfTypeId = 1; // TODO: Change this to an actual random roll
+    const wolfEntity = constants.wolfMap[wolfTypeId]; // TODO: Actual levelled wolf stats
+    console.log(wolfEntity);
     return { ...game, grid: game.grid.map((row, Yindex) => (
         row.map((tile, Xindex) => (
             coords.find((coord) => coord.x === Xindex && coord.y === Yindex)
-            ? { ...tile, entity: { type: 'wolf', hp: hp, maxHp: hp, attack: 1, moves: 0, maxMoves: 100 } }
+            ? { ...tile, entity: {type: 'wolf', wolfType: wolfEntity.name, attack: wolfEntity.baseDamage, hp: wolfEntity.baseMaxHp, maxHp: wolfEntity.baseMaxHp} }
             : tile
         ))
     ))};

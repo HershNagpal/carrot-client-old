@@ -48,13 +48,13 @@ const initGrid = () => {
         spawnPlayer({ x: constants.playerStart.x, y: constants.playerStart.y }, constants.playerStartHp, game)
     );
     const spawnCarrots = (game) => (
-        spawnCarrot(10, game)
+        spawnCarrot(constants.carrotCap, game)
     );
     const spawnFences = (game) => (
-        spawnFence(10, game)
+        spawnFence(constants.fenceSpawn, game)
     );
     const spawnTrees = (game) => (
-        spawnTree(10, game)
+        spawnTree(constants.treeCap, game)
     );
 
     const stateChanges = [spawnPlayers, spawnCarrots, spawnFences, spawnTrees];
