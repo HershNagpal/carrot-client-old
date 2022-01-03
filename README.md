@@ -1,8 +1,9 @@
 TODO:
 
 Next Time:
-- Possible bug when carrots or wolves spawn out of bounds
-- Wolf AI
+- Game log
+- UI improvements: Icons, placement of things, animations
+- Levelled Lists
 
 Attacking:
 - ~Players can attack wolves~
@@ -40,11 +41,12 @@ Carrots:
 - Collectibles
 
 Wolves:
-- Overall AI improvements
-- getDirection overhaul into main wolf AI
-- Different wolf types
-- Different AI
-- Different stats
+- ~Overall AI improvements~
+- ~getDirection overhaul into main wolf AI~
+- ~Different wolf types~
+- ~Different AI~
+- ~Different stats~
+- More wolf types planned
 
 Animations:
 - Rotate player icon in CSS
@@ -52,7 +54,7 @@ Animations:
 - Attack animation
 
 Achievements:
-- 1 for each carrot and collectible
+- ~1 for each carrot and collectible~
 - Saved across characters
 
 Stats:
