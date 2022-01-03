@@ -52,12 +52,7 @@ const Tile = ({type, hp, maxHp}) => {
     return <>
         <div className={classes.tile}>
             <HealthBar hp={hp} maxHp={maxHp} />
-            {
-                type === 'grass' 
-                    ? null // TODO: Add Grass Icon
-                    : <img className={classes.icon} src={icon} alt={icon}></img>
-            }
-            
+            <img className={classes.icon} src={icon} alt={icon}></img>
         </div>
     </>
 };

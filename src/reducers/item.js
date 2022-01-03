@@ -104,7 +104,7 @@ const fourDirectionAttack = (game, damage=constants.itemDict[game.inventoryWeapo
     ));
 
     return tilesBeingHit.reduce((a, tile) => (
-        doChangeHp({ x: tile.newX, y: tile.newY }, -damage, a)
+        doChangeHp({ x: tile.newX, y: tile.newY }, -(damage * 3), a)
     ), game);
 }
 
