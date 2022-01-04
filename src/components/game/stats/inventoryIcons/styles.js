@@ -1,25 +1,30 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
 
 export default makeStyles(() => ({
+    inventoryContainer: {
+        position: 'relative',
+        left: '50%',
+        transform: 'translate(-50%, 0)',
+    },
     iconContainer: {
         position: 'relative',
-        margin: '10px',
-        height: '50px',
-        width: '50px',
-        borderRadius: '50px', 
+        margin: '20px',
+        height: '8vh',
+        width: '8vh',
+        borderRadius: '50%', 
         backgroundColor: 'lightgreen',
     },
     icon: {
-        height: '40px',
-        width: '40px',
+        height: '7vh',
+        width: '7vh',
         position: 'absolute',
         left: '50%',
         top: '50%',
         transform: 'translate(-50%, -50%)',
     },
     smallIcon: {
-        height: '20px',
-        width: '20px',
+        height: '4vh',
+        width: '4vh',
     },
     smallIconContainer: {
         backgroundColor: 'lightgrey',

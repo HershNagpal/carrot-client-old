@@ -1,6 +1,6 @@
 import useStyles from './styles';
 import { useSelector, useDispatch } from 'react-redux';
-import { Container, Grid, Typography, Button } from '@material-ui/core';
+import { Container, Grid, Typography, Button } from '@mui/material';
 import { toggleInventory } from '../../../actions/game';
 import { swordIcon, carrotIcon, pocketIcon, emptyIcon, itemIcons } from '../../../images';
 import * as constants from '../../../constants';

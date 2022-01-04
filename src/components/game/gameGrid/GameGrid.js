@@ -1,4 +1,4 @@
-import { Container, Grid } from '@material-ui/core';
+import { Container, Grid } from '@mui/material';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useKeyData } from './keyListenerHook';
@@ -78,11 +78,11 @@ const GameGrid = () => {
     }, [dispatch]);
 
     return <>
-        <Container className={classes.outerContainer}>
-            <Grid container direction="column">
+        <Container className={classes.outerContainer} maxWidth={false} disableGutters>
+            <Grid container direction="column" wrap="nowrap">
                 {
                 game.grid.map((row, Yindex) => (
-                    <Grid item container key={Yindex} direction="row">
+                    <Grid item container key={Yindex} direction="row" wrap="nowrap">
                         {
                             row.map((tile, Xindex) => (
                                 <Grid item key={Xindex}>

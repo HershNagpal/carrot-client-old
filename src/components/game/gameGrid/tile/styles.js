@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
 
 export default makeStyles(() => ({
     tile: {
@@ -6,13 +6,13 @@ export default makeStyles(() => ({
         fontSize: '5vh',
         justifyContent: 'center',
         color: 'black',
-        height: '5vh',
-        width: '5vh',
-        border: '1px solid mediumseagreen',
+        height: '5.8vh',
+        width: '5.8vh',
+        border: '0.1vh solid mediumseagreen',
     },
     icon: {
-        height: '5vh',
-        width: '5vh',
+        height: '5.8vh',
+        width: '5.8vh',
         borderStyle: 'none',
     },
     healthBar: {
