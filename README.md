@@ -1,7 +1,8 @@
 TODO:
 
-Next Time:
-- Game log
+Version 1 checklist:
+- At least 2 new wolf types
+- Fix error when restarting game from title screen
 - UI improvements: Icons, placement of things, animations
 - Levelled Lists
 
@@ -12,7 +13,7 @@ Attacking:
 
 Player
 - Upgrades upon levelling up
-- Player log with all actions on scoreboard
+- ~Player log with all actions on scoreboard~
 
 Inventory:
 - ~Players can view the inventory~
@@ -49,7 +50,7 @@ Wolves:
 - More wolf types planned
 
 Animations:
-- Rotate player icon in CSS
+- ~Rotate player icon in CSS~
 - Movement animation
 - Attack animation
 
@@ -59,7 +60,7 @@ Achievements:
 
 Stats:
 - Stats menu with global stats
-- Number of carrots picked up
+- ~Number of carrots picked up~
 - Wolves killed
 - Completion percent
 
