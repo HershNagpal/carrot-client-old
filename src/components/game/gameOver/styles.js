@@ -23,7 +23,7 @@ export default makeStyles(() => ({
         textAlign: 'center',
         color: '#FF1493',
         fontFamily: '"Comic Sans MS", "Comic Sans", cursive',
-        fontSize: '5em',
+        fontSize: '4em',
         opacity: '0.7',
         marginTop: '20px',
         marginBottom: '20px',
