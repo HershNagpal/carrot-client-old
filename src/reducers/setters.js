@@ -148,7 +148,3 @@ export const doUpdateUsed = (id, game) => (
         ))
     }
 );
-
-/*export const updateLog = (gameEvent, game) => (
-    { ...game, log: [...game.log, gameEvent] }
-);*/

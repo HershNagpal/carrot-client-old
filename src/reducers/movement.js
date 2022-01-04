@@ -3,6 +3,7 @@ import { getPlayerCoord, getWolfTiles } from './selectors';
 import { doAddWolfMoves, doChangeHp, doSetPocketItem, doUpdateFound } from './setters';
 import { doSpawnWolves } from './spawn';
 import { checkMove, newCoordInDirection, isOutOfBounds, getWolfDirection, reflectPosition, isPlayerNear } from './moveHelpers';
+import { log } from './log';
 
 export const setTile = (coord, entityType, game) => (
     { ...game, grid:
@@ -129,8 +130,9 @@ export const doCheckSuperCarrotPickup = (game) => {
 
         const setPocketItem =   (game) => doSetPocketItem(itemId, game);
         const updateFound =     (game) => doUpdateFound(itemId, game);
+        const updateLog =       (game) => log({ type: 'GET_ITEM', payload: { itemId: itemId } }, game);
         
-        const stateChanges = [setPocketItem, updateFound];
+        const stateChanges = [setPocketItem, updateFound, updateLog];
         return stateChanges.reduce((a, stateChange) => (
             stateChange(a)
         ), game);
