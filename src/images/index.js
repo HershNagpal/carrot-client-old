@@ -18,12 +18,17 @@ const relentlessCarrotIcon = require('./relentlessCarrot.png');
 const lifeCarrotIcon = require('./lifeCarrot.png');
 const pitchforkIcon = require('./pitchfork.png');
 const squiresBladeIcon = require('./squiresBlade.png');
+const carrotSpearIcon = require('./carrotSpear.png');
+const hustyRatchetIcon = require('./hustyRatchet.png');
+
 export const itemIcons = [
-    emptyIcon,
+    emptyIcon, 
     riddleCarrotIcon,
     mithrilCarrotIcon,
     relentlessCarrotIcon,
     lifeCarrotIcon,
     pitchforkIcon,
     squiresBladeIcon,
+    hustyRatchetIcon,
+    carrotSpearIcon,
 ];

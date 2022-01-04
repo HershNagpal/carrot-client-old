@@ -74,7 +74,7 @@ export const itemDict = [
     {
         id: 5,
         name: 'Farmer\'s Pitchfork',
-        description: '1 Damage',
+        description: 'Deals 1 damage to the tile in front of you.',
         flavor: 'We are going to fork it up.',
         type: 'weapon',
         weaponType: 'blade',
@@ -83,17 +83,17 @@ export const itemDict = [
     {
         id: 6,
         name: 'Carrotified Squire\'s Blade',
-        description: '2 Damage',
+        description: 'Deals 2 damage to the tile in front of you.',
         flavor: 'Carrotified.',
-        weaponType: 'blade',
         type: 'weapon',
+        weaponType: 'blade',
         damage: 2,
     },
     {
         id: 7,
-        name: 'Rusty Hatchet',
-        description: '1 Damage',
-        flavor: 'Good for cutting rusty trees.',
+        name: 'Husty Ratchet',
+        description: 'Deals 1 damage to the tile in front of you and the tile to its right. Triple damage to wood.',
+        flavor: 'William Spooner\'s weapon of choice.',
         type: 'weapon',
         weaponType: 'axe',
         damage: 1,
@@ -101,8 +101,8 @@ export const itemDict = [
     {
         id: 8,
         name: 'Long Pointy Carrot',
-        description: '1 Damage',
-        flavor: 'Carrotified.',
+        description: 'Deals 1 damage to two tiles in front of you.',
+        flavor: 'A carrot for snakes.',
         type: 'weapon',
         weaponType: 'spear',
         damage: 1,
@@ -118,7 +118,7 @@ export const defaultGame = {
     totalCarrots: 0,
     inventoryFences: 2,
     inventorySuperCarrot: 3,
-    inventoryWeapon: 7,
+    inventoryWeapon: 5,
     pocketItem: 0,
     carrotHealing: 1,
     fenceHp: 3,
@@ -132,7 +132,7 @@ export const defaultGame = {
     )),
     log: ['WASD to move, Arrows to change direction, Space to attack, I for inventory, U for collection, C to use super carrot, V to swap with pocket. Pick up carrots to heal and level up. Wolves will hit you if you end your turn on a tile next to them.'],
     grid: Array(gridY).fill(Array(gridX).fill(0)).map((row, Yindex) => (
-        row.map((tile, Xindex) => ({
+        row.map((Xindex) => ({
             coord: { x: Xindex, y: Yindex },
             entity: { type: 'grass' },
         }))
