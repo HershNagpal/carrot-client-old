@@ -26,6 +26,7 @@ faded memories - respawns the same wolves on the board at the edge
 unholy might - take a lot of your HP to kill wolves
 incarnated gold magecarrot - teleports wolves randomly, slight heal and xp
 last rites - if you're low, big heal or something
+some weapon enchantment carrot maybe
 
 axe weapon type - one tile in front and the one to the side based on handedness. bonus damage to trees
 (jack)hammer weapon type - only thing that can break rocks when they exist
@@ -43,6 +44,13 @@ poison wolf - some kind of debuff
 glutton wolf - eats carrots and gets stronger
 healthy wolf - runs when low to heal off of carrots
 
+Spell tomes drop from wolves and have their own slot
+the spell books are the lore
+have their own inventory slot
+
+wood is used instead of fences
+bow weapon type can use wood
+traps to place using wood
 
 Version 1 checklist:
 Weapon types: spear, axe
