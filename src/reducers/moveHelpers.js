@@ -124,3 +124,33 @@ const topBottomEdgeCoord = (xLength, yLength) => ({
     x: Math.round(Math.random()) * (xLength - 1),
     y: Math.floor(Math.random() * yLength),
 });
+
+export const rotateDirection = (direction, rotationDirection = 'cw') => {
+    if (rotationDirection === 'ccw') {
+        switch (direction) {
+            case 'w':
+                return 'a';
+            case 'a':
+                return 's';
+            case 's':
+                return 'd';
+            case 'd':
+                return 'w';
+            default:
+                return direction;
+        }
+    } else {
+        switch (direction) {
+            case 'w':
+                return 'd';
+            case 'a':
+                return 'w';
+            case 's':
+                return 'a';
+            case 'd':
+                return 's';
+            default:
+                return direction;
+        }
+    }
+};

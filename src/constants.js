@@ -16,7 +16,7 @@ export const carrotSpawnRate = 5;
 export const wolfSpawnRate = 50;
 export const treeSpawnRate = 30;
 export const wolfRetreatChance = 3;
-export const superCarrotChance = 10;
+export const superCarrotChance = 2;
 
 export const wolfMap = [
     {
@@ -77,6 +77,7 @@ export const itemDict = [
         description: '1 Damage',
         flavor: 'We are going to fork it up.',
         type: 'weapon',
+        weaponType: 'blade',
         damage: 1,
     },
     {
@@ -84,8 +85,27 @@ export const itemDict = [
         name: 'Carrotified Squire\'s Blade',
         description: '2 Damage',
         flavor: 'Carrotified.',
+        weaponType: 'blade',
         type: 'weapon',
         damage: 2,
+    },
+    {
+        id: 7,
+        name: 'Rusty Hatchet',
+        description: '1 Damage',
+        flavor: 'Good for cutting rusty trees.',
+        type: 'weapon',
+        weaponType: 'axe',
+        damage: 1,
+    },
+    {
+        id: 8,
+        name: 'Long Pointy Carrot',
+        description: '1 Damage',
+        flavor: 'Carrotified.',
+        type: 'weapon',
+        weaponType: 'spear',
+        damage: 1,
     },
 ];
 
@@ -98,7 +118,7 @@ export const defaultGame = {
     totalCarrots: 0,
     inventoryFences: 2,
     inventorySuperCarrot: 3,
-    inventoryWeapon: 5,
+    inventoryWeapon: 7,
     pocketItem: 0,
     carrotHealing: 1,
     fenceHp: 3,

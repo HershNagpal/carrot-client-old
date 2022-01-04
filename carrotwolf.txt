@@ -1,0 +1,52 @@
+nighttime with fog and lamps but better rewards - PREVENT STALLING
+level ups where you choose a buff and a difficulty increase. difficulty increases more on average
+Lore drops and achievement based lore
+wolves should give XP
+Wolves would drop non carrot weapons
+Wandering trader
+
+glow come from glow rocks or meteors, then they become normal rocks
+use glow to light lanterns or for other things
+
+placing lanterns make them stay and carrots and wolves will play around them
+they give you vision at night
+maybe mage wolf can tp only to lanterns to heal?
+
+Wolf types have a decision tree they will follow with some randomness based on what wolf type they are
+A new player will not know how wolves work because of the variation of wolf types, but an experienced player will be able to consistently predict wolf AI
+
+Sticky Wolf: Chases player only
+Carrot wolf: Only chases carrots
+Stupid wolf: moves randomly and chases nothing and is stupid
+
+item ideas:
+judgment skewer - instakill in front and behind
+better omen - burst heal
+faded memories - respawns the same wolves on the board at the edge
+unholy might - take a lot of your HP to kill wolves
+incarnated gold magecarrot - teleports wolves randomly, slight heal and xp
+last rites - if you're low, big heal or something
+
+axe weapon type - one tile in front and the one to the side based on handedness. bonus damage to trees
+(jack)hammer weapon type - only thing that can break rocks when they exist
+spear - extra tile forward. pitchfork?
+throwing weapons? 
+
+
+wolf type ideas:
+easily distracted wolf
+pouncing wolf - stands still for a turn and then moves double or triple
+mage wolf - teleports between lights at night or shoots projectiles? teleports when its low and heals?
+bull wolf - faster if in the same row or column
+dash wolf - teleports onto you if youre within 2 tiles
+poison wolf - some kind of debuff
+glutton wolf - eats carrots and gets stronger
+healthy wolf - runs when low to heal off of carrots
+
+
+Version 1 checklist:
+Weapon types: spear, axe
+Wolf types: at least 1 or 2 more
++ fix up UI if necessary
++ animations
++ few more super carrots
