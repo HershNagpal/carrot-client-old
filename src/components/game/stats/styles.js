@@ -27,6 +27,7 @@ export default makeStyles(() => ({
         minWidth: '30vh',
         maxWidth: '30vh',
         padding: '5px',
+        overflowY: 'scroll',
     },
     iconButton: {
         background: 'lightgray',
