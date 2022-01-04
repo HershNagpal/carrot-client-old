@@ -2,7 +2,7 @@ import * as constants from '../constants';
 import { getPlayerCoord, getWolfTiles } from './selectors';
 import { doAddWolfMoves, doChangeHp, doSetPocketItem, doUpdateFound } from './setters';
 import { doSpawnWolves } from './spawn';
-import { checkMove, newCoordInDirection, isOutOfBounds, getWolfDirection, reflectPosition, isPlayerNear } from './moveHelpers';
+import { checkMove, newCoordInDirection, isOutOfBounds, getWolfDirection, reflectPosition, isPlayerNear, wolfSpawnCoord } from './moveHelpers';
 import { log } from './log';
 
 export const setTile = (coord, entityType, game) => (
@@ -61,9 +61,16 @@ const doWolfMove = (wolfTile, direction, game) => {
 
 const doWolfAttack = (wolfTile, direction, game) => {
     const { x, y } = newCoordInDirection(wolfTile.coord.x, wolfTile.coord.y, direction);
+
+    const doDamage = (game) => doChangeHp({ x: x, y: y }, -wolfTile.entity.damage, game);
+    const logAttack = (game) => log({ type: 'ATTACK', payload: { attacker: wolfTile.entity.type, target: game.grid[y][x].entity.type, damage: wolfTile.entity.damage}}, game);
+
+    const stateChanges = [doDamage, logAttack];
     return !isOutOfBounds(x, y) 
-        ? doChangeHp({ x: x, y: y }, -wolfTile.entity.damage, game)
-        : game
+        ? stateChanges.reduce((a, stateChange) => (
+            stateChange(a)
+        ), game)
+        : game;
 };
 
 const doWolfAttackMove = (wolfTile, direction, game) => {

@@ -1,10 +1,12 @@
 import * as constants from '../constants';
 
 export const log = (action, game) => {
+    const gameEvent = logStrings[action.type];
     switch (action.type) {
         case 'GET_ITEM':
-            const gameEvent = 'Picked up ' + constants.itemDict[action.payload.itemId].name + '.';
-            return updateLog(gameEvent, game);
+            return updateLog(gameEvent + constants.itemDict[action.payload.itemId].name, game);
+        case 'ATTACK':
+            return updateLog(action.payload.attacker + gameEvent[0] + action.payload.target + gameEvent[1] + action.payload.damage + gameEvent[2], game);
         default:
             return game;
     }
@@ -13,3 +15,10 @@ export const log = (action, game) => {
 const updateLog = (gameEvent, game) => (
     { ...game, log: [...game.log, gameEvent] }
 );
+
+const logStrings = {
+    'GET_ITEM': ['Picked up ',],
+    'ATTACK': [' attacked ',' for ', ' damage ',],
+    'LEVEL_UP': ['Reached level ',],
+    'CONSUME_SUPER_CARROT': ['Used ',],
+};
