@@ -2,7 +2,7 @@ import * as constants from '../constants';
 import { getPlayerCoord, getWolfTiles } from './selectors';
 import { doAddWolfMoves, doChangeHp, doSetPocketItem, doUpdateFound } from './setters';
 import { doSpawnWolves } from './spawn';
-import { checkMove, newCoordInDirection, isOutOfBounds, getWolfDirection, reflectPosition, isPlayerNear, wolfSpawnCoord } from './moveHelpers';
+import { checkMove, newCoordInDirection, isOutOfBounds, getWolfDirection, reflectPosition, isPlayerNear } from './moveHelpers';
 import { log } from './log';
 
 export const setTile = (coord, entityType, game) => (

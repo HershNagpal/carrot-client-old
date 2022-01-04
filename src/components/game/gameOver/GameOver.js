@@ -11,7 +11,7 @@ const GameOver = () => {
     
     return <>
         <Container className={classes.outerContainer}>
-            <Typography className={classes.gameOverText}>get rekt scrub</Typography>
+            <p className={classes.gameOverText}>get rekt scrub</p>
 
             <Grid className={classes.statContainer} container direction="row" spacing={10}>
                 <Grid item>
@@ -24,6 +24,9 @@ const GameOver = () => {
                     </Typography>
                     <Typography>
                         <b>Super Carrots Used:</b> {game.collection.reduce((a, item) => (a + item.used), 0)}
+                    </Typography>
+                    <Typography>
+                        <b>Total Moves:</b> {game.moves}
                     </Typography>
                 </Grid>
                 <Grid item>
