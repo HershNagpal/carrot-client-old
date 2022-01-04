@@ -5,6 +5,7 @@ import { spawnPlayer, spawnCarrot, spawnFence, spawnTree, doSpawnCarrots, doSpaw
 import { setTile, setTileEntity, doUpdateWolves, doCheckSuperCarrotPickup } from './movement';
 import { checkMove, newCoordInDirection, isOutOfBounds } from './moveHelpers';
 import { doUseSuperCarrot, doUnequipSuperCarrot, doPlaceFence } from './item';
+import { log } from './log';
 
 const game = (game = constants.defaultGame, action) => {
     switch (action.type) {
@@ -105,11 +106,12 @@ const attack = (game) => {
 
     if (entityBeingHit.type === 'wolf' || entityBeingHit.type === 'fence' || entityBeingHit.type === 'tree') {
         const reduceHp =        (game) => doChangeHp({ x: coordBeingHit.x, y: coordBeingHit.y }, -constants.itemDict[game.inventoryWeapon].damage , game);
+        const logAttack =       (game) => log({ type: 'ATTACK', payload: { attacker: 'player', target: entityBeingHit.type, damage: constants.itemDict[game.inventoryWeapon].damage}}, game);
         const addMove =         (game) => doSetPlayerMoves(game.moves + 1, game);
         const spawnCarrots =    (game) => doSpawnCarrots(game);
         const updateWolves =    (game) => doUpdateWolves(game);
 
-        const stateChanges = [reduceHp, addMove, spawnCarrots, updateWolves];
+        const stateChanges = [reduceHp, logAttack, addMove, spawnCarrots, updateWolves];
         return stateChanges.reduce((a, stateChange) => (
             stateChange(a)
         ), game);

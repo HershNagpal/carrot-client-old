@@ -1,3 +1,4 @@
+import { log } from "./log";
 import { setTile } from "./movement";
 import { getWolfTiles } from "./selectors";
 
@@ -81,8 +82,9 @@ export const doSetXp = (xp, game) => {
     if (dif >= 0) {
         const addLevel =    (game) => doSetLevel(game.level + 1, game);
         const updateMaxXp = (game) => setMaxXp(Math.floor(game.maxXp * 1.1), game);
+        const logLevelUp =  (game) => log({type: 'LEVEL_UP'}, game);
 
-        const stateChanges = [addLevel, updateMaxXp];
+        const stateChanges = [addLevel, updateMaxXp, logLevelUp];
         return { ...stateChanges.reduce((a, stateChange) => (
             stateChange(a)
         ), game), xp: dif};
