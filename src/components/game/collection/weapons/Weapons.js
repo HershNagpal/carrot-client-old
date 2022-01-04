@@ -27,6 +27,22 @@ const Carrots = () => {
                         : <img className={classes.collectionIcon} src={itemIcons[6]} alt="squiresBladeIcon" onClick={() => doCollectionSelect(6)} />
                 }
                 </Grid>
+
+                <Grid item className={game.collectionSelect === 7 ? classes.selectedItem : classes.collectionItem}>
+                {
+                    game.collection[7].found === 0
+                        ? <img className={classes.collectionIcon} src={emptyIcon} alt="emptyIcon" />
+                        : <img className={classes.collectionIcon} src={itemIcons[7]} alt="squiresBladeIcon" onClick={() => doCollectionSelect(7)} />
+                }
+                </Grid>
+
+                <Grid item className={game.collectionSelect === 8 ? classes.selectedItem : classes.collectionItem}>
+                {
+                    game.collection[8].found === 0
+                        ? <img className={classes.collectionIcon} src={emptyIcon} alt="emptyIcon" />
+                        : <img className={classes.collectionIcon} src={itemIcons[8]} alt="squiresBladeIcon" onClick={() => doCollectionSelect(8)} />
+                }
+                </Grid>
             </Grid>
         </Container>
     </>;
