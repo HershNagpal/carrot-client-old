@@ -16,7 +16,7 @@ export const carrotSpawnRate = 5;
 export const wolfSpawnRate = 50;
 export const treeSpawnRate = 30;
 export const wolfRetreatChance = 3;
-export const superCarrotChance = 2;
+export const superCarrotChance = 10;
 
 export const wolfMap = [
     {
@@ -132,7 +132,7 @@ export const defaultGame = {
     )),
     log: ['WASD to move, Arrows to change direction, Space to attack, I for inventory, U for collection, C to use super carrot, V to swap with pocket. Pick up carrots to heal and level up. Wolves will hit you if you end your turn on a tile next to them.'],
     grid: Array(gridY).fill(Array(gridX).fill(0)).map((row, Yindex) => (
-        row.map((Xindex) => ({
+        row.map((tile, Xindex) => ({
             coord: { x: Xindex, y: Yindex },
             entity: { type: 'grass' },
         }))
