@@ -28,10 +28,15 @@ export default makeStyles(() => ({
         maxWidth: '30vh',
         padding: '5px',
         overflowY: 'scroll',
+        scrollBehavior: 'smooth',
     },
     iconButton: {
         background: 'lightgray',
         padding: '1vh',
         borderRadius: '50%',
+    },
+    logText: {
+        fontSize: '12px',
+        fontFamily: 'Consolas',
     },
 }));

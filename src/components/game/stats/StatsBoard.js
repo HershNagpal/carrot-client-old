@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import { Grid, Container, Typography, IconButton } from '@mui/material';
 import useStyles from './styles';
 import { useSelector } from 'react-redux';
@@ -24,6 +25,10 @@ const StatsBoard = () => {
         dispatch(toggleCollection())
     );
 
+    useEffect(() => {
+        const log = document.getElementById('logContainer');
+        log.scrollTop = log.scrollHeight - log.clientHeight;
+    }, [game.log]);
 
     return <>
         <Grid container className={classes.outerContainer} direction="column" disableGutters>
@@ -59,9 +64,9 @@ const StatsBoard = () => {
             </Grid>
 
             <Grid item>
-                <Container className={classes.logContainer} disableGutters maxWidth={false}>
+                <Container className={classes.logContainer} id="logContainer" disableGutters maxWidth={false}>
                     {game.log.map((gameEvent, i) => (
-                        <Typography key={i}>{gameEvent}</Typography>
+                        <p className={classes.logText} key={i}>{gameEvent}</p>
                     ))}
                 </Container>
             </Grid>
