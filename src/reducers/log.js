@@ -7,6 +7,8 @@ export const log = (action, game) => {
             return updateLog(game.moves + "| " + gameEvent + constants.itemDict[action.payload.itemId].name, game);
         case 'ATTACK':
             return updateLog(game.moves + "| " + action.payload.attacker + gameEvent[0] + action.payload.target + gameEvent[1] + action.payload.damage + gameEvent[2], game);
+        case 'LEVEL_UP':
+            return updateLog(game.moves + "| " + gameEvent[0] + game.level, game);
         default:
             return game;
     }
