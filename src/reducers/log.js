@@ -4,9 +4,9 @@ export const log = (action, game) => {
     const gameEvent = logStrings[action.type];
     switch (action.type) {
         case 'GET_ITEM':
-            return updateLog(gameEvent + constants.itemDict[action.payload.itemId].name, game);
+            return updateLog(game.moves + "| " + gameEvent + constants.itemDict[action.payload.itemId].name, game);
         case 'ATTACK':
-            return updateLog(action.payload.attacker + gameEvent[0] + action.payload.target + gameEvent[1] + action.payload.damage + gameEvent[2], game);
+            return updateLog(game.moves + "| " + action.payload.attacker + gameEvent[0] + action.payload.target + gameEvent[1] + action.payload.damage + gameEvent[2], game);
         default:
             return game;
     }
