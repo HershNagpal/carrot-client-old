@@ -16,7 +16,7 @@ export const carrotSpawnRate = 5;
 export const wolfSpawnRate = 50;
 export const treeSpawnRate = 30;
 export const wolfRetreatChance = 3;
-export const superCarrotChance = 3;
+export const superCarrotChance = 10;
 
 export const wolfMap = [
     {
