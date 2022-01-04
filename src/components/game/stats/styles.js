@@ -32,11 +32,25 @@ export default makeStyles(() => ({
     },
     iconButton: {
         background: 'lightgray',
+        fontSize: '5vh',
         padding: '1vh',
         borderRadius: '50%',
     },
+    infoText: {
+        fontSize: '3vh',
+        fontFamily: 'Verdana',
+        margin: '0',
+    },
     logText: {
         fontSize: '12px',
-        fontFamily: 'Consolas',
+        fontFamily: 'Verdana',
+        background: '#fff6c2',
+        margin: '0',
+    },
+    logTextAlt: {
+        fontSize: '12px',
+        fontFamily: 'Verdana',
+        background: '#fff09a',
+        margin: '0',
     },
 }));

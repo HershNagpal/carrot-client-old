@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
-import { Grid, Container, Typography, IconButton } from '@mui/material';
+import { Grid, Container, IconButton } from '@mui/material';
 import useStyles from './styles';
 import { useSelector } from 'react-redux';
 import { getPlayerTile } from '../../../reducers/selectors';
@@ -34,10 +34,10 @@ const StatsBoard = () => {
         <Grid container className={classes.outerContainer} direction="column" disableGutters>
             <Grid item>
                 <Container className={classes.infoContainer} disableGutters>
-                    <Typography variant="h6">Moves: {game.moves}</Typography>
-                    <Typography variant="h6">HP: {playerTile ? playerTile.entity.hp : 0} / {playerTile ? playerTile.entity.maxHp : 0}</Typography>
-                    <Typography variant="h6">Level: {game.level}</Typography>
-                    <Typography variant="h6">XP: {game.xp} / {game.maxXp}</Typography>
+                    <p className={classes.infoText}>Moves: {game.moves}</p>
+                    <p className={classes.infoText}>HP: {playerTile ? playerTile.entity.hp : 0} / {playerTile ? playerTile.entity.maxHp : 0}</p>
+                    <p className={classes.infoText}>Level: {game.level}</p>
+                    <p className={classes.infoText}>XP: {game.xp} / {game.maxXp}</p>
                 </Container>
             </Grid>
 
@@ -66,7 +66,9 @@ const StatsBoard = () => {
             <Grid item>
                 <Container className={classes.logContainer} id="logContainer" disableGutters maxWidth={false}>
                     {game.log.map((gameEvent, i) => (
-                        <p className={classes.logText} key={i}>{gameEvent}</p>
+                        i % 2 === 0
+                            ? <p className={classes.logText} key={i}>{gameEvent}</p>
+                            : <p className={classes.logTextAlt} key={i}>{gameEvent}</p>
                     ))}
                 </Container>
             </Grid>
