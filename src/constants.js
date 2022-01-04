@@ -38,7 +38,7 @@ export const wolfMap = [
 export const itemDict = [
     {
         id: 0,
-        name: 'Air',
+        name: 'None',
         description: 'Empty.',
         flavor: 'Nothing.',
         type: 'empty',
@@ -95,6 +95,7 @@ export const defaultGame = {
     maxXp: 10,
     moves: 0,
     direction: 'w',
+    totalCarrots: 0,
     inventoryFences: 2,
     inventorySuperCarrot: 3,
     inventoryWeapon: 5,

@@ -99,6 +99,10 @@ const doSetLevel = (level, game) => (
     { ...game, level: level }
 );
 
+export const doSetTotalCarrots = (carrots, game) => (
+    { ...game, totalCarrots: carrots }
+);
+
 const doToggleGameOver = (game) => (
     { ...game, gameOver: !game.gameOver }
 );

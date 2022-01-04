@@ -1,6 +1,6 @@
 import * as constants from '../constants';
 import { getPlayerCoord, getCoords } from './selectors';
-import { doSetPlayerMoves, doChangeHp, doSetXp, doUpdateUsed } from './setters';
+import { doSetPlayerMoves, doChangeHp, doSetXp, doSetTotalCarrots, doUpdateUsed } from './setters';
 import { spawnPlayer, spawnCarrot, spawnFence, spawnTree, doSpawnCarrots, doSpawnTrees } from './spawn';
 import { setTile, setTileEntity, doUpdateWolves, doCheckSuperCarrotPickup } from './movement';
 import { checkMove, newCoordInDirection, isOutOfBounds } from './moveHelpers';
@@ -67,12 +67,13 @@ const movePlayer = (direction, game) => {
         const spawnTrees =              (game) => doSpawnTrees(game);
         const updateWolves =            (game) => doUpdateWolves(game);
         const setXp =                   (game) => doSetXp(game.xp + 1, game);
+        const addTotalCarrots =         (game) => doSetTotalCarrots(game.totalCarrots + 1, game);
         const heal =                    (game) => doChangeHp({ x: newCoord.x, y: newCoord.y }, game.carrotHealing, game);
         const checkSuperCarrotPickup =  (game) => doCheckSuperCarrotPickup(game);
         
         const baseChanges = [spawnPlayer, removePlayer, setPlayerMoves, spawnCarrots, spawnTrees, updateWolves];
         const stateChanges = game.grid[newCoord.y][newCoord.x].entity.type === 'carrot'
-            ? [...baseChanges, setXp, heal, checkSuperCarrotPickup]
+            ? [...baseChanges, setXp, addTotalCarrots, heal, checkSuperCarrotPickup]
             : baseChanges; 
 
         return stateChanges.reduce((a, stateChange) => (

@@ -1,20 +1,32 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(() => ({
-    gameOver: {
+    outerContainer: {
         position: 'fixed',
         left: '50%',
-        transform: 'translate(-50%, 0)',
-        margin: '0 auto',
+        top: '50%',
+        transform: 'translate(-50%, -50%)',
         zIndex: '10',
-        textAlign: 'center',
-        verticalAlign: 'center',
+        minWidth: '80vw',
+        maxWidth: '80vw',
+        maxHeight: '95vh',
+        borderRadius: '20px',
+        backgroundColor: 'white',
+        filter: 'drop-shadow(5px 5px 5px #555)',
+        paddingTop: '10px',
+        paddingBottom: '20px',
+    },
+    statContainer: {
+        marginLeft: '18%',
     },
     gameOverText: {
+        textAlign: 'center',
         color: '#FF1493',
         fontFamily: '"Comic Sans MS", "Comic Sans", cursive',
         fontSize: '5em',
         opacity: '0.7',
+        marginTop: '20px',
+        marginBottom: '20px',
     },
     gameOverBackground: {
         position: 'fixed',
@@ -25,6 +37,11 @@ export default makeStyles(() => ({
         backgroundColor: 'black',
     },
     titleButton: {
-        opacity: '0.7',
+        marginTop: '30px',
+        left: '50%',
+        transform: 'translate(-50%, 0)',
+    },
+    icon: {
+        width: '20px',
     },
 }));
