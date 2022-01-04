@@ -37,7 +37,13 @@ const Collection = () => {
                     <img className={classes.itemIcon} src={itemIcons[game.collectionSelect]} alt={constants.itemDict[game.collectionSelect]} /><br />
                     <Typography variant="h6"><b>{constants.itemDict[game.collectionSelect].name}</b></Typography>
                     <Typography>{constants.itemDict[game.collectionSelect].description}</Typography>
-                    <Typography>Found: {game.collection[game.collectionSelect].found}</Typography><br />
+                    <Typography>Found: {game.collection[game.collectionSelect].found}</Typography>
+                    {
+                        constants.itemDict[game.collectionSelect].type === 'superCarrot'
+                            ? <Typography>Used: {game.collection[game.collectionSelect].used}</Typography>
+                            : null
+                    }
+                    <br />
                     <Typography><i>'{constants.itemDict[game.collectionSelect].flavor}'</i></Typography>
                 </Grid>
             </Grid>

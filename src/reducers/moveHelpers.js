@@ -1,5 +1,5 @@
 import * as constants from '../constants';
-import { getPlayerCoords } from './selectors';
+import { getPlayerCoord } from './selectors';
 
 export const checkMove = (nextTile) => {
     switch (nextTile.entity.type) {
@@ -19,25 +19,25 @@ export const checkMove = (nextTile) => {
 };
 
 export const isPlayerNear = (coord, game) => {
-    const playerCoords = getPlayerCoords(game.grid);
+    const playerCoord = getPlayerCoord(game.grid);
     return ['w', 'a', 's', 'd'].reduce((a, direction) => {
-        const { newX, newY } = newCoordinatesInDirection(coord.x, coord.y, direction)
-        return newX === playerCoords.x && newY === playerCoords.y
+        const { x, y } = newCoordInDirection(coord.x, coord.y, direction)
+        return x === playerCoord.x && y === playerCoord.y
             ? direction
             : a                        
     }, false);
 }
 
-export const newCoordinatesInDirection = (x, y, direction) => {
+export const newCoordInDirection = (x, y, direction) => {
     switch (direction) {
         case 'w':
-            return { newX: x, newY: y - 1 };
+            return { x: x, y: y - 1 };
         case 's':
-            return { newX: x, newY: y + 1 };
+            return { x: x, y: y + 1 };
         case 'a':
-            return { newX: x - 1, newY: y };
+            return { x: x - 1, y: y };
         case 'd':
-            return { newX: x + 1, newY: y };
+            return { x: x + 1, y: y };
         default:
             break;
     }
@@ -60,20 +60,20 @@ export const reflectPosition = (reflectCoord, originCoord) => ({
 });
 
 export const getWolfDirection = (targetX, targetY, wolfTile, grid) => {
-    const vDistance = Math.abs(targetY - wolfTile.coords.y);
-    const hDistance = Math.abs(targetX - wolfTile.coords.x);
-    const vDirection = targetY - wolfTile.coords.y;
-    const hDirection = targetX - wolfTile.coords.x;
+    const vDistance = Math.abs(targetY - wolfTile.coord.y);
+    const hDistance = Math.abs(targetX - wolfTile.coord.x);
+    const vDirection = targetY - wolfTile.coord.y;
+    const hDirection = targetX - wolfTile.coord.x;
 
-    const up = newCoordinatesInDirection(wolfTile.coords.x, wolfTile.coords.y, 'w');
-    const down = newCoordinatesInDirection(wolfTile.coords.x, wolfTile.coords.y, 's');
-    const left = newCoordinatesInDirection(wolfTile.coords.x, wolfTile.coords.y, 'a');
-    const right = newCoordinatesInDirection(wolfTile.coords.x, wolfTile.coords.y, 'd');
+    const up = newCoordInDirection(wolfTile.coord.x, wolfTile.coord.y, 'w');
+    const down = newCoordInDirection(wolfTile.coord.x, wolfTile.coord.y, 's');
+    const left = newCoordInDirection(wolfTile.coord.x, wolfTile.coord.y, 'a');
+    const right = newCoordInDirection(wolfTile.coord.x, wolfTile.coord.y, 'd');
 
-    const upValid = !isOutOfBounds(up.newX, up.newY) && checkMove(grid[up.newY][up.newX]);
-    const downValid = !isOutOfBounds(down.newX, down.newY) && checkMove(grid[down.newY][down.newX]);
-    const leftValid = !isOutOfBounds(left.newX, left.newY) && checkMove(grid[left.newY][left.newX]);
-    const rightValid = !isOutOfBounds(right.newX, right.newY) && checkMove(grid[right.newY][right.newX]);
+    const upValid = !isOutOfBounds(up.x, up.y) && checkMove(grid[up.y][up.x]);
+    const downValid = !isOutOfBounds(down.x, down.y) && checkMove(grid[down.y][down.x]);
+    const leftValid = !isOutOfBounds(left.x, left.y) && checkMove(grid[left.y][left.x]);
+    const rightValid = !isOutOfBounds(right.x, right.y) && checkMove(grid[right.y][right.x]);
 
     // Up and Left - negative = player is up/left
     if (vDirection <= 0 && hDirection <= 0) {
@@ -109,18 +109,18 @@ export const getWolfDirection = (targetX, targetY, wolfTile, grid) => {
     }
 };
 
-export const wolfSpawnCoords = (xLength, yLength) => (
+export const wolfSpawnCoord = (xLength, yLength) => (
     Math.round(Math.random()) === 0
-        ? leftRightEdgeCoords(xLength, yLength)
-        : topBottomEdgeCoords(xLength, yLength)
+        ? leftRightEdgeCoord(xLength, yLength)
+        : topBottomEdgeCoord(xLength, yLength)
 );
 
-const leftRightEdgeCoords = (xLength, yLength) => ({
+const leftRightEdgeCoord = (xLength, yLength) => ({
     x: Math.round(Math.random() * xLength),
     y: Math.floor(Math.random()) * (yLength - 1),
 });
 
-const topBottomEdgeCoords = (xLength, yLength) => ({
+const topBottomEdgeCoord = (xLength, yLength) => ({
     x: Math.round(Math.random()) * (xLength - 1),
     y: Math.floor(Math.random() * yLength),
 });

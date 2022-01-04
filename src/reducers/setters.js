@@ -1,5 +1,5 @@
 import { setTile } from "./movement";
-import { getWolves } from "./selectors";
+import { getWolfTiles } from "./selectors";
 
 export const doSetPlayerMoves = (moves, game) => (
     { ...game, moves: moves }
@@ -9,8 +9,8 @@ export const doAddWolfMoves = (num, game) => (
     { ...game, grid: 
         game.grid.map((row, Yindex) => (
             row.map((tile, Xindex) => {
-                const foundWolf = getWolves(game.grid).find((wolfTile) => (
-                    wolfTile.coords.x === Xindex && wolfTile.coords.y === Yindex
+                const foundWolf = getWolfTiles(game.grid).find((wolfTile) => (
+                    wolfTile.coord.x === Xindex && wolfTile.coord.y === Yindex
                 ));
                 return foundWolf
                     ? { 
@@ -33,21 +33,10 @@ export const doChangeHp = (coord, dHp, game) => {
         ? entity.maxHp
         : checkHp;
     
-    const setHp = (game) => (
-        doSetHp(coord, newHp, game)
-    );
-
-    const toggleGameOver = (game) => (
-        doToggleGameOver(game)
-    );
-
-    const addFences = (game) => (
-        changePlayerFences(1, game)
-    );
-
-    const removeEntity = (game) => (
-        setTile({ x: coord.x, y: coord.y }, 'grass', game)
-    );
+    const setHp =           (game) => doSetHp(coord, newHp, game);
+    const toggleGameOver =  (game) => doToggleGameOver(game);
+    const addFences =       (game) => changePlayerFences(1, game);
+    const removeEntity =    (game) => setTile({ x: coord.x, y: coord.y }, 'grass', game);
 
     const baseChanges = [setHp];
     const stateChanges = entity.type === 'player' && checkHp <= 0
@@ -90,12 +79,8 @@ const changePlayerFences = (dFences, game) => (
 export const doSetXp = (xp, game) => {
     const dif = xp - game.maxXp;
     if (dif >= 0) {
-        const addLevel = (game) => (
-            doSetLevel(game.level + 1, game)
-        );
-        const updateMaxXp = (game) => (
-            setMaxXp(Math.floor(game.maxXp * 1.1), game)
-        );
+        const addLevel =    (game) => doSetLevel(game.level + 1, game);
+        const updateMaxXp = (game) => setMaxXp(Math.floor(game.maxXp * 1.1), game);
 
         const stateChanges = [addLevel, updateMaxXp];
         return { ...stateChanges.reduce((a, stateChange) => (
@@ -145,6 +130,16 @@ export const doUpdateFound = (id, game) => (
         game.collection.map((item) => (
             item.id === id
                 ? { ...item, found: item.found + 1 }
+                : item
+        ))
+    }
+);
+
+export const doUpdateUsed = (id, game) => (
+    { ...game, collection:
+        game.collection.map((item) => (
+            item.id === id
+                ? { ...item, used: item.used + 1 }
                 : item
         ))
     }

@@ -1,6 +1,6 @@
 import * as constants from '../constants';
-import { getTile } from './selectors';
-import { wolfSpawnCoords } from './moveHelpers';
+import { getCoords } from './selectors';
+import { wolfSpawnCoord } from './moveHelpers';
 
 export const spawnPlayer = (coord, hp, game) => (
     { ...game, grid:
@@ -34,8 +34,8 @@ export const spawnCarrot = (num, game) => {
     return { ...game, grid: game.grid.map((row, Yindex) => (
         row.map((tile, Xindex) => (
             coords.find((coord) => coord.x === Xindex && coord.y === Yindex)
-            ? { ...tile, entity: { type: 'carrot' } }
-            : tile
+                ? { ...tile, entity: { type: 'carrot' } }
+                : tile
         ))
     ))};
 };
@@ -58,8 +58,8 @@ export const spawnFence = (num, game) => {
     return { ...game, grid: game.grid.map((row, Yindex) => (
         row.map((tile, Xindex) => (
             coords.find((coord) => coord.x === Xindex && coord.y === Yindex)
-            ? { ...tile, entity: { type: 'fence', hp: game.fenceHp, maxHp: game.fenceHp } }
-            : tile
+                ? { ...tile, entity: { type: 'fence', hp: game.fenceHp, maxHp: game.fenceHp } }
+                : tile
         ))
     ))};
 }
@@ -82,8 +82,8 @@ export const spawnTree = (num, game, hp=5) => {
     return { ...game, grid: game.grid.map((row, Yindex) => (
         row.map((tile, Xindex) => (
             coords.find((coord) => coord.x === Xindex && coord.y === Yindex)
-            ? { ...tile, entity: { type: 'tree', hp: hp, maxHp: hp } }
-            : tile
+                ? { ...tile, entity: { type: 'tree', hp: hp, maxHp: hp } }
+                : tile
         ))
     ))};
 }
@@ -93,7 +93,7 @@ export const spawnWolf = (num, game) => {
     const arr = Array(num).fill(0);
     const coords = arr.reduce((a) => {
         while (true) {
-            const { x, y } = wolfSpawnCoords(constants.gridX, constants.gridY);
+            const { x, y } = wolfSpawnCoord(constants.gridX, constants.gridY);
             if (
                 game.grid[y][x].entity.type === 'grass' &&
                 !a.find((coord) => coord.x === x && coord.y === y)
@@ -109,14 +109,14 @@ export const spawnWolf = (num, game) => {
     return { ...game, grid: game.grid.map((row, Yindex) => (
         row.map((tile, Xindex) => (
             coords.find((coord) => coord.x === Xindex && coord.y === Yindex)
-            ? { ...tile, entity: { type: 'wolf', wolfType: wolfEntity.name, attack: wolfEntity.baseDamage, hp: wolfEntity.baseMaxHp, maxHp: wolfEntity.baseMaxHp } }
-            : tile
+                ? { ...tile, entity: { type: 'wolf', wolfType: wolfEntity.name, damage: wolfEntity.baseDamage, hp: wolfEntity.baseMaxHp, maxHp: wolfEntity.baseMaxHp } }
+                : tile
         ))
     ))};
 };
 
 export const doSpawnWolves = (game) => {
-    const numWolves = getTile('wolf', game.grid).length;
+    const numWolves = getCoords('wolf', game.grid).length;
     if (numWolves < constants.wolfCap) {
         if (Math.floor(Math.random() * constants.wolfSpawnRate) === 0) {
             return spawnWolf(1, game);
@@ -129,7 +129,7 @@ export const doSpawnWolves = (game) => {
 };
 
 export const doSpawnCarrots = (game) => {
-    const numCarrots = getTile('carrot', game.grid).length;
+    const numCarrots = getCoords('carrot', game.grid).length;
     if (numCarrots < constants.carrotCap) {
         if (Math.floor(Math.random() * constants.carrotSpawnRate) === 0) {
             return spawnCarrot(1, game);
@@ -142,7 +142,7 @@ export const doSpawnCarrots = (game) => {
 };
 
 export const doSpawnTrees = (game) => {
-    const numTrees = getTile('tree', game.grid).length;
+    const numTrees = getCoords('tree', game.grid).length;
     if (numTrees < constants.treeCap) {
         if (Math.floor(Math.random() * constants.treeSpawnRate) === 0) {
             return spawnTree(1, game);
