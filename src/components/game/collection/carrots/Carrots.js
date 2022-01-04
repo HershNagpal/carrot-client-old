@@ -1,4 +1,4 @@
-import { Container, Grid } from '@material-ui/core';
+import { Container, Grid } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { collectionSelect } from '../../../../actions/game';
 import { emptyIcon, itemIcons } from '../../../../images';

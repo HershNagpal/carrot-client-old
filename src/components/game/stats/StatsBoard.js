@@ -1,11 +1,15 @@
 import { Link } from 'react-router-dom';
-import { Grid, Container, Typography, Button } from '@material-ui/core';
+import { useEffect } from 'react';
+import { Grid, Container, IconButton } from '@mui/material';
 import useStyles from './styles';
 import { useSelector } from 'react-redux';
 import { getPlayerTile } from '../../../reducers/selectors';
 import { useDispatch } from 'react-redux';
 import { toggleInventory, toggleCollection } from '../../../actions/game';
 import InventoryIcons from './inventoryIcons/InventoryIcons';
+import HomeIcon from '@mui/icons-material/Home';
+import BackpackIcon from '@mui/icons-material/Backpack';
+import BookIcon from '@mui/icons-material/Book';
 
 const StatsBoard = () => {
     const game = useSelector((state) => state.game);
@@ -21,15 +25,19 @@ const StatsBoard = () => {
         dispatch(toggleCollection())
     );
 
+    useEffect(() => {
+        const log = document.getElementById('logContainer');
+        log.scrollTop = log.scrollHeight - log.clientHeight;
+    }, [game.log]);
 
     return <>
-        <Grid container className={classes.outerContainer}>
+        <Grid container className={classes.outerContainer} direction="column" disableGutters>
             <Grid item>
-                <Container >
-                    <Typography variant="h6">Moves: {game.moves}</Typography>
-                    <Typography variant="h6">HP: {playerTile ? playerTile.entity.hp : 0} / {playerTile ? playerTile.entity.maxHp : 0}</Typography>
-                    <Typography variant="h6">Level: {game.level}</Typography>
-                    <Typography variant="h6">XP: {game.xp} / {game.maxXp}</Typography>
+                <Container className={classes.infoContainer} disableGutters>
+                    <p className={classes.infoText}>Moves: {game.moves}</p>
+                    <p className={classes.infoText}>HP: {playerTile ? playerTile.entity.hp : 0} / {playerTile ? playerTile.entity.maxHp : 0}</p>
+                    <p className={classes.infoText}>Level: {game.level}</p>
+                    <p className={classes.infoText}>XP: {game.xp} / {game.maxXp}</p>
                 </Container>
             </Grid>
 
@@ -38,29 +46,29 @@ const StatsBoard = () => {
             </Grid>
 
             <Grid item>
-                <Container >
-                    <Link to="/">
-                        <Button variant="contained" color="primary">Title Screen</Button>
-                    </Link>
+                <Container className={classes.buttonContainer} disableGutters>
+                    <Grid container direction="row" justifyContent="center">
+                        <Grid item>
+                            <Link to="/">
+                                <IconButton color="primary"><HomeIcon className={classes.iconButton} /></IconButton>
+                            </Link>
+                        </Grid>
+                        <Grid item>
+                            <IconButton color="primary" onClick={doToggleInventory}><BackpackIcon className={classes.iconButton} /></IconButton>
+                        </Grid>
+                        <Grid item>
+                            <IconButton color="primary" onClick={doToggleCollection}><BookIcon className={classes.iconButton} /></IconButton>
+                        </Grid>
+                    </Grid>
                 </Container>
             </Grid>
 
             <Grid item>
-                <Container >
-                    <Button variant="contained" color="primary" onClick={doToggleInventory}>Inventory</Button>
-                </Container>
-            </Grid>
-
-            <Grid item>
-                <Container >
-                    <Button variant="contained" color="primary" onClick={doToggleCollection}>Collection</Button>
-                </Container>
-            </Grid>
-
-            <Grid item>
-                <Container className={classes.logContainer}>
+                <Container className={classes.logContainer} id="logContainer" disableGutters maxWidth={false}>
                     {game.log.map((gameEvent, i) => (
-                        <Typography key={i}>{gameEvent}</Typography>
+                        i % 2 === 0
+                            ? <p className={classes.logText} key={i}>{gameEvent}</p>
+                            : <p className={classes.logTextAlt} key={i}>{gameEvent}</p>
                     ))}
                 </Container>
             </Grid>

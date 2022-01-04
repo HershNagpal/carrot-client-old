@@ -1,9 +1,12 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
 
 export default makeStyles(() => ({
     outerContainer: {
         background: 'gray',
-        minWidth: '95vw',
-        minHeight: '95vh',
+        minWidth: '100vw',
+        maxWidth: '100vw',
+        minHeight: '100vh',
+        maxHeight: '100vh',
+        padding: '0',
     },
 }));

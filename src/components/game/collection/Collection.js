@@ -1,7 +1,7 @@
 import useStyles from './styles';
 import * as constants from '../../../constants';
 import { useSelector, useDispatch } from 'react-redux';
-import { Container, Grid, Typography, Button } from '@material-ui/core';
+import { Container, Grid, Typography, Button } from '@mui/material';
 import { toggleCollection } from '../../../actions/game';
 import Carrots from './carrots/Carrots';
 import Weapons from './weapons/Weapons';

@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
 
 export default makeStyles(() => ({
     outerContainer: {
@@ -33,7 +33,7 @@ export default makeStyles(() => ({
     infoBox: {
         minWidth: '30vw',
         maxWidth: '30vw',
-        minHeight: '30vh',
+        minHeight: '40vh',
         backgroundColor: 'lightgray',
         borderRadius: '10px',
         padding: '10px',

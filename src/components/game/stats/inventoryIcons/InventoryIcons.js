@@ -1,4 +1,4 @@
-import { Container, Grid } from '@material-ui/core';
+import { Container, Grid } from '@mui/material';
 import useStyles from './styles';
 import { useSelector } from 'react-redux';
 import * as constants from '../../../../constants';
@@ -9,42 +9,31 @@ const InventoryIcons = () => {
     const classes = useStyles();
 
     return <>
-        <Container className={classes.inventoryContainer}>
-            <Grid container direction="row">
-                <Grid item container >
-                    <Grid item className={classes.iconContainer}>
-                        <div>
-                            <div className={classes.smallIconContainer}>{constants.itemDict[game.inventoryWeapon].damage}</div>
-                            <img className={classes.icon} src={itemIcons[game.inventoryWeapon]} alt="swordIcon" />
-                        </div>
+        <Container className={classes.inventoryContainer} disableGutters>
+            <Grid container direction="column" justifyContent="center">
+                <Grid item container direction="row" justifyContent="center">
+                    <Grid item className={classes.iconContainer} style={{margin: '10px'}}> 
+                        <div className={classes.smallIconContainer}>{constants.itemDict[game.inventoryWeapon].damage}</div>
+                        <img className={classes.icon} src={itemIcons[game.inventoryWeapon]} alt="swordIcon" />
                     </Grid>
 
-                    <Grid item className={classes.iconContainer}>
-                        <div>
-                            <div className={classes.smallIconContainer}>{game.inventoryFences}</div>
-                            <img className={classes.icon} src={fenceIcon} alt="fenceIcon" />
-                        </div>
-                    </Grid>
-
-                </Grid>
-
-                <Grid item container>
-                    <Grid item className={classes.iconContainer}>
-                        <div>
-                            <img className={classes.icon}
-                                src={game.inventorySuperCarrot > 0 ? itemIcons[game.inventorySuperCarrot] : carrotOutlineIcon}
-                                alt={game.inventorySuperCarrot > 0 ? constants.itemDict[game.inventorySuperCarrot].name : "carrotOutlineIcon"} />
-                        </div>
-                    </Grid>
-                    
-                    <Grid item className={classes.iconContainer}>
-                        <div>
-                            <img className={classes.icon} src={game.pocketItem > 0 ? itemIcons[game.pocketItem] : pocketIcon} alt={game.pocketItem > 0 ? "carrotIcon" : "pocketIcon"} />
-                        </div>
+                    <Grid item className={classes.iconContainer} style={{margin: '10px'}}>
+                        <div className={classes.smallIconContainer}>{game.inventoryFences}</div>
+                        <img className={classes.icon} src={fenceIcon} alt="fenceIcon" />
                     </Grid>
                 </Grid>
-                
 
+                <Grid item container direction="row" justifyContent="center">
+                    <Grid item className={classes.iconContainer} style={{margin: '10px'}}>
+                        <img className={classes.icon}
+                            src={game.inventorySuperCarrot > 0 ? itemIcons[game.inventorySuperCarrot] : carrotOutlineIcon}
+                            alt={game.inventorySuperCarrot > 0 ? constants.itemDict[game.inventorySuperCarrot].name : "carrotOutlineIcon"} />
+                    </Grid>
+
+                    <Grid item className={classes.iconContainer} style={{margin: '10px'}}>
+                        <img className={classes.icon} src={game.pocketItem > 0 ? itemIcons[game.pocketItem] : pocketIcon} alt={game.pocketItem > 0 ? "carrotIcon" : "pocketIcon"} />
+                    </Grid>
+                </Grid>
             </Grid>
         </Container>
     </>

@@ -2,7 +2,7 @@ import useStyles from './styles';
 import * as constants from '../../../constants';
 import { carrotIcon, pocketIcon, itemIcons } from '../../../images';
 import { useSelector } from 'react-redux';
-import { Container, Typography, Button, Grid } from '@material-ui/core';
+import { Container, Typography, Button, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 const GameOver = () => {

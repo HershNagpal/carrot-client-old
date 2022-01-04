@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Container, Button, Typography } from '@material-ui/core';
+import { Container, Button, Typography } from '@mui/material';
 import useStyles from './styles';
 import { carrotIcon, fenceIcon } from '../../images';
 
