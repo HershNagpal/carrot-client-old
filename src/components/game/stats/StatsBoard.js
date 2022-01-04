@@ -31,7 +31,7 @@ const StatsBoard = () => {
     }, [game.log]);
 
     return <>
-        <Grid container className={classes.outerContainer} direction="column" disableGutters>
+        <Grid container className={classes.outerContainer} direction="column">
             <Grid item>
                 <Container className={classes.infoContainer} disableGutters>
                     <p className={classes.infoText}>Moves: {game.moves}</p>
