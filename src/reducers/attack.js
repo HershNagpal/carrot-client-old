@@ -1,5 +1,5 @@
 import * as constants from '../constants';
-import { newCoordInDirection, rotateDirection } from "./moveHelpers";
+import { isOutOfBounds, newCoordInDirection, rotateDirection } from "./moveHelpers";
 import { getPlayerCoord } from "./selectors";
 import { doChangeHp, doSetPlayerMoves } from "./setters";
 import { doSpawnCarrots } from "./spawn";
@@ -12,8 +12,9 @@ export const spearAttack = (game) => {
     const coordBeingHit2 = newCoordInDirection(coordBeingHit1.x, coordBeingHit1.y, game.direction);
 
     const validAttackTiles = [coordBeingHit1, coordBeingHit2].filter( (coordBeingHit) => {
+        if (isOutOfBounds(coordBeingHit.x, coordBeingHit.y)) { return false; }
         const entityBeingHitType = game.grid[coordBeingHit.y][coordBeingHit.x].entity.type;
-        return entityBeingHitType === 'wolf' || entityBeingHitType === 'fence' || entityBeingHitType === 'tree' ;
+        return (entityBeingHitType === 'wolf' || entityBeingHitType === 'fence' || entityBeingHitType === 'tree');
     });
 
     return validAttackTiles.reduce( (a, coordBeingHit, index) => {
@@ -46,6 +47,7 @@ export const axeAttack = (game) => {
     const coordBeingHit2 = newCoordInDirection(coordBeingHit1.x, coordBeingHit1.y, rotateDirection(game.direction, 'cw'));
 
     const validAttackTiles = [coordBeingHit1, coordBeingHit2].filter( (coordBeingHit) => {
+        if (isOutOfBounds(coordBeingHit.x, coordBeingHit.y)) { return false; }
         const entityBeingHitType = game.grid[coordBeingHit.y][coordBeingHit.x].entity.type;
         return entityBeingHitType === 'wolf' || entityBeingHitType === 'fence' || entityBeingHitType === 'tree' ;
     });

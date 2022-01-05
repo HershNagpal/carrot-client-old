@@ -78,8 +78,8 @@ const StatsBoard = () => {
                 <Container className={classes.logContainer} id="logContainer" disableGutters maxWidth={false}>
                     {game.log.map((gameEvent, i) => (
                         i % 2 === 0
-                            ? <p className={classes.logText} key={i}>{gameEvent}</p>
-                            : <p className={classes.logTextAlt} key={i}>{gameEvent}</p>
+                            ? <p className={classes.logText} style={{color: gameEvent.color, fontWeight: gameEvent.importance}} key={i}>{gameEvent.text}</p>
+                            : <p className={classes.logTextAlt} style={{color: gameEvent.color, fontWeight: gameEvent.importance}} key={i}>{gameEvent.text}</p>
                     ))}
                 </Container>
             </Grid>

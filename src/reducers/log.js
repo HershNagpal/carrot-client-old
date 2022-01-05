@@ -1,14 +1,14 @@
 import * as constants from '../constants';
 
 export const log = (action, game) => {
-    const gameEvent = logStrings[action.type];
+    const eventText = logStrings[action.type];
     switch (action.type) {
         case 'GET_ITEM':
-            return updateLog(game.moves + "| " + gameEvent + constants.itemDict[action.payload.itemId].name, game);
+            return updateLog({ text: game.moves + "| " + eventText[0] + constants.itemDict[action.payload.itemId].name, color: 'blue', importance: 'bold' }, game);
         case 'ATTACK':
-            return updateLog(game.moves + "| " + action.payload.attacker + gameEvent[0] + action.payload.target + gameEvent[1] + action.payload.damage + gameEvent[2], game);
+            return updateLog({ text: game.moves + "| " + action.payload.attacker + eventText[0] + action.payload.target + eventText[1] + action.payload.damage + eventText[2], color: 'black', importance: 'normal' }, game);
         case 'LEVEL_UP':
-            return updateLog(game.moves + "| " + gameEvent[0] + game.level, game);
+            return updateLog({ text: game.moves + "| " + eventText[0] + game.level, color: 'green', importance: 'bold' }, game);
         default:
             return game;
     }
