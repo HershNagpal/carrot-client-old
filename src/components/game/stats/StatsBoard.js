@@ -61,14 +61,14 @@ const StatsBoard = () => {
                     <Grid container direction="row" justifyContent="center">
                         <Grid item>
                             <Link to="/">
-                                <IconButton color="primary"><HomeIcon className={classes.iconButton} /></IconButton>
+                                <IconButton color="primary"><HomeIcon fontSize='inherit' className={classes.iconButton} /></IconButton>
                             </Link>
                         </Grid>
                         <Grid item>
-                            <IconButton color="primary" onClick={doToggleInventory}><BackpackIcon className={classes.iconButton} /></IconButton>
+                            <IconButton color="primary" onClick={doToggleInventory}><BackpackIcon fontSize='inherit' className={classes.iconButton} /></IconButton>
                         </Grid>
                         <Grid item>
-                            <IconButton color="primary" onClick={doToggleCollection}><BookIcon className={classes.iconButton} /></IconButton>
+                            <IconButton color="primary" onClick={doToggleCollection}><BookIcon fontSize='inherit' className={classes.iconButton} /></IconButton>
                         </Grid>
                     </Grid>
                 </Container>

@@ -8,7 +8,6 @@ export default makeStyles(() => ({
     },
     iconContainer: {
         position: 'relative',
-        margin: '20px',
         height: '8vh',
         width: '8vh',
         borderRadius: '50%', 
