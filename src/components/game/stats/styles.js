@@ -72,9 +72,8 @@ export default makeStyles(() => ({
         top: '50%',
         transform: 'translate(0, -50%)',
         zIndex: '20',
-        color: 'white',
         fontSize: '20px',
-        padding: '10px',
+        padding: '20px',
         width: '30vw',
     },
     popupButton: {
@@ -92,5 +91,9 @@ export default makeStyles(() => ({
         position: 'relative',
         left: '50%',
         transform: 'translate(-50%, 0)',
+    },
+    popupText: {
+        fontFamily: 'Verdana',
+        color: 'white',
     },
 }));

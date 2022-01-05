@@ -52,7 +52,7 @@ const StatsBoard = () => {
             popup
                 ? (
                     <div className={classes.popupContainer}>
-                        <p>Are you sure you want to return to the title screen? Your progress will be lost.</p>
+                        <p className={classes.popupText}>Are you sure you want to return to the title screen? Your progress will be lost.</p>
                         <div className={classes.popupButtonsContainer}>
                             <Link to="/">
                                 <button type="button" className={classes.popupButton}>YES</button>
