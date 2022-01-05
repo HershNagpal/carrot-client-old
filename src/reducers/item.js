@@ -61,12 +61,13 @@ const relentlessSteelCarrot = (game, damage=constants.itemDict[game.inventoryWea
 
 const lifesLimit = (game) => {
     const { x, y } = getPlayerCoord(game.grid);
-    const damageToDeal = game.grid[y][x].entity.hp > game.grid[y][x].entity.maxHp / 2
+    /*const damageToDeal = game.grid[y][x].entity.hp > game.grid[y][x].entity.maxHp / 2
         ? Math.floor(game.grid[y][x].entity.maxHp * 0.5)
-        : game.grid[y][x].entity.hp - 1;
-    const xpToLevelUp = game.maxXp - game.xp;
+        : game.grid[y][x].entity.hp - 1;*/
+    const damageToDeal = game.grid[y][x].entity.hp - 1;
+    const xpGain = damageToDeal * 5;
     
-    const increaseXp =      (game) => doSetXp(game.xp + xpToLevelUp, game);
+    const increaseXp =      (game) => doSetXp(game.xp + xpGain, game);
     const damagePlayer =    (game) => doChangeHp({ x: x, y: y }, -damageToDeal, game);
 
     const stateChanges = [increaseXp, damagePlayer]

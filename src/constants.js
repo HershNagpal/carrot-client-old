@@ -71,7 +71,7 @@ export const itemDict = [
     {
         id: 4,
         name: 'Life\'s Limit',
-        description: 'Levels you up instantly for half of your maximum HP.',
+        description: 'Brings you to 1 HP to gain XP. Gain more XP the more HP you lose.',
         flavor: 'Uneat the carrots to then consume all at once.',
         type: 'superCarrot',
     },
