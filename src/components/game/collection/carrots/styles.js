@@ -4,14 +4,19 @@ export default makeStyles(() => ({
     collectionItem: {
         border: '3px solid black',
         backgroundColor: 'aliceblue',
-        padding: '5px',
+        padding: '1vh',
+        height: '10vh',
+        width: '10vh',
     },
     collectionIcon: {
-        width: '5vw',
+        height: '8vh',
+        width: '8vh',
     },
     selectedItem: {
-        border: '3px solid lightgreen',
-        backgroundColor: 'aliceblue',
+        border: '3px solid black',
+        backgroundColor: 'lightgreen',
         padding: '5px',
+        height: '10vh',
+        width: '10vh',
     },
 }));

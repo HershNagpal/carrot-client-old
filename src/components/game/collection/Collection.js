@@ -1,7 +1,7 @@
 import useStyles from './styles';
 import * as constants from '../../../constants';
 import { useSelector, useDispatch } from 'react-redux';
-import { Container, Grid, Typography, Button } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import { toggleCollection } from '../../../actions/game';
 import Carrots from './carrots/Carrots';
 import Weapons from './weapons/Weapons';
@@ -18,10 +18,10 @@ const Collection = () => {
     
     return <>
         <Container className={classes.outerContainer}>
-            <Typography variant="h4">Collection</Typography>
+            <p className={classes.title}>Collection</p>
             <hr />
 
-            <Grid container direction="row">
+            <Grid container direction="row" className={classes.itemList}>
                 <Grid container item className={classes.itemGrid} direction="column">
                     <Grid item>
                         <Carrots />
@@ -32,23 +32,24 @@ const Collection = () => {
                     </Grid>
                 </Grid>
 
-                <Grid item className={classes.infoBox}>
-                    <img className={classes.typeIcon} src={constants.itemDict[game.collectionSelect].type === 'weapon' ? swordIcon : carrotIcon} alt="typeIcon" />
-                    <img className={classes.itemIcon} src={itemIcons[game.collectionSelect]} alt={constants.itemDict[game.collectionSelect]} /><br />
-                    <Typography variant="h6"><b>{constants.itemDict[game.collectionSelect].name}</b></Typography>
-                    <Typography>{constants.itemDict[game.collectionSelect].description}</Typography>
-                    <Typography>Found: {game.collection[game.collectionSelect].found}</Typography>
+                <Grid item className={classes.itemSlot}>
+                    <img className={classes.slotIcon} src={itemIcons[game.collectionSelect]} alt={constants.itemDict[game.collectionSelect]} />
+                    <img className={classes.itemTypeIcon} src={constants.itemDict[game.collectionSelect].type === 'weapon' ? swordIcon : carrotIcon} alt="typeIcon" />    
+                    <p className={classes.itemTitle}><b>{constants.itemDict[game.collectionSelect].name}</b></p>
+                    <p className={classes.itemDescription}>{constants.itemDict[game.collectionSelect].description}</p>
+                    <p  className={classes.itemFlavor}><i>'{constants.itemDict[game.collectionSelect].flavor}'</i></p>
+                    <p className={classes.itemFlavor}>Found: {game.collection[game.collectionSelect].found}</p>
                     {
                         constants.itemDict[game.collectionSelect].type === 'superCarrot'
-                            ? <Typography>Used: {game.collection[game.collectionSelect].used}</Typography>
+                            ? <p className={classes.itemDescription}>Used: {game.collection[game.collectionSelect].used}</p>
                             : null
                     }
                     <br />
-                    <Typography><i>'{constants.itemDict[game.collectionSelect].flavor}'</i></Typography>
+                    
                 </Grid>
             </Grid>
 
-            <Button variant="contained" color="primary" onClick={doToggleCollection}>Close</Button>
+            <button className={classes.closeButton} onClick={doToggleCollection}>Close</button>
         </Container>
     </>
 };

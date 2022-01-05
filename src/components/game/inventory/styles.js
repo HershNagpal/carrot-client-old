@@ -45,7 +45,7 @@ export default makeStyles(() => ({
     title: {
         color: 'aliceblue',
         fontFamily: 'Verdana',
-        fontSize: '3vh',
+        fontSize: '4vh',
         textShadow: '1px 1px 2px #333',
         display: 'inline-block',
     },

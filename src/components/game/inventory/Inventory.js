@@ -1,6 +1,6 @@
 import useStyles from './styles';
 import { useSelector, useDispatch } from 'react-redux';
-import { Container, Grid, Button } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import { toggleInventory } from '../../../actions/game';
 import { swordIcon, carrotIcon, pocketIcon, emptyIcon, itemIcons } from '../../../images';
 import * as constants from '../../../constants';
@@ -62,8 +62,8 @@ const Inventory = () => {
                         <img className={classes.slotIcon} src={itemIcons[game.pocketItem]} alt={itemIcons[game.pocketItem].name} width="50vw" />
                         <img src={pocketIcon} alt="pocketIcon" className={classes.itemTypeIcon} />
                         <p className={classes.itemTitle} ><b>{constants.itemDict[game.pocketItem].name}</b></p>
-                        <p className={classes.itemTitle}>{constants.itemDict[game.pocketItem].description}</p>
-                        <p className={classes.itemTitle}><i>'{constants.itemDict[game.pocketItem].flavor}'</i></p>
+                        <p className={classes.itemDescription}>{constants.itemDict[game.pocketItem].description}</p>
+                        <p className={classes.itemFlavor}><i>'{constants.itemDict[game.pocketItem].flavor}'</i></p>
                         <br />
                     </Grid>
                     : <Grid item className={classes.itemSlot}>
@@ -73,7 +73,7 @@ const Inventory = () => {
                         <br />
                     </Grid> 
                 }
-                <button item onClick={doToggleInventory} className={classes.closeButton}>Close</button>
+                <button onClick={doToggleInventory} className={classes.closeButton}>Close</button>
             </Grid>
         </Container>
     </>
