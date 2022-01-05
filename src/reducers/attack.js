@@ -21,14 +21,14 @@ export const spearAttack = (game) => {
         const entityBeingHit = game.grid[coordBeingHit.y][coordBeingHit.x].entity;
         if (entityBeingHit.type === 'wolf' || entityBeingHit.type === 'fence' || entityBeingHit.type === 'tree') {
             const weapon = constants.itemDict[a.inventoryWeapon];
-            const damageToDeal = index === validAttackTiles.length - 1 
+            const damageToDeal = index === validAttackTiles.length - 1 && coordBeingHit === coordBeingHit2
                 ? constants.spearTipMultiplier * weapon.damage
                 : weapon.damage;
 
             const entityBeingHit = game.grid[coordBeingHit.y][coordBeingHit.x].entity;
             const reduceHp =        (a) => doChangeHp({ x: coordBeingHit.x, y: coordBeingHit.y }, -damageToDeal , a);
             const logAttack =       (a) => log({ type: 'ATTACK', payload: { attacker: 'player', target: entityBeingHit.type, damage: damageToDeal}}, a);
-
+            
             const addMove =         (a) => doSetPlayerMoves(a.moves + 1, a);
             const spawnCarrots =    (a) => doSpawnCarrots(a);
             const updateWolves =    (a) => doUpdateWolves(a);
