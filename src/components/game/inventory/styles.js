@@ -53,6 +53,7 @@ export default makeStyles(() => ({
         color: 'aliceblue',
         fontFamily: 'Verdana',
         fontSize: '1.5vh',
+        marginLeft: '2vh',
         textShadow: '1px 1px 2px #333',
         display: 'inline-block',
     },
@@ -74,6 +75,15 @@ export default makeStyles(() => ({
     },
     closeButton: {
         display: 'inline-block',
-        float: 'right',
+        fontFamily: 'Verdana',
+        color: 'black',
+        fontWeight: 'bold',
+        width: '100px',
+        fontSize: '2vh',
+        margin: '1vh',
+        backgroundColor: 'aliceblue',
+        border: 'solid 3px black',
+        filter: 'drop-shadow(2px 2px 2px #333)',
+        borderRadius: '1vh',
     }
 }));
