@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Grid, Container, IconButton } from '@mui/material';
 import useStyles from './styles';
 import { useSelector } from 'react-redux';
@@ -17,6 +17,7 @@ const StatsBoard = () => {
     const playerTile = getPlayerTile(game.grid);
     const classes = useStyles(90);
     const dispatch = useDispatch();
+    const [popup, setPopup] = useState(false);
 
     const hpStat = {
         value: playerTile !== undefined ? playerTile.entity.hp : 0,
@@ -37,12 +38,31 @@ const StatsBoard = () => {
         dispatch(toggleCollection())
     );
 
+    const doTogglePopup = () => (
+        setPopup(!popup)
+    );
+
     useEffect(() => {
         const log = document.getElementById('logContainer');
         log.scrollTop = log.scrollHeight - log.clientHeight;
     }, [game.log]);
 
     return <>
+        {
+            popup
+                ? (
+                    <div className={classes.popupContainer}>
+                        <p>Are you sure you want to return to the title screen? Your progress will be lost.</p>
+                        <div className={classes.popupButtonsContainer}>
+                            <Link to="/">
+                                <button type="button" className={classes.popupButton}>YES</button>
+                            </Link>
+                            <button type="button" className={classes.popupButton} onClick={doTogglePopup}>NO</button>
+                        </div>
+                    </div>
+                )
+                : null
+        }
         <Grid container className={classes.outerContainer} direction="column">
             <Grid item>
                 <Container className={classes.infoContainer} disableGutters>
@@ -60,9 +80,7 @@ const StatsBoard = () => {
                 <Container className={classes.buttonContainer} disableGutters>
                     <Grid container direction="row" justifyContent="center">
                         <Grid item>
-                            <Link to="/">
-                                <IconButton color="primary"><HomeIcon fontSize='inherit' className={classes.iconButton} /></IconButton>
-                            </Link>
+                            <IconButton color="primary" onClick={doTogglePopup}><HomeIcon fontSize='inherit' className={classes.iconButton} /></IconButton>
                         </Grid>
                         <Grid item>
                             <IconButton color="primary" onClick={doToggleInventory}><BackpackIcon fontSize='inherit' className={classes.iconButton} /></IconButton>
