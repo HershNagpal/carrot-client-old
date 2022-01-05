@@ -114,6 +114,8 @@ export const itemDict = [
 ];
 
 export const defaultGame = {
+    name: 'Player',
+    hand: 'right',
     level: 1,
     xp: 0,
     maxXp: 10,

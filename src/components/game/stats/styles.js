@@ -16,6 +16,7 @@ export default makeStyles(() => ({
         color: 'aliceblue',
         textShadow: '1px 1px 3px #222',
         margin: '0',
+        maxWidth: '250px',
     },
     infoContainer: {
         paddingLeft: '20px',

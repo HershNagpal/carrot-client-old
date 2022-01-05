@@ -1,6 +1,6 @@
 import * as constants from '../constants';
 import { getPlayerCoord, getCoords } from './selectors';
-import { doSetPlayerMoves, doChangeHp, doSetXp, doSetTotalCarrots, doUpdateUsed } from './setters';
+import { doSetPlayerMoves, doChangeHp, doSetXp, doSetTotalCarrots, doUpdateUsed, doSetName, doSetHand } from './setters';
 import { spawnPlayer, spawnCarrot, spawnFence, spawnTree, doSpawnCarrots, doSpawnTrees } from './spawn';
 import { setTile, setTileEntity, doUpdateWolves, doCheckSuperCarrotPickup } from './movement';
 import { checkMove, newCoordInDirection, isOutOfBounds } from './moveHelpers';
@@ -10,7 +10,7 @@ import { bladeAttack, axeAttack, spearAttack } from './attack';
 const game = (game = constants.defaultGame, action) => {
     switch (action.type) {
         case 'INIT_GRID':
-            return initGrid();
+            return initGrid(game);
 
         case 'MOVE_PLAYER':
             return movePlayer(action.payload, game);
@@ -30,6 +30,9 @@ const game = (game = constants.defaultGame, action) => {
         case 'PLACE_FENCE':
             return placeFence(game);
 
+        case 'CREATE_CHARACTER':
+            return createCharacter(action.payload, game);
+
         case 'TOGGLE_INVENTORY':
             return { ...game, isInInventory: !game.isInInventory };
 
@@ -44,13 +47,15 @@ const game = (game = constants.defaultGame, action) => {
     }
 };
 
-const initGrid = () => {
-    const spawnPlayers =    (game) => spawnPlayer({ x: constants.playerStart.x, y: constants.playerStart.y }, constants.playerStartHp, game);
-    const spawnCarrots =    (game) => spawnCarrot(constants.carrotCap, game);
-    const spawnFences =     (game) => spawnFence(constants.fenceSpawn, game);
-    const spawnTrees =      (game) => spawnTree(constants.treeCap, game);
+const initGrid = (game) => {
+    const spawnPlayers =    (newGame) => spawnPlayer({ x: constants.playerStart.x, y: constants.playerStart.y }, constants.playerStartHp, newGame);
+    const spawnCarrots =    (newGame) => spawnCarrot(constants.carrotCap, newGame);
+    const spawnFences =     (newGame) => spawnFence(constants.fenceSpawn, newGame);
+    const spawnTrees =      (newGame) => spawnTree(constants.treeCap, newGame);
+    const setName =         (newGame) => doSetName(game.name, newGame);
+    const setHand =         (newGame) => doSetHand(game.hand, newGame);
 
-    const stateChanges = [spawnPlayers, spawnCarrots, spawnFences, spawnTrees];
+    const stateChanges = [spawnPlayers, spawnCarrots, spawnFences, spawnTrees, setName, setHand];
     return stateChanges.reduce((a, stateChange) => (
         stateChange(a)
     ), constants.defaultGame);
@@ -157,6 +162,16 @@ const placeFence = (game) => {
     } 
     
     return game;
+};
+
+const createCharacter = (payload, game) => {
+    const setName = (game) => doSetName(payload.name, game);
+    const setHand = (game) => doSetHand(payload.hand, game);
+
+    const stateChanges = [setName, setHand];
+    return stateChanges.reduce((a, stateChange) => (
+        stateChange(a)
+    ), game);
 };
 
 export default game;

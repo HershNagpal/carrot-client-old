@@ -77,3 +77,11 @@ export const collectionSelect = (selection) => async (dispatch) => {
         console.log(error.message);
     }
 };
+
+export const createCharacter = (name, hand) => async (dispatch) => {
+    try {
+        dispatch({ type: 'CREATE_CHARACTER', payload: { name: name, hand: hand } });
+    } catch (error) {
+        console.log(error.message);
+    }
+};

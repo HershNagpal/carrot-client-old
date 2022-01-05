@@ -46,12 +46,12 @@ const StatsBoard = () => {
         <Grid container className={classes.outerContainer} direction="column">
             <Grid item>
                 <Container className={classes.infoContainer} disableGutters>
-                    <p className={classes.username}>Username</p>
+                    <p className={classes.username}>{game.name}</p>
                     <ProgressBar type={'hp'} currentInfo={hpStat}/>
                     <ProgressBar type={'xp'} currentInfo={xpStat}/>
                 </Container>
             </Grid>
-
+            
             <Grid item>
                 <InventoryIcons />
             </Grid>

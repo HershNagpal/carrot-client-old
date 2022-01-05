@@ -1,13 +1,16 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import { Container } from '@mui/material';
 import useStyles from './styles';
+import CreateCharacter from './createCharacter/CreateCharacter';
 import { carrotIcon, fenceIcon, playerRightIcon } from '../../images';
 
 const Title = () => {
     const classes = useStyles();
+    const [isInCreateCharacter, setIsInCreateCharacter] = useState(false);
 
     return <>
-        <Container className={classes.outerContainer}>
+        {isInCreateCharacter ? <CreateCharacter /> : null}
+        <Container className={classes.outerContainer} onClick={() => isInCreateCharacter ? setIsInCreateCharacter(false) : null}>
             <div className={classes.menuContainer}>
                 <p className={classes.titleText}>CarrotWolf</p>
                 <p className={classes.subtitleText}>The Wolf Who Cried Carrot</p>
@@ -18,9 +21,7 @@ const Title = () => {
                         <p className={classes.cardText}>Endless</p>
                     </div>
                     <div className={classes.endlessCardRight}>
-                        <Link to="/game">
-                            <button className={classes.cardButton} type="button">NEW GAME</button>
-                        </Link>
+                        <button className={classes.cardButton} type="button" onClick={() => setIsInCreateCharacter(true)}>NEW GAME</button>
                     </div>
                 </div>
 

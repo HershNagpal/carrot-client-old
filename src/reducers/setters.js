@@ -150,3 +150,12 @@ export const doUpdateUsed = (id, game) => (
         ))
     }
 );
+
+export const doSetName = (name, game) => (
+    { ...game, name: name }
+);
+
+
+export const doSetHand = (hand, game) => (
+    { ...game, hand: hand }
+);
