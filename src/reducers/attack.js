@@ -48,8 +48,9 @@ export const spearAttack = (game) => {
 
 export const axeAttack = (game) => {
     const playerCoord = getPlayerCoord(game.grid);
+    const handRotation = game.hand === 'right' ? 'cw' : 'ccw';
     const coordBeingHit1 = newCoordInDirection(playerCoord.x, playerCoord.y, game.direction);
-    const coordBeingHit2 = newCoordInDirection(coordBeingHit1.x, coordBeingHit1.y, rotateDirection(game.direction, 'cw'));
+    const coordBeingHit2 = newCoordInDirection(coordBeingHit1.x, coordBeingHit1.y, rotateDirection(game.direction, handRotation));
 
     const validAttackTiles = [coordBeingHit1, coordBeingHit2].filter( (coordBeingHit) => {
         if (isOutOfBounds(coordBeingHit.x, coordBeingHit.y)) { return false; }
