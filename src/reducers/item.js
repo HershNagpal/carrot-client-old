@@ -11,11 +11,11 @@ export const doUseSuperCarrot = (game) => {
         case 1:
             return carrotOfRiddles(game);
         case 2:
-            return randomPlayerTeleport(game);
+            return vowedMithrilSpellCarrot(game);
         case 3:
-            return fourDirectionAttack(game);
+            return relentlessSteelCarrot(game);
         case 4:
-            return levelUp(game);
+            return lifesLimit(game);
         default:
             return carrotOfRiddles(game);
     }
@@ -25,12 +25,9 @@ export const doUnequipSuperCarrot = (game) => (
     { ...game, inventorySuperCarrot: 0 }
 );
 
-
-// Carrot of Riddles lol
 const carrotOfRiddles = (game) => game;
 
-// Vowed Mithril Spell-carrot
-const randomPlayerTeleport = (game) => {
+const vowedMithrilSpellCarrot = (game) => {
     const { x, y } = getPlayerCoord(game.grid);
     const coord = randomGrassLocation(game);
 
@@ -43,8 +40,7 @@ const randomPlayerTeleport = (game) => {
     ), game);
 };
 
-// Relentless Steel Carrot
-const fourDirectionAttack = (game, damage=constants.itemDict[game.inventoryWeapon].damage) => {
+const relentlessSteelCarrot = (game, damage=constants.itemDict[game.inventoryWeapon].damage) => {
     const playerCoord = getPlayerCoord(game.grid);
     const coordsBeingHit = [
         newCoordInDirection(playerCoord.x, playerCoord.y, 'w'),
@@ -63,7 +59,7 @@ const fourDirectionAttack = (game, damage=constants.itemDict[game.inventoryWeapo
     ), game);
 }
 
-const levelUp = (game) => {
+const lifesLimit = (game) => {
     const { x, y } = getPlayerCoord(game.grid);
     const damageToDeal = game.grid[y][x].entity.hp > game.grid[y][x].entity.maxHp / 2
         ? Math.floor(game.grid[y][x].entity.maxHp * 0.5)
