@@ -105,7 +105,7 @@ export const itemDict = [
     {
         id: 8,
         name: 'Long Pointy Carrot',
-        description: 'Deals 1 damage to two tiles in front of you.',
+        description: 'Deals 1 damage directly in front of you and double damage at the tip two tiles away.',
         flavor: 'A carrot for snakes.',
         type: 'weapon',
         weaponType: 'spear',

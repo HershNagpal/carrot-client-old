@@ -21,6 +21,7 @@ export default makeStyles(() => ({
         left: '50%',
         top: '50%',
         transform: 'translate(-50%, -50%)',
+        filter: 'drop-shadow(2px 2px 3px #555)',
     },
     smallIcon: {
         height: '4vh',

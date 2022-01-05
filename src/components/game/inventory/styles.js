@@ -12,7 +12,6 @@ export default makeStyles(() => ({
         maxHeight: '95vh',
         borderRadius: '20px',
         backgroundColor: 'white',
-        filter: 'drop-shadow(5px 5px 5px #555)',
         paddingTop: '10px',
         paddingBottom: '20px',
     },

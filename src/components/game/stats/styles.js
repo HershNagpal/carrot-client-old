@@ -8,11 +8,13 @@ export default makeStyles(() => ({
         marginTop: '5vh',
         marginLeft: '2vh',
         padding: '10px',
+        filter: 'drop-shadow(2px 2px 3px #444)',
     },
     username: {
         fontFamily: 'Verdana',
         fontSize: '4vh',
         color: 'aliceblue',
+        textShadow: '1px 1px 3px #222',
         margin: '0',
     },
     infoContainer: {
