@@ -83,11 +83,12 @@ export const doSetXp = (xp, game) => {
         const addLevel =    (game) => doSetLevel(game.level + 1, game);
         const updateMaxXp = (game) => setMaxXp(Math.floor(game.maxXp * 1.1), game);
         const logLevelUp =  (game) => log({type: 'LEVEL_UP'}, game);
+        const setXp =       (game) => doSetXp(dif, game);
 
-        const stateChanges = [addLevel, updateMaxXp, logLevelUp];
-        return { ...stateChanges.reduce((a, stateChange) => (
+        const stateChanges = [addLevel, updateMaxXp, logLevelUp, setXp];
+        return stateChanges.reduce((a, stateChange) => (
             stateChange(a)
-        ), game), xp: dif};
+        ), game);
     } else {
         return { ...game, xp: xp };
     }
