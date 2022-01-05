@@ -35,7 +35,6 @@ export default makeStyles(() => ({
     iconButton: {
         background: '#222222',
         color: 'mediumseagreen',
-        fontSize: '200px',
         margin: '1vh 0.1vh',
         height: '1vh',
         width: '1vh',
