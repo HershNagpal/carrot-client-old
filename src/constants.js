@@ -18,6 +18,10 @@ export const treeSpawnRate = 30;
 export const wolfRetreatChance = 3;
 export const superCarrotChance = 10;
 
+// Balance Constants
+export const spearTipMultiplier = 2;
+export const axeWoodcuttingMultiplier = 3;
+
 export const wolfMap = [
     {
         id: 0,
