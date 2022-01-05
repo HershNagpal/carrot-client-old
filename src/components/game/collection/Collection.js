@@ -2,10 +2,8 @@ import useStyles from './styles';
 import * as constants from '../../../constants';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container, Grid } from '@mui/material';
-import { toggleCollection } from '../../../actions/game';
-import Carrots from './carrots/Carrots';
-import Weapons from './weapons/Weapons';
-import { swordIcon, carrotIcon, itemIcons } from '../../../images';
+import { toggleCollection, collectionSelect } from '../../../actions/game';
+import { swordIcon, carrotIcon, emptyIcon, itemIcons } from '../../../images';
 
 const Collection = () => {
     const classes = useStyles();
@@ -16,20 +14,27 @@ const Collection = () => {
         dispatch(toggleCollection())
     );
     
+    const doCollectionSelect = (id) => (
+        dispatch(collectionSelect(id))
+    );
+
     return <>
         <Container className={classes.outerContainer}>
             <p className={classes.title}>Collection</p>
             <hr />
 
             <Grid container direction="row" className={classes.itemList}>
-                <Grid container item className={classes.itemGrid} direction="column">
-                    <Grid item>
-                        <Carrots />
-                    </Grid>
-
-                    <Grid item>
-                        <Weapons />
-                    </Grid>
+                <Grid item container>
+                    {constants.itemDict.map((item, i) => (
+                        i === 0 ? null :
+                        <Grid item key={i} className={game.collectionSelect === i ? classes.selectedItem : classes.collectionItem}>
+                            {
+                                game.collection[i].found === 0
+                                    ? <img className={classes.collectionIcon} src={emptyIcon} alt="emptyIcon" />
+                                    : <img className={classes.collectionIcon} src={itemIcons[i]} alt={item.name} onClick={() => doCollectionSelect(i)} />
+                            }
+                        </Grid>
+                    ))}
                 </Grid>
 
                 <Grid item className={classes.itemSlot}>

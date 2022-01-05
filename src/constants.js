@@ -133,9 +133,11 @@ export const defaultGame = {
     isInInventory: false,
     isInCollection: false,
     collectionSelect: 5,
-    collection: Array(itemDict.length).fill(0).map((e, i) => (
-        { id: i, found: 0, used: 0 }
-    )),
+    collection: Array(itemDict.length).fill(0).map((e, i) => ({
+        id: i, 
+        found: i === 5 || i === 3 ? 1 : 0,
+        used: 0,
+    })),
     log: [{ text: 'WASD to move, Arrows to change direction, Space to attack, I for inventory, U for collection, C to use super carrot, V to swap with pocket. Pick up carrots to heal and level up. Wolves will hit you if you end your turn on a tile next to them.', color: 'red', importance: 'normal' }],
     grid: Array(gridY).fill(Array(gridX).fill(0)).map((row, Yindex) => (
         row.map((tile, Xindex) => ({
