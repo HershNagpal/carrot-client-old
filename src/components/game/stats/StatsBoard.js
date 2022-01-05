@@ -10,12 +10,24 @@ import InventoryIcons from './inventoryIcons/InventoryIcons';
 import HomeIcon from '@mui/icons-material/Home';
 import BackpackIcon from '@mui/icons-material/Backpack';
 import BookIcon from '@mui/icons-material/Book';
+import ProgressBar from './progressBar/ProgressBar';
 
 const StatsBoard = () => {
     const game = useSelector((state) => state.game);
     const playerTile = getPlayerTile(game.grid);
-    const classes = useStyles();
+    const classes = useStyles(90);
     const dispatch = useDispatch();
+
+    const hpStat = {
+        value: playerTile !== undefined ? playerTile.entity.hp : 0,
+        max: playerTile !== undefined ? playerTile.entity.maxHp : 0,
+    };
+
+    const xpStat = {
+        value: game !== undefined ? game.xp : 0,
+        max: game !== undefined ? game.maxXp : 0,
+        level: game.level,
+    };
 
     const doToggleInventory = () => (
         dispatch(toggleInventory())
@@ -34,10 +46,9 @@ const StatsBoard = () => {
         <Grid container className={classes.outerContainer} direction="column">
             <Grid item>
                 <Container className={classes.infoContainer} disableGutters>
-                    <p className={classes.infoText}>Moves: {game.moves}</p>
-                    <p className={classes.infoText}>HP: {playerTile ? playerTile.entity.hp : 0} / {playerTile ? playerTile.entity.maxHp : 0}</p>
-                    <p className={classes.infoText}>Level: {game.level}</p>
-                    <p className={classes.infoText}>XP: {game.xp} / {game.maxXp}</p>
+                    <p className={classes.username}>Username</p>
+                    <ProgressBar type={'hp'} currentInfo={hpStat}/>
+                    <ProgressBar type={'xp'} currentInfo={xpStat}/>
                 </Container>
             </Grid>
 
