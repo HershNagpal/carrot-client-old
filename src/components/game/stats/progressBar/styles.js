@@ -33,6 +33,7 @@ export default makeStyles(() => ({
         width: '100%',
         textAlign: 'center',
         fontWeight: 'bold',
+        textShadow: '1px 1px 1px #777',
     },
     hp: {
         backgroundColor: 'lightgreen',
