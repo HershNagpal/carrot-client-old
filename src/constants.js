@@ -124,7 +124,7 @@ export const defaultGame = {
     totalCarrots: 0,
     inventoryFences: 2,
     inventorySuperCarrot: 3,
-    inventoryWeapon: 7,
+    inventoryWeapon: 5,
     pocketItem: 0,
     carrotHealing: 1,
     fenceHp: 3,
