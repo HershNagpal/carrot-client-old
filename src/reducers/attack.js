@@ -22,7 +22,7 @@ export const spearAttack = (game) => {
         if (entityBeingHit.type === 'wolf' || entityBeingHit.type === 'fence' || entityBeingHit.type === 'tree') {
             const weapon = constants.itemDict[a.inventoryWeapon];
             const damageToDeal = index === validAttackTiles.length - 1 
-                ? constants.spear * weapon.damage
+                ? constants.spearTipMultiplier * weapon.damage
                 : weapon.damage;
 
             const entityBeingHit = game.grid[coordBeingHit.y][coordBeingHit.x].entity;
