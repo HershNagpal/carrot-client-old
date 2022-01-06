@@ -36,7 +36,9 @@ const Collection = () => {
     return <>
         {showLore ?
             <div className={classes.loreContainer}>
-                <p>{constants.loreDict[game.collectionSelect].lore}</p>
+                {constants.loreDict[game.collectionSelect].lore.map((paragraph, i) => (
+                    <p key={i}>{paragraph}</p>
+                ))}
                 <button className={classes.readButton} type="button" onClick={() => setShowLore(false)}>CLOSE</button>
             </div>
         : null}

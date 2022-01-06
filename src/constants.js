@@ -124,9 +124,25 @@ export const loreDict = [
         id: 1,
         name: 'Tutorial Book',
         description: 'Learn how to play.',
-        lore: 'WASD to move, Arrows to change direction, Space to attack, I for inventory, U for collection, C to use super carrot, V to swap with pocket. ' +
-            'Pick up carrots to heal and level up. ' +
-            'Wolves will hit you if you end your turn on a tile next to them.',
+        lore: [
+            'Move - WASD',
+            'Change Direction - Arrow keys',
+            'Attack - Space',
+            'Inventory - I',
+            'Collection - U',
+            'Consume Super Carrot - C',
+            'Swap with Pocket - V',
+            'Place Fence - F',
+            'Pick up carrots to heal and level up. Some will give you super carrots or weapons when you pick them up.',
+            'Kill the wolves before they kill you. Different wolves will behave in unqiue ways so try to find their patterns.',
+            'The number on the blue bar is your level. Mouse over the HP and XP bars to see the exact values.',
+            'Break trees to get wood and then place fences to block off the wolves or try to manipulate their movement. There is a limit on the number of fences that can be placed at once so maybe break ones you don\'t need.',
+            'You have 1 pocket slot which will store the last thing you picked up. Make sure to equip it or you will lose it the next time you pick something up.',
+            'The inventory icons on the sidebar will show your equipped weapon, super carrot, pocket, and fences. The small numbers show your weapons damage and amount of held fences.',
+            'Other weapon types may have special properities so read their information in the Inventory screen.',
+            'The log in the bottom right will keep track of game events like when you level up or pick up an item. Look here so you don\'t miss a drop.',
+            'Try to get to the highest level you can!',
+        ],
         flavor: 'You would be incapable of playing game without this.',
     },
 ];
