@@ -11,6 +11,7 @@ export const swordIcon = require('./sword.png');
 export const emptyIcon = require('./empty.png');
 export const pocketIcon = require('./pocket.png');
 export const carrotOutlineIcon = require('./carrotOutline.png');
+export const bookIcon = require('./book.png');
 
 const riddleCarrotIcon = require('./riddleCarrot.png');
 const mithrilCarrotIcon = require('./mithrilCarrot.png');
@@ -31,4 +32,11 @@ export const itemIcons = [
     squiresBladeIcon,
     hustyRatchetIcon,
     carrotSpearIcon,
+];
+
+const tutorialBook = require('./tutorialBook.png');
+
+export const loreIcons = [
+    emptyIcon,
+    tutorialBook,
 ];

@@ -43,7 +43,7 @@ export const itemDict = [
     {
         id: 0,
         name: 'None',
-        description: 'Empty.',
+        description: 'empty',
         flavor: 'Nothing.',
         type: 'empty',
     },
@@ -113,6 +113,24 @@ export const itemDict = [
     },
 ];
 
+export const loreDict = [
+    {
+        id: 0,
+        name: 'Empty Book',
+        description: 'empty',
+        flavor: 'empty',
+    },
+    {
+        id: 1,
+        name: 'Tutorial Book',
+        description: 'Learn how to play.',
+        lore: 'WASD to move, Arrows to change direction, Space to attack, I for inventory, U for collection, C to use super carrot, V to swap with pocket. ' +
+            'Pick up carrots to heal and level up. ' +
+            'Wolves will hit you if you end your turn on a tile next to them.',
+        flavor: 'You would be incapable of playing game without this.',
+    },
+];
+
 export const defaultGame = {
     name: 'Player',
     hand: 'right',
@@ -132,13 +150,17 @@ export const defaultGame = {
     gameOver: false,
     isInInventory: false,
     isInCollection: false,
-    collectionSelect: 5,
+    collectionSelect: 3,
     collection: Array(itemDict.length).fill(0).map((e, i) => ({
         id: i, 
         found: i === 5 || i === 3 ? 1 : 0,
         used: 0,
     })),
-    log: [{ text: 'WASD to move, Arrows to change direction, Space to attack, I for inventory, U for collection, C to use super carrot, V to swap with pocket. Pick up carrots to heal and level up. Wolves will hit you if you end your turn on a tile next to them.', color: 'red', importance: 'normal' }],
+    lore: Array(loreDict.length).fill(0).map((e, i) => ({
+        id: i,
+        found: i === 1 ? 1 : 0,
+    })),
+    log: [{ text: 'You discovered Tutorial Book. Open your collection page with the icon above to read it.', color: 'red', importance: 'normal' }],
     grid: Array(gridY).fill(Array(gridX).fill(0)).map((row, Yindex) => (
         row.map((tile, Xindex) => ({
             coord: { x: Xindex, y: Yindex },

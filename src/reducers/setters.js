@@ -152,6 +152,16 @@ export const doUpdateUsed = (id, game) => (
     }
 );
 
+export const doDiscoverLore = (id, game) => (
+    { ...game, lore:
+        game.lore.map((book) => (
+            book.id === id
+                ? { ...book, found: 1 }
+                : book
+        ))
+    }
+);
+
 export const doSetName = (name, game) => (
     { ...game, name: name }
 );
