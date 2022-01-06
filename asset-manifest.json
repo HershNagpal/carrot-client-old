@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "/carrot-client/static/js/main.cf51ad7e.js",
+    "main.js": "/carrot-client/static/js/main.89209777.js",
     "static/media/playerLeft.png": "/carrot-client/static/media/playerLeft.7353d600771a8e43f614.png",
     "static/media/playerRight.png": "/carrot-client/static/media/playerRight.166ea73d12f31965f1dd.png",
     "static/media/playerUp.png": "/carrot-client/static/media/playerUp.7f3a5bcdd5bf780f17fc.png",
@@ -15,12 +15,14 @@
     "static/media/empty.png": "/carrot-client/static/media/empty.caf6117cac48875f4c72.png",
     "static/media/riddleCarrot.png": "/carrot-client/static/media/riddleCarrot.37e630eec61255a3ca38.png",
     "static/media/lifeCarrot.png": "/carrot-client/static/media/lifeCarrot.f7afe9e0bc2ecf932fdc.png",
+    "static/media/tutorialBook.png": "/carrot-client/static/media/tutorialBook.dc9bd2905c20803eda48.png",
+    "static/media/book.png": "/carrot-client/static/media/book.e981e2e3bc656099830d.png",
     "static/media/carrotSpear.png": "/carrot-client/static/media/carrotSpear.f358eb6d11df7402cfba.png",
     "static/media/sword.png": "/carrot-client/static/media/sword.90966220ca88bea601f0.png",
     "index.html": "/carrot-client/index.html",
-    "main.cf51ad7e.js.map": "/carrot-client/static/js/main.cf51ad7e.js.map"
+    "main.89209777.js.map": "/carrot-client/static/js/main.89209777.js.map"
   },
   "entrypoints": [
-    "static/js/main.cf51ad7e.js"
+    "static/js/main.89209777.js"
   ]
 }
