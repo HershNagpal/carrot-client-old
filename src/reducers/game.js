@@ -37,7 +37,7 @@ const game = (game = constants.defaultGame, action) => {
             return { ...game, isInInventory: !game.isInInventory };
 
         case 'TOGGLE_COLLECTION':
-            return { ...game, isInCollection: !game.isInCollection };
+            return { ...game, collectionSelect: game.collection.find((item) => item.found > 0).id, isInCollection: !game.isInCollection };
 
         case 'COLLECTION_SELECT':
             return { ...game, collectionSelect: action.payload };
