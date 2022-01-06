@@ -13,15 +13,17 @@ const Collection = () => {
     const [tab, setTab] = useState('items');
     const [showLore, setShowLore] = useState(false);
 
-    const doToggleCollection = () => (
+    const doToggleCollection = () => {
+        setShowLore(false);
         dispatch(toggleCollection())
-    );
+    };
     
     const doCollectionSelect = (id) => (
         dispatch(collectionSelect(id))
     );
 
     const updateTab = (tab) => {
+        setShowLore(false);
         const firstItem = tab === 'items'
             ? game.collection.find((item) => item.found > 0)
             : tab === 'books'
