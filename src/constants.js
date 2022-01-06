@@ -22,7 +22,7 @@ export const superCarrotChance = 10;
 export const spearTipMultiplier = 2;
 export const axeWoodcuttingMultiplier = 3;
 
-export const wolfMap = [
+export const wolfDict = [
     {
         id: 0,
         name: 'stupid',
@@ -37,7 +37,7 @@ export const wolfMap = [
         baseMaxHp: 3,
         description: 'Runs at the player, but has a 33% chance to walk away from the player. Attacks if it begins its turn next to the player.',
     },
-]
+];
 
 export const itemDict = [
     {
@@ -96,7 +96,7 @@ export const itemDict = [
     {
         id: 7,
         name: 'Husty Ratchet',
-        description: 'Deals 1 damage to the tile in front of you and the tile to its right. Triple damage to wood.',
+        description: 'Deals 1 damage to the tile in front of you and the tile to its side. Triple damage to wood.',
         flavor: 'William Spooner\'s weapon of choice.',
         type: 'weapon',
         weaponType: 'axe',

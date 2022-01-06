@@ -103,8 +103,8 @@ export const spawnWolf = (num, game) => {
         }
     }, []);
 
-    const wolfTypeId = Math.floor(Math.random() * (constants.wolfMap.length - 1)) + 1;
-    const wolfEntity = constants.wolfMap[wolfTypeId]; // TODO: Actual levelled wolf stats
+    const wolfTypeId = Math.floor(Math.random() * (constants.wolfDict.length - 1)) + 1;
+    const wolfEntity = constants.wolfDict[wolfTypeId]; // TODO: Actual levelled wolf stats
 
     return { ...game, grid: game.grid.map((row, Yindex) => (
         row.map((tile, Xindex) => (
