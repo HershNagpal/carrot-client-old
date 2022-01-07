@@ -15,6 +15,7 @@ const Tile = ({type, hp, maxHp}) => {
         switch (type) {
             case 'grass':
                 setIcon(grassIcon);
+                setIsEntityWithHp(false);
                 break;
             case 'player':
                 setIsEntityWithHp(true);
@@ -37,6 +38,7 @@ const Tile = ({type, hp, maxHp}) => {
                 break;
             case 'carrot':
                 setIcon(carrotIcon);
+                setIsEntityWithHp(false);
                 break;
             case 'wolf':
                 setIcon(wolfIcon);
@@ -52,6 +54,7 @@ const Tile = ({type, hp, maxHp}) => {
                 break;
             default:
                 setIcon(grassIcon);
+                setIsEntityWithHp(false);
         }
     }, [type, game]);
 
