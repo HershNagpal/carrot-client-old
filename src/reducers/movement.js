@@ -79,9 +79,9 @@ const doWolfAttackMove = (wolfTile, direction, game) => {
     
     if (playerDirection) {
         return doWolfAttack(wolfTile, playerDirection, game);
-    }
-    if (!isOutOfBounds(x, y) && game.grid[y][x].entity.type === 'fence') {
-        return doWolfAttack({ ...wolfTile, coord: { x: x, y: y } }, playerDirection, game);
+    // }
+    // if (!isOutOfBounds(x, y) && game.grid[y][x].entity.type === 'fence') {
+        // return doWolfAttack({ ...wolfTile, coord: { x: x, y: y } }, playerDirection, game);
     } else if (!isOutOfBounds(x, y) && checkMove(game.grid[y][x])) {
         const playerNewDirection = isPlayerNear({ x: x, y: y }, game);
 
