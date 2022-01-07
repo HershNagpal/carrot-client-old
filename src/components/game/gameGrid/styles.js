@@ -6,5 +6,6 @@ export default makeStyles(() => ({
         marginTop: '5vh',
         border: 'outset 1vh seagreen',
         borderRadius: '5px',
+        pointerEvents: 'none',
     },
 }));

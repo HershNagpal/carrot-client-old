@@ -1,16 +1,20 @@
 import useStyles from './styles';
 
-const HealthBar = ({hp, maxHp}) => {
+const HealthBar = ({currentInfo}) => {
     const classes = useStyles();
+    const widthPercentage = 100*(currentInfo.value / currentInfo.max);
+    
 
     return <>
-        {
-            hp !== undefined
-                ? hp < maxHp
-                    ? <div className={classes.healthBar}> {hp}/{maxHp} </div>
-                    : <div className={classes.healthBar}> {hp} </div>
-                : null 
-        }
+        <div className={classes.outerContainer}>
+            <p className={classes.barInfoText}> 
+                {currentInfo.value}/{currentInfo.max}
+            </p>
+
+            <div className={classes.healthBarContainer}>    
+                <div className={classes.healthBar} style={{width:widthPercentage + '%'}} />
+            </div> 
+        </div>
     </>
 };
 

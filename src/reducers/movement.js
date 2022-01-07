@@ -63,9 +63,9 @@ const doWolfAttack = (wolfTile, direction, game) => {
     const { x, y } = newCoordInDirection(wolfTile.coord.x, wolfTile.coord.y, direction);
 
     const doDamage = (game) => doChangeHp({ x: x, y: y }, -wolfTile.entity.damage, game);
-    const logAttack = (game) => log({ type: 'ATTACK', payload: { attacker: wolfTile.entity.type, target: game.grid[y][x].entity.type, damage: wolfTile.entity.damage}}, game);
+    // const logAttack = (game) => log({ type: 'ATTACK', payload: { attacker: wolfTile.entity.type, target: game.grid[y][x].entity.type, damage: wolfTile.entity.damage}}, game);
 
-    const stateChanges = [doDamage, logAttack];
+    const stateChanges = [doDamage];
     return !isOutOfBounds(x, y) 
         ? stateChanges.reduce((a, stateChange) => (
             stateChange(a)

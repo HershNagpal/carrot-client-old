@@ -16,12 +16,12 @@ const CreateCharacter = () => {
     };
 
     return <>
-        <Container className={classes.outerContainer}>
+        <div className={classes.outerContainer}>
              <p className={classes.title}>Create Character</p>
              <hr />
              
              <p className={classes.subtitle}>Name</p><br />
-             <input type="text" value={name} onChange={(e) => setName(e.target.value)} /><br /><br />
+             <input type="text" className={classes.usernameTextbox} value={name} onChange={(e) => setName(e.target.value)} /><br /><br />
 
              <p className={classes.subtitle}>Dominant Hand</p><br />
              <button type="button" className={hand === 'left' ? classes.handButtonSelected : classes.handButton} onClick={() => setHand('left')}>Left</button>
@@ -31,7 +31,7 @@ const CreateCharacter = () => {
             <Link to="/game">
                 <button className={classes.button} type="button" onClick={doCreateCharacter}>START</button>
             </Link>
-        </Container>
+        </div>
     </>
 };
 

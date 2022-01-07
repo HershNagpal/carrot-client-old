@@ -25,6 +25,7 @@ const Inventory = () => {
 
                 {game.inventoryWeapon > 0
                     ? <Grid item className={classes.itemSlot}>
+                        <p className={classes.inventoryLabel}>Weapon</p>
                         <img className={classes.slotIcon} src={itemIcons[game.inventoryWeapon]} alt={itemIcons[game.inventoryWeapon].name} width="50vw" />
                         <img src={swordIcon} className={classes.itemTypeIcon} alt="swordIcon" />
                         <p className={classes.itemTitle}><b>{constants.itemDict[game.inventoryWeapon].name}</b> </p>

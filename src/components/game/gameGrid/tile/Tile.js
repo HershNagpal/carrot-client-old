@@ -8,13 +8,16 @@ const Tile = ({type, hp, maxHp}) => {
     const classes = useStyles();
     const game = useSelector((state) => state.game);
     const [icon, setIcon] = useState('grass');
-    
+    const [isMouseOver, setMouseOver] = useState(false);
+    const [isEntityWithHp, setIsEntityWithHp] = useState(false);
+
     useEffect(() => {
         switch (type) {
             case 'grass':
                 setIcon(grassIcon);
                 break;
             case 'player':
+                setIsEntityWithHp(true);
                 switch (game.direction) {
                     case 'd':
                         setIcon(playerRightIcon);
@@ -37,12 +40,15 @@ const Tile = ({type, hp, maxHp}) => {
                 break;
             case 'wolf':
                 setIcon(wolfIcon);
+                setIsEntityWithHp(true);
                 break;
             case 'fence':
                 setIcon(fenceIcon);
+                setIsEntityWithHp(true);
                 break;
             case 'tree':
                 setIcon(treeIcon);
+                setIsEntityWithHp(true);
                 break;
             default:
                 setIcon(grassIcon);
@@ -50,8 +56,9 @@ const Tile = ({type, hp, maxHp}) => {
     }, [type, game]);
 
     return <>
-        <div className={classes.tile}>
-            <HealthBar hp={hp} maxHp={maxHp} />
+        <div className={classes.tile} onMouseOver={() => setMouseOver(true)} onMouseOut={() => setMouseOver(false)}>
+            {(hp < maxHp || (isMouseOver && isEntityWithHp)) && <HealthBar currentInfo={{value:hp, max:maxHp}} />}
+            
             <img className={classes.icon} src={icon} alt={icon}></img>
         </div>
     </>

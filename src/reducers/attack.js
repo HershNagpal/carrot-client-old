@@ -27,13 +27,13 @@ export const spearAttack = (game) => {
 
             const entityBeingHit = game.grid[coordBeingHit.y][coordBeingHit.x].entity;
             const reduceHp =        (a) => doChangeHp({ x: coordBeingHit.x, y: coordBeingHit.y }, -damageToDeal , a);
-            const logAttack =       (a) => log({ type: 'ATTACK', payload: { attacker: 'player', target: entityBeingHit.type, damage: damageToDeal}}, a);
+            //const logAttack =       (a) => log({ type: 'ATTACK', payload: { attacker: 'player', target: entityBeingHit.type, damage: damageToDeal}}, a);
             
             const addMove =         (a) => doSetPlayerMoves(a.moves + 1, a);
             const spawnCarrots =    (a) => doSpawnCarrots(a);
             const updateWolves =    (a) => doUpdateWolves(a);
 
-            const baseChanges = [reduceHp, logAttack];
+            const baseChanges = [reduceHp];
             const stateChanges = index === validAttackTiles.length - 1
                 ?  [...baseChanges, addMove, spawnCarrots, updateWolves]
                 :  baseChanges;
@@ -63,13 +63,13 @@ export const axeAttack = (game) => {
         if (entityBeingHit.type === 'wolf' || entityBeingHit.type === 'fence' || entityBeingHit.type === 'tree') {
             const damageMultiplier = entityBeingHit.type === 'tree' || entityBeingHit.type === 'fence' ? constants.axeWoodcuttingMultiplier : 1;
             const reduceHp =        (a) => doChangeHp({ x: coordBeingHit.x, y: coordBeingHit.y }, -constants.itemDict[a.inventoryWeapon].damage * damageMultiplier, a);
-            const logAttack =       (a) => log({ type: 'ATTACK', payload: { attacker: 'player', target: entityBeingHit.type, damage: constants.itemDict[a.inventoryWeapon].damage}}, a);
+            //const logAttack =       (a) => log({ type: 'ATTACK', payload: { attacker: 'player', target: entityBeingHit.type, damage: constants.itemDict[a.inventoryWeapon].damage}}, a);
 
             const addMove =         (a) => doSetPlayerMoves(a.moves + 1, a);
             const spawnCarrots =    (a) => doSpawnCarrots(a);
             const updateWolves =    (a) => doUpdateWolves(a);
 
-            const baseChanges = [reduceHp, logAttack];
+            const baseChanges = [reduceHp];
             const stateChanges = index === validAttackTiles.length - 1
                 ?  [...baseChanges, addMove, spawnCarrots, updateWolves]
                 :  baseChanges;
@@ -89,12 +89,12 @@ export const bladeAttack = (game) => {
 
     if (entityBeingHit.type === 'wolf' || entityBeingHit.type === 'fence' || entityBeingHit.type === 'tree') {
         const reduceHp =        (game) => doChangeHp({ x: coordBeingHit.x, y: coordBeingHit.y }, -constants.itemDict[game.inventoryWeapon].damage , game);
-        const logAttack =       (game) => log({ type: 'ATTACK', payload: { attacker: 'player', target: entityBeingHit.type, damage: constants.itemDict[game.inventoryWeapon].damage}}, game);
+        // const logAttack =       (game) => log({ type: 'ATTACK', payload: { attacker: 'player', target: entityBeingHit.type, damage: constants.itemDict[game.inventoryWeapon].damage}}, game);
         const addMove =         (game) => doSetPlayerMoves(game.moves + 1, game);
         const spawnCarrots =    (game) => doSpawnCarrots(game);
         const updateWolves =    (game) => doUpdateWolves(game);
 
-        const stateChanges = [reduceHp, logAttack, addMove, spawnCarrots, updateWolves];
+        const stateChanges = [reduceHp, addMove, spawnCarrots, updateWolves];
         return stateChanges.reduce((a, stateChange) => (
             stateChange(a)
         ), game);
