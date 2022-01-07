@@ -79,11 +79,10 @@ const doWolfAttackMove = (wolfTile, direction, game) => {
     
     if (playerDirection) {
         return doWolfAttack(wolfTile, playerDirection, game);
-    // }
-    // if (!isOutOfBounds(x, y) && game.grid[y][x].entity.type === 'fence') {
-        // return doWolfAttack({ ...wolfTile, coord: { x: x, y: y } }, playerDirection, game);
+    }   if (!isOutOfBounds(x, y) && game.grid[y][x].entity.type === 'fence') {
+        return doWolfAttack(wolfTile, direction, game);
     } else if (!isOutOfBounds(x, y) && checkMove(game.grid[y][x])) {
-        const playerNewDirection = isPlayerNear({ x: x, y: y }, game);
+        const playerNewDirection = isPlayerNear({ x: x, y: y }, game);        
 
         const spawnWolf =   (game) => setTileEntity({ x: x, y: y }, wolfTile, game);
         const removeWolf =  (game) => setTile({ x: wolfTile.coord.x, y: wolfTile.coord.y }, 'grass', game);
