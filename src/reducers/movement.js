@@ -2,7 +2,7 @@ import * as constants from '../constants';
 import { getPlayerCoord, getWolfTiles } from './selectors';
 import { doAddWolfMoves, doChangeHp, doSetPocketItem, doUpdateFound } from './setters';
 import { doSpawnWolves } from './spawn';
-import { checkMove, newCoordInDirection, isOutOfBounds, getWolfDirection, reflectPosition, isPlayerNear } from './moveHelpers';
+import { checkMove, newCoordInDirection, isOutOfBounds, getAggressiveWolfDirection, reflectPosition, isPlayerNear } from './moveHelpers';
 import { log } from './log';
 
 export const setTile = (coord, entityType, game) => (
@@ -80,8 +80,9 @@ const doWolfAttackMove = (wolfTile, direction, game) => {
     if (playerDirection) {
         return doWolfAttack(wolfTile, playerDirection, game);
     }
-
-    if (!isOutOfBounds(x, y) && checkMove(game.grid[y][x])) {
+    if (!isOutOfBounds(x, y) && game.grid[y][x].entity.type === 'fence') {
+        return doWolfAttack({ ...wolfTile, coord: { x: x, y: y } }, playerDirection, game);
+    } else if (!isOutOfBounds(x, y) && checkMove(game.grid[y][x])) {
         const playerNewDirection = isPlayerNear({ x: x, y: y }, game);
 
         const spawnWolf =   (game) => setTileEntity({ x: x, y: y }, wolfTile, game);
@@ -126,8 +127,8 @@ const timidWolfAI = (wolfTile, game) => {
 
     const reflectPos = reflectPosition({ x: playerCoord.x, y: playerCoord.y }, { x: Math.floor(constants.gridX / 2), y: Math.floor(constants.gridY / 2) });
     const direction = Math.floor(Math.random() * constants.wolfRetreatChance) === 0
-        ? getWolfDirection(reflectPos.x, reflectPos.y, wolfTile, game.grid)
-        : getWolfDirection(playerCoord.x, playerCoord.y, wolfTile, game.grid);
+        ? getAggressiveWolfDirection(reflectPos.x, reflectPos.y, wolfTile, game.grid)
+        : getAggressiveWolfDirection(playerCoord.x, playerCoord.y, wolfTile, game.grid);
     return doWolfAttackMove(wolfTile, direction, game);
 };
 

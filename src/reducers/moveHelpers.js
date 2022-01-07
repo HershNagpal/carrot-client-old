@@ -5,14 +5,17 @@ export const checkMove = (nextTile) => {
     switch (nextTile.entity.type) {
         case 'carrot':
             return true;
-        case 'fence':
-            return false;
-        case 'wolf':
-            return false;
         case 'grass':
             return true;
-        case 'tree':
+        default:
             return false;
+    }
+};
+
+export const checkAttack = (nextTile) => {
+    switch (nextTile.entity.type) {
+        case 'fence':
+            return true;
         default:
             return false;
     }
@@ -58,6 +61,56 @@ export const reflectPosition = (reflectCoord, originCoord) => ({
         ? reflectCoord.y - (reflectCoord.y - originCoord.y) * 2
         : reflectCoord.y + (originCoord.y - reflectCoord.y) * 2,
 });
+
+export const getAggressiveWolfDirection = (targetX, targetY, wolfTile, grid) => {
+    const vDistance = Math.abs(targetY - wolfTile.coord.y);
+    const hDistance = Math.abs(targetX - wolfTile.coord.x);
+    const vDirection = targetY - wolfTile.coord.y;
+    const hDirection = targetX - wolfTile.coord.x;
+
+    const up = newCoordInDirection(wolfTile.coord.x, wolfTile.coord.y, 'w');
+    const down = newCoordInDirection(wolfTile.coord.x, wolfTile.coord.y, 's');
+    const left = newCoordInDirection(wolfTile.coord.x, wolfTile.coord.y, 'a');
+    const right = newCoordInDirection(wolfTile.coord.x, wolfTile.coord.y, 'd');
+
+    const upValid = !isOutOfBounds(up.x, up.y) && (checkMove(grid[up.y][up.x]) || checkAttack(grid[up.y][up.x]));
+    const downValid = !isOutOfBounds(down.x, down.y) && (checkMove(grid[down.y][down.x]) || checkAttack(grid[down.y][down.x]));
+    const leftValid = !isOutOfBounds(left.x, left.y) && (checkMove(grid[left.y][left.x]) || checkAttack(grid[left.y][left.x]));
+    const rightValid = !isOutOfBounds(right.x, right.y) && (checkMove(grid[right.y][right.x]) || checkAttack(grid[right.y][right.x]));
+
+    // Up and Left - negative = player is up/left
+    if (vDirection <= 0 && hDirection <= 0) {
+        if (vDistance >= hDistance) {
+            return upValid ? 'w' : 'a';
+        } else {
+            return leftValid ? 'a' : 'w';
+        }
+    }
+    // Up and Right
+    else if (vDirection <= 0 && hDirection >= 0) {
+        if (vDistance >= hDistance) {
+            return upValid ? 'w' : 'd';
+        } else {
+            return rightValid ? 'd' : 'w';
+        }
+    }
+    // Down and Left
+    else if (vDirection >= 0 && hDirection <= 0) {
+        if (vDistance >= hDistance) {
+            return downValid ? 's' : 'a';
+        } else {
+            return leftValid ? 'a' : 's';
+        }
+    }
+    // Down and Right
+    else if (vDirection >= 0 && hDirection >= 0) {
+        if (vDistance >= hDistance) {
+            return downValid ? 's' : 'd';
+        } else {
+            return rightValid ? 'd' : 's';
+        }
+    }
+};
 
 export const getWolfDirection = (targetX, targetY, wolfTile, grid) => {
     const vDistance = Math.abs(targetY - wolfTile.coord.y);
