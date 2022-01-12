@@ -37,6 +37,13 @@ export const wolfDict = [
         baseMaxHp: 3,
         description: 'Runs at the player, but has a 33% chance to walk away from the player. Attacks if it begins its turn next to the player.',
     },
+    {
+        id: 2,
+        name: 'distracted',
+        baseDamage: 1,
+        baseMaxHp: 4,
+        description: 'Runs at the player, but will eat any carrot it finds itself next to.',
+    },
 ];
 
 export const itemDict = [

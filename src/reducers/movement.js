@@ -2,7 +2,7 @@ import * as constants from '../constants';
 import { getPlayerCoord, getWolfTiles } from './selectors';
 import { doAddWolfMoves, doChangeHp, doSetPocketItem, doUpdateFound } from './setters';
 import { doSpawnWolves } from './spawn';
-import { checkMove, newCoordInDirection, isOutOfBounds, getAggressiveWolfDirection, reflectPosition, isPlayerNear } from './moveHelpers';
+import { checkMove, newCoordInDirection, isOutOfBounds, getAggressiveWolfDirection, reflectPosition, isPlayerNear, isNextToEntity } from './moveHelpers';
 import { log } from './log';
 
 export const setTile = (coord, entityType, game) => (
@@ -108,11 +108,32 @@ const wolfAI = (game) => {
                 return timidWolfAI(wolfTile, a); 
             case 'stupid':
                 return stupidWolfAI(wolfTile, a);
+            case 'distracted':
+                return distractedWolfAI(wolfTile, a);
             default:
                 break;
         }
         return a;
     }, game);
+};
+
+const distractedWolfAI = (wolfTile, game) => {
+    const chaseCarrotDirection = isNextToEntity(wolfTile.coord, 'carrot', game.grid);
+    const attackFenceDirection = isNextToEntity(wolfTile.coord, 'fence', game.grid);
+    if (chaseCarrotDirection) {
+        const directionToMove = chaseCarrotDirection[Math.floor(Math.random() * chaseCarrotDirection.length)];  
+        return doWolfMove(wolfTile, directionToMove, game);
+    } else if (attackFenceDirection) {
+        const directionToAttack = attackFenceDirection[Math.floor(Math.random() * attackFenceDirection.length)];  
+        return doWolfAttack(wolfTile, directionToAttack, game);
+    } else {
+        const playerCoord = getPlayerCoord(game.grid);
+        const reflectPos = reflectPosition({ x: playerCoord.x, y: playerCoord.y }, { x: Math.floor(constants.gridX / 2), y: Math.floor(constants.gridY / 2) });
+        const direction = Math.floor(Math.random() * constants.wolfRetreatChance) === 0
+            ? getAggressiveWolfDirection(reflectPos.x, reflectPos.y, wolfTile, game.grid)
+            : getAggressiveWolfDirection(playerCoord.x, playerCoord.y, wolfTile, game.grid);
+        return doWolfAttackMove(wolfTile, direction, game);
+    }
 };
 
 const stupidWolfAI = (wolfTile, game) => {

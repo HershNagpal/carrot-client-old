@@ -207,3 +207,12 @@ export const rotateDirection = (direction, rotationDirection = 'cw') => {
         }
     }
 };
+
+export const isNextToEntity = (coord, entityType, grid) => {
+    return ['w', 'a', 's', 'd'].reduce((a, direction) => {
+        const { x, y } = newCoordInDirection(coord.x, coord.y, direction)
+        return !isOutOfBounds(x, y) && grid[y][x].entity.type === entityType
+            ? direction
+            : a                        
+    }, false);
+};
