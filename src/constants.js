@@ -21,6 +21,9 @@ export const superCarrotChance = 10;
 // Balance Constants
 export const spearTipMultiplier = 2;
 export const axeWoodcuttingMultiplier = 3;
+export const relentlessSteelCarrotMultiplier = 3;
+export const betterOmenHealAmount = 0.3;
+export const lifesLimitDamageXpMultiplier = 5;
 
 export const wolfDict = [
     {
@@ -118,6 +121,13 @@ export const itemDict = [
         weaponType: 'spear',
         damage: 1,
     },
+    {
+        id: 9,
+        name: 'Better Omen',
+        description: 'Heals you for 30% of your maximum HP.',
+        flavor: 'Tastes yummy.',
+        type: 'superCarrot',
+    },
 ];
 
 export const loreDict = [
@@ -164,7 +174,7 @@ export const defaultGame = {
     direction: 'w',
     totalCarrots: 0,
     inventoryFences: 2,
-    inventorySuperCarrot: 3,
+    inventorySuperCarrot: 9,
     inventoryWeapon: 5,
     pocketItem: 0,
     carrotHealing: 1,

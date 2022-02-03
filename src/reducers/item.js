@@ -1,5 +1,5 @@
 import * as constants from '../constants';
-import { getPlayerCoord } from './selectors';
+import { getPlayerCoord, getPlayerTile } from './selectors';
 import { setTile, setTileEntity } from './movement';
 import { newCoordInDirection, isOutOfBounds } from './moveHelpers';
 import { doChangeHp, doSetXp } from './setters';
@@ -16,6 +16,8 @@ export const doUseSuperCarrot = (game) => {
             return relentlessSteelCarrot(game);
         case 4:
             return lifesLimit(game);
+        case 9:
+            return betterOmen(game);
         default:
             return carrotOfRiddles(game);
     }
@@ -26,6 +28,12 @@ export const doUnequipSuperCarrot = (game) => (
 );
 
 const carrotOfRiddles = (game) => game;
+
+const betterOmen = (game) => {
+    const playerCoord = getPlayerCoord();
+    console.log(playerCoord)
+    return doChangeHp(playerCoord, -getPlayerTile(game.grid).entity.maxHp * constants.betterOmenHealAmount, game);
+};
 
 const vowedMithrilSpellCarrot = (game) => {
     const { x, y } = getPlayerCoord(game.grid);
@@ -55,7 +63,7 @@ const relentlessSteelCarrot = (game, damage=constants.itemDict[game.inventoryWea
     ));
 
     return coordsBeingHit.reduce((a, coord) => (
-        doChangeHp({ x: coord.x, y: coord.y }, -(damage * 3), a)
+        doChangeHp({ x: coord.x, y: coord.y }, -(damage * constants.relentlessSteelCarrotMultiplier), a)
     ), game);
 }
 
@@ -65,7 +73,7 @@ const lifesLimit = (game) => {
         ? Math.floor(game.grid[y][x].entity.maxHp * 0.5)
         : game.grid[y][x].entity.hp - 1;*/
     const damageToDeal = game.grid[y][x].entity.hp - 1;
-    const xpGain = damageToDeal * 5;
+    const xpGain = damageToDeal * constants.lifesLimitDamageXpMultiplier;
     
     const increaseXp =      (game) => doSetXp(game.xp + xpGain, game);
     const damagePlayer =    (game) => doChangeHp({ x: x, y: y }, -damageToDeal, game);
