@@ -40,6 +40,7 @@ export default makeStyles(() => ({
         marginTop: '30px',
         left: '50%',
         transform: 'translate(-50%, 0)',
+        cursor: 'pointer',
     },
     icon: {
         width: '20px',
