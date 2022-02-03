@@ -48,7 +48,7 @@ const Collection = () => {
             <div>
                 <button className={classes.tabButton} type="button" onClick={() => updateTab('items')}>Items</button>
                 <button className={classes.tabButton} type="button" onClick={() => updateTab('books')}>Books</button>
-                <button className={classes.tabButton} type="button"onClick={() => updateTab('achievements')}>Achievements</button>
+                <button className={classes.tabButton} type="button" onClick={() => updateTab('achievements')}>Achievements</button>
             </div>
             <hr />
 
