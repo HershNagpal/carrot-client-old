@@ -51,71 +51,101 @@ const Collection = () => {
                 <button className={classes.tabButton} type="button" onClick={() => updateTab('achievements')}>Achievements</button>
             </div>
             <hr />
+            {/*TODO: Put tabs into their own components */}
+            {
+                tab === 'items' && (
+                    <Grid container direction="row" className={classes.itemList}>
+                        <Grid item container>
+                            {
+                                constants.itemDict.map((item, i) => (
+                                    i !== 0 && (
+                                        <Grid item key={i} className={game.collectionSelect === i ? classes.selectedItem : classes.collectionItem}>
+                                            {
+                                                game.collection[i].found === 0
+                                                    ? <img className={classes.collectionIcon} src={emptyIcon} alt="emptyIcon" />
+                                                    : <img className={classes.collectionIcon} src={itemIcons[i]} alt={item.name} onClick={() => doCollectionSelect(i)} />
+                                            }
+                                        </Grid>
+                                    )
+                                ))
+                            }
+                        </Grid>
 
-            {tab === 'items'
-                ? <Grid container direction="row" className={classes.itemList}>
-                    <Grid item container>
-                        {constants.itemDict.map((item, i) => (
-                            i === 0 ? null :
-                            <Grid item key={i} className={game.collectionSelect === i ? classes.selectedItem : classes.collectionItem}>
-                                {
-                                    game.collection[i].found === 0
-                                        ? <img className={classes.collectionIcon} src={emptyIcon} alt="emptyIcon" />
-                                        : <img className={classes.collectionIcon} src={itemIcons[i]} alt={item.name} onClick={() => doCollectionSelect(i)} />
-                                }
-                            </Grid>
-                        ))}
+                        <Grid item className={classes.itemSlot}>
+                            <img className={classes.slotIcon} src={itemIcons[game.collectionSelect]} alt={constants.itemDict[game.collectionSelect].name} />
+                            <img className={classes.itemTypeIcon} src={constants.itemDict[game.collectionSelect].type === 'weapon' ? swordIcon : carrotIcon} alt="typeIcon" />    
+                            <p className={classes.itemTitle}>
+                                <b>{constants.itemDict[game.collectionSelect].name}</b>
+                            </p>
+                            <p className={classes.itemDescription}>
+                                {constants.itemDict[game.collectionSelect].description}
+                            </p>
+                            <p className={classes.itemFlavor}>
+                                <i>'{constants.itemDict[game.collectionSelect].flavor}'</i>
+                            </p>
+                            <p className={classes.itemFlavor}>
+                                Found: {game.collection[game.collectionSelect].found}
+                            </p>
+                            {
+                                constants.itemDict[game.collectionSelect].type === 'superCarrot' &&
+                                <p className={classes.itemDescription}>
+                                        Used: {game.collection[game.collectionSelect].used}
+                                    </p>
+                            }
+                            <br/>
+                        </Grid>
                     </Grid>
+                )
+            }
 
-                    <Grid item className={classes.itemSlot}>
-                        <img className={classes.slotIcon} src={itemIcons[game.collectionSelect]} alt={constants.itemDict[game.collectionSelect].name} />
-                        <img className={classes.itemTypeIcon} src={constants.itemDict[game.collectionSelect].type === 'weapon' ? swordIcon : carrotIcon} alt="typeIcon" />    
-                        <p className={classes.itemTitle}><b>{constants.itemDict[game.collectionSelect].name}</b></p>
-                        <p className={classes.itemDescription}>{constants.itemDict[game.collectionSelect].description}</p>
-                        <p  className={classes.itemFlavor}><i>'{constants.itemDict[game.collectionSelect].flavor}'</i></p>
-                        <p className={classes.itemFlavor}>Found: {game.collection[game.collectionSelect].found}</p>
-                        {
-                            constants.itemDict[game.collectionSelect].type === 'superCarrot'
-                                ? <p className={classes.itemDescription}>Used: {game.collection[game.collectionSelect].used}</p>
-                                : null
-                        }
-                        <br />
+            {
+                tab === 'books' && (
+                    <Grid container direction="row" className={classes.itemList}>
+                        <Grid item container>
+                            {constants.loreDict.map((item, i) => (
+                                i !== 0 && (
+                                    <Grid item key={i} className={game.collectionSelect === i ? classes.selectedItem : classes.collectionItem}>
+                                        {
+                                            game.lore[i].found === 0
+                                                ? <img className={classes.collectionIcon} src={emptyIcon} alt="emptyIcon" />
+                                                : <img className={classes.collectionIcon} src={loreIcons[i]} alt={item.name} onClick={() => doCollectionSelect(i)} />
+                                        }
+                                    </Grid>
+                                )
+                            ))}
+                        </Grid>
+
+                        <Grid item className={classes.itemSlot}>
+                            <img className={classes.slotIcon} src={loreIcons[game.collectionSelect]} alt={constants.loreDict[game.collectionSelect].name} />
+                            <img className={classes.itemTypeIcon} src={bookIcon} alt="bookIcon" />    
+                            <p className={classes.itemTitle}>
+                                <b>{constants.loreDict[game.collectionSelect].name}</b>
+                            </p>
+                            <p className={classes.itemDescription}>
+                                {constants.loreDict[game.collectionSelect].description}
+                            </p>
+                            <p  className={classes.itemFlavor}>
+                                <i>'{constants.loreDict[game.collectionSelect].flavor}'</i>
+                            </p>
+                            <button className={classes.readButton} type="button" onClick={() => setShowLore(true)}>
+                                READ
+                            </button>
+                            <br />
+                        </Grid>
                     </Grid>
-                </Grid>
-                : null}
+                )
+            }
 
-            {tab === 'books'
-                ? <Grid container direction="row" className={classes.itemList}>
-                    <Grid item container>
-                        {constants.loreDict.map((item, i) => (
-                            i === 0 ? null :
-                            <Grid item key={i} className={game.collectionSelect === i ? classes.selectedItem : classes.collectionItem}>
-                                {
-                                    game.lore[i].found === 0
-                                        ? <img className={classes.collectionIcon} src={emptyIcon} alt="emptyIcon" />
-                                        : <img className={classes.collectionIcon} src={loreIcons[i]} alt={item.name} onClick={() => doCollectionSelect(i)} />
-                                }
-                            </Grid>
-                        ))}
-                    </Grid>
+            {
+                tab === 'achievements' &&
+                    <p style={{color: 'white', fontFamily: 'Verdana'}}>
+                        Coming soon...
+                    </p>
+            }
 
-                    <Grid item className={classes.itemSlot}>
-                        <img className={classes.slotIcon} src={loreIcons[game.collectionSelect]} alt={constants.loreDict[game.collectionSelect].name} />
-                        <img className={classes.itemTypeIcon} src={bookIcon} alt="bookIcon" />    
-                        <p className={classes.itemTitle}><b>{constants.loreDict[game.collectionSelect].name}</b></p>
-                        <p className={classes.itemDescription}>{constants.loreDict[game.collectionSelect].description}</p>
-                        <p  className={classes.itemFlavor}><i>'{constants.loreDict[game.collectionSelect].flavor}'</i></p>
-                        <button className={classes.readButton} type="button" onClick={() => setShowLore(true)}>READ</button>
-                        <br />
-                    </Grid>
-                </Grid>
-                : null}
-
-            {tab === 'achievements'
-                ? <p style={{color: 'white', fontFamily: 'Verdana'}}>Coming soon...</p>
-                : null}
-
-            <button className={classes.closeButton} onClick={doToggleCollection}>Close</button>
+            <button className={classes.closeButton} onClick={doToggleCollection}>
+                Close
+            </button>
         </Container>
     </>
 };
