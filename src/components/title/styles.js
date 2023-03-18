@@ -60,6 +60,7 @@ export default makeStyles(() => ({
         width: '115px',
         marginTop: '5px',
         marginBottom: '5px',
+        cursor: 'pointer',
     },
     endlessCardLeft: {
         display: 'inline flow-root',
@@ -98,5 +99,12 @@ export default makeStyles(() => ({
         position: 'relative',
         left: '50%',
         transform: 'translate(-50%, 0)',
+        cursor: 'pointer',
     },
 }));
+
+/* 
+    '&:hover': {
+      background: "#f00",
+    }
+*/

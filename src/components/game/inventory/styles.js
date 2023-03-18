@@ -85,6 +85,7 @@ export default makeStyles(() => ({
         border: 'solid 3px black',
         filter: 'drop-shadow(2px 2px 2px #333)',
         borderRadius: '1vh',
+        cursor: 'pointer',
     },
     inventoryLabel: {
         position: 'absolute',

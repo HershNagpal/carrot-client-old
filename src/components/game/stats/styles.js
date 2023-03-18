@@ -85,6 +85,7 @@ export default makeStyles(() => ({
         color: 'black',
         width: '70px',
         margin: '5px 5px 10px 10px',
+        cursor: 'pointer',
     },
     popupButtonsContainer: {
         width: '175px',
