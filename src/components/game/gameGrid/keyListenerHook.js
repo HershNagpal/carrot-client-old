@@ -9,9 +9,8 @@ export const useKeyData = () => {
         const processKeyDown = (event) => {
             setKeyPressed({ key: event.key, disabled: false });
         }
+
         document.addEventListener('keydown', processKeyDown);
-        
-        return document.removeEventListener('keydown', processKeyDown);
     }, [setKeyPressed]);
 
     return keyData;

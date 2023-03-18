@@ -46,7 +46,6 @@ export default makeStyles(() => ({
         border: 'solid 3px black',
         filter: 'drop-shadow(2px 2px 2px #333)',
         borderRadius: '1vh',
-        cursor: 'pointer',
     },
     handButton: {
         display: 'inline-block',
@@ -60,7 +59,6 @@ export default makeStyles(() => ({
         border: 'solid 3px black',
         filter: 'drop-shadow(2px 2px 2px #333)',
         borderRadius: '1vh',
-        cursor: 'pointer',
     },
     handButtonSelected: {
         display: 'inline-block',
@@ -74,7 +72,6 @@ export default makeStyles(() => ({
         border: 'solid 3px black',
         filter: 'drop-shadow(2px 2px 2px #333)',
         borderRadius: '1vh',
-        cursor: 'pointer',
     },
     usernameTextbox: {
         fontFamily: 'Verdana',
