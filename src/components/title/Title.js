@@ -31,9 +31,9 @@ const Title = () => {
                         <p className={classes.cardText}>Roguelite</p>
                     </div>
                     <div className={classes.fendcelessCardRight}>
-                        <button className={classes.cardButton} type="button">NEW GAME</button>
-                        <button className={classes.cardButton} type="button">NEW GAME</button>
-                        <button className={classes.cardButton} type="button">NEW GAME</button>
+                        <button className={classes.cardButton}  type="button" onClick={() => alert('Not implemented')}>NEW GAME</button>
+                        {/* <button className={classes.cardButton} type="button">NEW GAME</button> */}
+                        {/* <button className={classes.cardButton} type="button">NEW GAME</button> */}
                     </div>
                 </div>
 
@@ -43,13 +43,13 @@ const Title = () => {
                         <p className={classes.cardText}>Career</p>
                     </div>
                     <div className={classes.fendcelessCardRight}>
-                        <button className={classes.cardButton} type="button">NEW GAME</button>
-                        <button className={classes.cardButton} type="button">NEW GAME</button>
-                        <button className={classes.cardButton} type="button">NEW GAME</button>
+                        <button className={classes.cardButton} type="button" onClick={() => alert('Not implemented')}>NEW GAME</button>
+                        {/* <button className={classes.cardButton} type="button">NEW GAME</button> */}
+                        {/* <button className={classes.cardButton} type="button">NEW GAME</button> */}
                     </div>
                 </div>
 
-                <button className={classes.loginButton} type="button" onClick={() => alert('I am die')}>LOG IN</button>
+                <button className={classes.loginButton} type="button" onClick={() => alert('Not implemented')}>LOG IN</button>
             </div>
         </Container>
     </>
