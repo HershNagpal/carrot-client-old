@@ -18,10 +18,10 @@ const GameGrid = () => {
         if (game.gameOver) { return; }
 
         const key = keyPressed.key.toLowerCase();
-        if (game.isInInventory || game.isInCollection) { //TODO: split into inventory and collection keypresses
+        if (game.isInInventory || game.isInCollection) {
             switch (key) {
                 case 'i':
-                    if (game.isInCollection) { dispatch(toggleCollection()); } 
+                    if (game.isInCollection) { dispatch(toggleCollection()); }
                     dispatch(toggleInventory());
                     break;
                 case 'u':
@@ -35,7 +35,7 @@ const GameGrid = () => {
                     break;
             }
         } else {
-            switch (key) { //TODO: split movePlayer into directions instead of passing in key 
+            switch (key) {
                 case 'w':
                 case 's':
                 case 'a':
@@ -81,17 +81,17 @@ const GameGrid = () => {
         <Container className={classes.outerContainer} maxWidth={false} disableGutters>
             <Grid container direction="column" wrap="nowrap">
                 {
-                    game.grid.map((row, Yindex) => (
-                        <Grid item container key={Yindex} direction="row" wrap="nowrap">
-                            {
-                                row.map((tile, Xindex) => (
-                                    <Grid item key={Xindex}>
-                                        <Tile type={tile.entity.type} hp={tile.entity.hp} maxHp={tile.entity.maxHp}/>
-                                    </Grid>
-                                ))
-                            }
-                        </Grid>
-                    ))
+                game.grid.map((row, Yindex) => (
+                    <Grid item container key={Yindex} direction="row" wrap="nowrap">
+                        {
+                            row.map((tile, Xindex) => (
+                                <Grid item key={Xindex}>
+                                    <Tile type={tile.entity.type} hp={tile.entity.hp} maxHp={tile.entity.maxHp}/>
+                                </Grid>
+                            ))
+                        }
+                    </Grid>
+                ))
                 }
             </Grid>
         </Container>

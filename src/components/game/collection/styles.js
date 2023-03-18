@@ -106,7 +106,6 @@ export default makeStyles(() => ({
         filter: 'drop-shadow(2px 2px 2px #333)',
         borderRadius: '1vh',
         bottom: '2vh',
-        cursor: 'pointer',
     },
     collectionItem: {
         border: '3px solid black',
@@ -114,7 +113,6 @@ export default makeStyles(() => ({
         padding: '1vh',
         height: '10vh',
         width: '10vh',
-        cursor: 'pointer',
     },
     collectionIcon: {
         height: '8vh',
@@ -126,7 +124,6 @@ export default makeStyles(() => ({
         padding: '5px',
         height: '10vh',
         width: '10vh',
-        cursor: 'pointer',
     },
     loreContainer: {
         background: 'lightyellow',
@@ -156,7 +153,6 @@ export default makeStyles(() => ({
         border: 'solid 3px black',
         filter: 'drop-shadow(2px 2px 2px #333)',
         borderRadius: '1vh',
-        cursor: 'pointer',
     },
     readButton: {
         fontFamily: 'Verdana',
@@ -168,6 +164,5 @@ export default makeStyles(() => ({
         border: 'solid 3px black',
         filter: 'drop-shadow(2px 2px 2px #333)',
         borderRadius: '1vh',
-        cursor: 'pointer',
     },
 }));

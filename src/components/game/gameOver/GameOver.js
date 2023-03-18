@@ -57,7 +57,7 @@ const GameOver = () => {
             <Button variant="contained" color="primary" onClick={doToggleCollection}>Collection</Button>
         </Container>
         
-        <div className={classes.gameOverBackground}/>
+        <div className={classes.gameOverBackground} />
     </>
 };
 

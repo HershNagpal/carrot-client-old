@@ -12,9 +12,9 @@ const Game = () => {
     const classes = useStyles();
     
     return <>
-        {game.gameOver && <GameOver />}
-        {game.isInInventory && <Inventory />}
-        {game.isInCollection && <Collection />}
+        {game.gameOver ? <GameOver /> : null}
+        {game.isInInventory ? <Inventory /> : null}
+        {game.isInCollection ? <Collection /> : null}
         <Container maxWidth={false} disableGutters className={classes.outerContainer}>
             <Grid container direction="row" justifyContent="center" wrap="nowrap">
                 <Grid item>
